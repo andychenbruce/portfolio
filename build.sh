@@ -20,5 +20,5 @@ cd ..
 
 for NAME in "${NAMES[@]}"
 do
-    wasm-bindgen --target web "new_stuff_src/target/wasm32-unknown-unknown/debug/$NAME.wasm" --out-dir "$NAME/wasm"
+    wasm-bindgen --target web "new_stuff_src/target/wasm32-unknown-unknown/debug/$NAME.wasm" --out-dir "projects/$NAME/wasm"
 done
