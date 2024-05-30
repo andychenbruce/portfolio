@@ -5,7 +5,7 @@ declare -a NAMES=("icosahedron" "navier_stokes")
 
 for NAME in "${NAMES[@]}"
 do
-    rm -fr "$NAME/wasm"
+    rm -fr "projects/$NAME/wasm"
 done
 
 
