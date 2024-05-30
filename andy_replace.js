@@ -1,4 +1,4 @@
-window.onload = main;
+addEventListener("load", main);
 
 function main(){
     const to_replace = Array.from(document.getElementsByClassName("andy_replace"));

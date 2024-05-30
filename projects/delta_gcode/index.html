@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <link rel="stylesheet" href="/style.css" />
     <script src="/andy_replace.js" type="module"></script>
+    <script src="/andy_include_code.js" type="module"></script>
   </head>
   <body>
     <div class="wrapperDiv">
@@ -50,172 +51,11 @@
 	<p>I wrote a program to run on the Raspberry Pi computer and communicate with the
 	  delta robot arm by sending G-Code commands over a serial port.  The program is listed below.</p>
 	<hr class="clearLeft" />
-	<pre><code class="codeClass" >
-	    //
-	    //  delta.cpp
-	    //
-	    //  Serial interface for Delta-Robot.
-	    //
-
-	    #include &lt;stdio.h&gt;
-	    #include &lt;stdlib.h&gt;
-	    #include &lt;string.h&gt;
-	    #include &lt;stdarg.h&gt;
-	    #include &lt;math.h&gt;
-	    #include &lt;errno.h&gt;
-	    #include &lt;unistd.h&gt;
-	    #include &lt;termios.h&gt;
-	    #include &lt;fcntl.h&gt;
-	    #include &lt;sys/ioctl.h&gt;
-	    #include &lt;sys/select.h&gt;
-	    #include "utils.cpp"
-	    #include "serial.cpp"
-
-	    static const char RobotPort[] = "/dev/cu.usbmodem144101";
-	    //static const char RobotPort[] = "/dev/tty.DeltaX-SerialPort";
-
-	    static SInt fd; // Device file descriptor
-
-	    static void
-	    sendLine(const char * const fmt, ...)
-	    __attribute__ ((format(printf, 1, 2)));
-
-	    static void
-	    sendLine(const char *fmt, ...)  // Send a formated string to the robot
-	    {
-	    char s[0x1000];
-	    va_list args;
-	    va_start(args, fmt);
-	    vsprintf(s, fmt, args);
-	    Write(fd, s, strlen(s));
-	    Write(fd, "\n", 1);
-	    }
-
-	    static void
-	    clearSerial(void)  // Clear buffered data.
-	    {
-	    while (true) {
-	    SInt c = serialReadOneByte(fd, 1000000);    
-	    if (c == -1) {
-	    printf("serial empty\n");
-	    break;
-	    } else {
-	    printf("%c", c);
-	    }
-	    }
-	    }
-
-	    static void
-	    gotoCommand(double x, double y, double z)
-	    {
-	    double thirtyDegrees = 30*(M_PI/180.0);
-	    double oneTwentyDegrees = 120*(M_PI/180.0);
-	    double realX = x*cos(thirtyDegrees) + y*cos(oneTwentyDegrees);
-	    double realY = x*sin(thirtyDegrees) + y*sin(oneTwentyDegrees);
-	    sendLine("G01 X%f Y%f Z%f", realX, realY, z);
-	    usleep(1000000);
-	    }
-
-	    static void
-	    arcCommand(double x, double y, double i, double j)
-	    {
-	    double thirtyDegrees = 30*(M_PI/180.0);
-	    double oneTwentyDegrees = 120*(M_PI/180.0);
-	    double realX = x*cos(thirtyDegrees) + y*cos(oneTwentyDegrees);
-	    double realY = x*sin(thirtyDegrees) + y*sin(oneTwentyDegrees);
-	    double realI = i*cos(thirtyDegrees) + j*cos(oneTwentyDegrees);
-	    double realJ = i*sin(thirtyDegrees) + j*sin(oneTwentyDegrees);
-	    sendLine("G02 X%f Y%f I%f J%f", realX, realY, realI, realJ);
-	    }
-
-	    int
-	    main(void)
-	    {
-	    fd = serialPortOpen(RobotPort);
-	    clearSerial();
-	    sendLine("IsDelta");
-	    sendLine("IsDelta");
-	    clearSerial();
-	    sendLine("G28");
-	    usleep(2000000);
-	    double upH = -360;
-	    double downH = -385;
-	    gotoCommand(-20.0, 50.0, upH);
-	    gotoCommand(-20.0, 50.0, downH);
-	    gotoCommand(30.0, 50.0, downH);
-	    gotoCommand(30.0, 50.0, upH);
-	    gotoCommand(-20.0, -50.0, upH);
-	    gotoCommand(-20.0, -50.0, downH);
-	    gotoCommand(30.0, -50.0, downH);
-	    gotoCommand(30.0, -50.0, upH);
-	    gotoCommand(60.0, -70.0, downH);
-	    arcCommand(60.0, 70.0, 0.0, 70.0);
-	    for (;;) {
-	    SInt c = serialReadOneByte(fd, 1000000);
-	    if (c == -1) {
-	    printf("serial empty\n");
-	    } else {
-	    printf("%d = %c\n", c, c);
-	    }
-	    }
-	    }
-	</code></pre>
+	<pre><code class="codeClass andy_include_code language-cpp" src="delta.cpp"></code></pre>
 	<hr class="clearLeft" />
-	<pre><code class="codeClass" >
-	    //
-	    //  serial.cpp
-	    //
-
-	    static SInt
-	    serialPortOpen(const char *devicePath)
-	    {
-	    int fd;
-	    struct termios options;
-	    fd = open(devicePath, O_RDWR | O_NOCTTY | O_NDELAY);
-	    if (fd &lt; 0) {
-	    fatal("Device \"%s\" cannot be opened: %s", devicePath, syserr());
-	    }
-	    fcntl(fd, F_SETFL, FNDELAY);       // Open the device in nonblocking mode
-	    if (tcgetattr(fd, &options) &lt; 0) { // Get the current options of the port
-	    fatal("tcgetattr failed: %s", syserr());
-	    }
-	    bzero(&options, sizeof(options));  // Clear all the options
-	    cfsetispeed(&options, B115200);    // Set the baud rate at 115200 bauds
-	    cfsetospeed(&options, B115200);
-	    
-	    options.c_cflag |= ( CLOCAL | // Ignore modem control lines
-            CREAD  | // Enable receive
-            CS8    | // 8 data, 1 stop, no parity, no flow control
-            PARMRK); // Mark framing errors
-	    
-	    options.c_iflag |= ( IGNPAR | IGNBRK );
-	    options.c_oflag = 0;
-	    options.c_cc[VTIME]=0;    // Timer unused
-	    options.c_cc[VMIN]=0;     // At least on character before satisfy reading
-	    cfmakeraw(&options);
-	    if (tcsetattr(fd, TCSANOW, &options) &lt; 0) {  // Activate the settings
-	    fatal("tcsetattr failed, %s: %s", devicePath, syserr());
-	    }
-	    return fd;
-	    }
-
-	    static SInt
-	    serialReadOneByte(SInt fd, UInt usecs)
-	    {
-	    if (! select1(usecs, fd)) {
-	    return -1;  // Timeout
-	    }
-	    UInt8 c;
-	    Read(fd, &c, 1);
-	    return (SInt) c;
-	    }
-	</code></pre>
+	<pre><code class="codeClass andy_include_code language-cpp" src="serial.cpp"></code></pre>
 	<hr class="clearLeft" />
-	<!-- <img src="imgs/Under-Construction.jpg" /> -->
-	<!-- <hr class="clearLeft" /> -->
       </div>
     </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
   </body>
 </html>

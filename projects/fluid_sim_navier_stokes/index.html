@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="cache-control" content="no-store" />
-  <meta http-equiv="pragma" content="no-cache" />
-<title>Fluid Flow Simulation with the Navier-Stokes Equation</title>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
-<link rel="stylesheet" href="/style.css" />  
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="cache-control" content="no-store" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Fluid Flow Simulation with the Navier-Stokes Equation</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="/style.css" />  
     <script src="/andy_replace.js" type="module"></script>
-</head>
-<body>
-<div class="wrapperDiv">
+  </head>
+  <body>
+    <div class="wrapperDiv">
       <div class="andy_replace" src="/includes/navbar.html"></div>
-<div class="headerDiv">
-<h1>Fluid Flow Simulation with the Navier-Stokes Equation</h1>
-</div>
-<div class="contentDiv">
-<div id="dvMain">
-<div id="dvSmallButtons" class="dvB"></div>
-<div id="dvLargeButtons" class="dvB"></div>
-<canvas id="canvas" width="800" height="800" oncontextmenu="event.preventDefault()"></canvas>
-</div>
-<hr class="clearLeft" />
+      <div class="headerDiv">
+	<h1>Fluid Flow Simulation with the Navier-Stokes Equation</h1>
+      </div>
+      <div class="contentDiv">
+	<div id="dvMain">
+	  <div id="dvSmallButtons" class="dvB"></div>
+	  <div id="dvLargeButtons" class="dvB"></div>
+	  <canvas id="canvas" width="800" height="800" oncontextmenu="event.preventDefault()"></canvas>
+	</div>
+	<hr class="clearLeft" />
 
-<h2>Tap and drag to add turbulence to the simulation.</h2>
-<p><a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations">Wikipeida</a> says that the Navier-Stokes equation is<p>
-$$\rho{D\mathbf{u} \over Dt} = -\nabla p + \nabla \cdotp \mathbf{ \tau } + \rho \mathbf{g}$$
-whers
-$\rho$ is density
+	<h2>Tap and drag to add turbulence to the simulation.</h2>
+	<p><a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations">Wikipeida</a> says that the Navier-Stokes equation is<p>
+	  $$\rho{D\mathbf{u} \over Dt} = -\nabla p + \nabla \cdotp \mathbf{ \tau } + \rho \mathbf{g}$$
+	  whers
+	  $\rho$ is density
 </br>
 $\mathbf{u}$ is the velocity vector
 </br>
@@ -85,7 +85,7 @@ conservation of mass equation is $${d\rho \over dt} + \nabla \cdotp (\rho \mathb
 </br>
 but because ${d\rho \over dt} = 0$ it is just $\nabla \cdotp (\rho \mathbf{u}) = 0$, and since $\rho$ doesnt change it can be divided out of the divergence since it is the same at every point to where $\nabla \cdotp \mathbf{u} = 0$, which also makes sense. One point can't have 2 neighboring points both pulling from it or else that means it is going in 2 directions and creating new mass, or if a cell has 2 neighbors going into it mass is deleted since density can't change, so the divergence at every point must equal zero.
 </br>
-						  The opposite of divergence is curl, and every vector field can be reresented as a vector field of just the divergence plus a field of just the curl, $\mathbf{u_{divergence}} + \mathbf{u_{curl}} = \mathbf{u}$. To get just the curl one takes the origional vector field and subtracts the divergence to leave the curl, $\mathbf{u_{curl}} = \mathbf{u} - \mathbf{u_{divergence}}$. The divergence only field, $\mathbf{u_{divergence}}$ is really complicated to calculate and would take like 10 pages to explain but basically it's just:
+The opposite of divergence is curl, and every vector field can be reresented as a vector field of just the divergence plus a field of just the curl, $\mathbf{u_{divergence}} + \mathbf{u_{curl}} = \mathbf{u}$. To get just the curl one takes the origional vector field and subtracts the divergence to leave the curl, $\mathbf{u_{curl}} = \mathbf{u} - \mathbf{u_{divergence}}$. The divergence only field, $\mathbf{u_{divergence}}$ is really complicated to calculate and would take like 10 pages to explain but basically it's just:
 </br>
 $p(x, y) = {p(x-1, y) + (p(x+1, y) + p(x, y-1) + p(x, y+1) -  {\nabla \cdotp \mathbf{u}(x, y)} \over 4}$
 </br>
@@ -149,31 +149,29 @@ https://www.autodesk.com/research/publications/real-time-fluid-dynamics
 my brain
 </br>
 <hr class="clearLeft" />
-</div>
-</div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-</script>
-<script type="text/javascript"
-src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<script>
-var g = {};
-g.smallButtons = true;
-g.buttonArray = [
-[ 0, 'R', 'Reset' ],
-[ 0, 'r', 'Run' ],
-[ 0, 'S', 'Pause' ],
-];
-var Module = {
- canvas: document.getElementById("canvas"),
- arguments: ["-tab", "26", "-smallButtons" ]
-};
-</script>
-<script src="/wasm/readfile.js"></script>
-<script src="/wasm/buttons.js"></script>
-<script src="/wasm/index.js"></script>
-</body>
+      </div>
+    </div>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+	    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script>
+      var g = {};
+      g.smallButtons = true;
+      g.buttonArray = [
+	  [ 0, 'R', 'Reset' ],
+	  [ 0, 'r', 'Run' ],
+	  [ 0, 'S', 'Pause' ],
+      ];
+      var Module = {
+	  canvas: document.getElementById("canvas"),
+	  arguments: ["-tab", "26", "-smallButtons" ]
+      };
+    </script>
+    <script src="/wasm/readfile.js"></script>
+    <script src="/wasm/buttons.js"></script>
+    <script src="/wasm/index.js"></script>
+  </body>
 </html>
