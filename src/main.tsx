@@ -37,6 +37,9 @@ import Planets from './pages/projects/planets.js';
 
 import PulseWidthModulation from './pages/projects/pulse_width_modulation.js';
 
+import SeedlingSegmentation from './pages/projects/seedling_segmentation.js';
+import SeedlingTensorflow from './pages/projects/seedlings_tensorflow.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -128,5 +131,16 @@ buildPage("projects/planets/index.html", ReactDOMServer.renderToStaticMarkup(
 buildPage("projects/pulse_width_modulation/index.html", ReactDOMServer.renderToStaticMarkup(
   <PulseWidthModulation title="PWM on a Raspberry Pi using direct hardware access" description="Put cool description here"/>
 ));
+
+buildPage("projects/seedling_segmentation/index.html", ReactDOMServer.renderToStaticMarkup(
+  <SeedlingSegmentation title="Isolating and Segmenting Images of Seedlings" description="Put cool description here"/>
+));
+
+
+buildPage("projects/seedlings_tensorflow/index.html", ReactDOMServer.renderToStaticMarkup(
+  <SeedlingTensorflow title="Deep Learning with TensorFlow and Keras to Classify Seedlings" description="Put cool description here"/>
+));
+
+
 
 
