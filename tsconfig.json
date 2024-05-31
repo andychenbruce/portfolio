@@ -7,7 +7,7 @@
     "rootDir": "src/",
     "outDir": "ts_output/",
     "jsx": "react",
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "module":"nodenext"
   }
 }

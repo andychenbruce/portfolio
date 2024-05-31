@@ -14,6 +14,8 @@ import Boltzman from './pages/projects/boltzman_distribution.js';
 
 import Capstone from './pages/projects/capstone.js';
 
+import DeltaGcode from './pages/projects/delta_gcode.js';
+
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -52,4 +54,8 @@ buildPage("projects/boltzman_distribution/index.html", ReactDOMServer.renderToSt
 
 buildPage("projects/capstone/index.html", ReactDOMServer.renderToStaticMarkup(
   <Capstone title="Capstone: A Robot for Sustainable Agriculture" description="Put cool description here"/>
+));
+
+buildPage("projects/delta_gcode/index.html", ReactDOMServer.renderToStaticMarkup(
+  <DeltaGcode title="Controlling a Delta-X Robot Arm with G-Code" description="Put cool description here"/>
 ));
