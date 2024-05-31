@@ -1,3 +1,11 @@
+* Build
+#+BEGIN_SRC shell
+  pnpm install
+  ./generate.sh
+#+END_SRC
+
+Output will be in =dist=.
+
 * Validators
 #+BEGIN_SRC shell
   tidy -q -o /dev/null < index.html
