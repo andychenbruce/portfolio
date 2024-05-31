@@ -27,6 +27,8 @@ import Jello from './pages/projects/jello.js';
 
 import KernelModuleEncoderDriver from './pages/projects/kernel_module_encoder_driver.js';
 
+import Mandelbrot from './pages/projects/mandelbrot.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -98,6 +100,10 @@ buildPage("projects/jello/index.html", ReactDOMServer.renderToStaticMarkup(
 
 buildPage("projects/kernel_module_encoder_driver/index.html", ReactDOMServer.renderToStaticMarkup(
   <KernelModuleEncoderDriver title="Linux Device Driver for a Motor Encoder" description="Put cool description here"/>
+));
+
+buildPage("projects/mandelbrot/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Mandelbrot title="Using a GPU to Draw the Mandelbrot Set" description="Put cool description here"/>
 ));
 
 
