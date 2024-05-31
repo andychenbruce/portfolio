@@ -6,6 +6,11 @@
 
 Output will be in =dist=.
 
+* Format
+#+BEGIN_SRC shell
+  npx prettier --write ./src
+#+END_SRC
+
 * Validators
 #+BEGIN_SRC shell
   tidy -q -o /dev/null < index.html

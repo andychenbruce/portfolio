@@ -1,168 +1,302 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { buildPage } from './build.js';
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import { buildPage } from "./build.js";
 
-import Wrapper from './wrapper.js';
+import Wrapper from "./wrapper.js";
 
-import Index from './pages/index.js';
-import MenuPage from './pages/menu_page.js';
-import AboutPage from './pages/about_page.js';
+import Index from "./pages/index.js";
+import MenuPage from "./pages/menu_page.js";
+import AboutPage from "./pages/about_page.js";
 
-import Project2Body from './pages/projects/2body.js';
+import Project2Body from "./pages/projects/2body.js";
 
-import Boltzman from './pages/projects/boltzman_distribution.js';
+import Boltzman from "./pages/projects/boltzman_distribution.js";
 
-import Capstone from './pages/projects/capstone.js';
+import Capstone from "./pages/projects/capstone.js";
 
-import DeltaGcode from './pages/projects/delta_gcode.js';
+import DeltaGcode from "./pages/projects/delta_gcode.js";
 
-import DepthPerception from './pages/projects/depth_perception.js';
-import Fire from './pages/projects/fire.js';
-import NavierStokes from './pages/projects/fluid_sim_navier_stokes.js';
+import DepthPerception from "./pages/projects/depth_perception.js";
+import Fire from "./pages/projects/fire.js";
+import NavierStokes from "./pages/projects/fluid_sim_navier_stokes.js";
 
-import Icosahedron from './pages/projects/icosahedron.js';
+import Icosahedron from "./pages/projects/icosahedron.js";
 
-import InterMolecularForce from './pages/projects/inter_molecular_forces.js';
-import Jello from './pages/projects/jello.js';
+import InterMolecularForce from "./pages/projects/inter_molecular_forces.js";
+import Jello from "./pages/projects/jello.js";
 
-import KernelModuleEncoderDriver from './pages/projects/kernel_module_encoder_driver.js';
+import KernelModuleEncoderDriver from "./pages/projects/kernel_module_encoder_driver.js";
 
-import Mandelbrot from './pages/projects/mandelbrot.js';
+import Mandelbrot from "./pages/projects/mandelbrot.js";
 
-import MotorPWM from './pages/projects/motor_pwm.js';
+import MotorPWM from "./pages/projects/motor_pwm.js";
 
-import PhoneController from './pages/projects/phone_controller.js';
+import PhoneController from "./pages/projects/phone_controller.js";
 
-import Planets from './pages/projects/planets.js';
+import Planets from "./pages/projects/planets.js";
 
-import PulseWidthModulation from './pages/projects/pulse_width_modulation.js';
+import PulseWidthModulation from "./pages/projects/pulse_width_modulation.js";
 
-import SeedlingSegmentation from './pages/projects/seedling_segmentation.js';
-import SeedlingTensorflow from './pages/projects/seedlings_tensorflow.js';
+import SeedlingSegmentation from "./pages/projects/seedling_segmentation.js";
+import SeedlingTensorflow from "./pages/projects/seedlings_tensorflow.js";
 
-import SphereReflectionTexture from './pages/projects/sphere_reflection_texture.js';
+import SphereReflectionTexture from "./pages/projects/sphere_reflection_texture.js";
 
-import SphereShadows from './pages/projects/sphere_shadows.js';
+import SphereShadows from "./pages/projects/sphere_shadows.js";
 
-import WaterMarbles from './pages/projects/water_marbles.js';
+import WaterMarbles from "./pages/projects/water_marbles.js";
 
+buildPage(
+  "index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Index
+      title="Andy's Project Website"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
-  <Index title="Andy's Project Website" description="Put cool description here" />
-));
+buildPage(
+  "menuPage.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <MenuPage title="Menu" description="Put cool description here" />,
+  ),
+);
 
-buildPage('menuPage.html', ReactDOMServer.renderToStaticMarkup(
-  <MenuPage title="Menu" description="Put cool description here" />
-));
+buildPage(
+  "aboutPage.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <AboutPage title="About" description="Put cool description here" />,
+  ),
+);
 
-buildPage('aboutPage.html', ReactDOMServer.renderToStaticMarkup(
-  <AboutPage title="About" description="Put cool description here" />
-));
+buildPage(
+  "contactPage.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Wrapper title="Contact" description="Put cool description here">
+      <p>Phone number: 14082073992</p>
+      <p>Email: chengong456@qq.com</p>
+    </Wrapper>,
+  ),
+);
 
-buildPage("contactPage.html", ReactDOMServer.renderToStaticMarkup(
-  <Wrapper title="Contact" description="Put cool description here">
-    <p>Phone number: 14082073992</p>
-    <p>Email: chengong456@qq.com</p>
-  </Wrapper>
-));
+buildPage(
+  "helpPage.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Wrapper title="Help" description="Put cool description here">
+      <h1>Help</h1>
+      <h1>Help</h1>
+      <h1>Help</h1>
+    </Wrapper>,
+  ),
+);
 
-buildPage("helpPage.html", ReactDOMServer.renderToStaticMarkup(
-  <Wrapper title="Help" description="Put cool description here">
-    <h1>Help</h1>
-    <h1>Help</h1>
-    <h1>Help</h1>
-  </Wrapper>
-));
+buildPage(
+  "projects/2body/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Project2Body
+      title="Closed Form Solution to the Two Body Problem"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/2body/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Project2Body title="Closed Form Solution to the Two Body Problem" description="Put cool description here"/>
-));
+buildPage(
+  "projects/boltzman_distribution/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Boltzman
+      title="Non-Ideal Gas Simulation and Boltzmann's Law"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/boltzman_distribution/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Boltzman title="Non-Ideal Gas Simulation and Boltzmann's Law" description="Put cool description here"/>
-));
+buildPage(
+  "projects/capstone/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Capstone
+      title="Capstone: A Robot for Sustainable Agriculture"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/capstone/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Capstone title="Capstone: A Robot for Sustainable Agriculture" description="Put cool description here"/>
-));
+buildPage(
+  "projects/delta_gcode/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <DeltaGcode
+      title="Controlling a Delta-X Robot Arm with G-Code"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/delta_gcode/index.html", ReactDOMServer.renderToStaticMarkup(
-  <DeltaGcode title="Controlling a Delta-X Robot Arm with G-Code" description="Put cool description here"/>
-));
+buildPage(
+  "projects/depth_perception/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <DepthPerception
+      title="Depth Perception in Images of Seedlings"
+      description="Put cool description here"
+    />,
+  ),
+);
 
+buildPage(
+  "projects/fire/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Fire
+      title="Smoke and Fire Simulation"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/depth_perception/index.html", ReactDOMServer.renderToStaticMarkup(
-  <DepthPerception title="Depth Perception in Images of Seedlings" description="Put cool description here"/>
-));
+buildPage(
+  "projects/fluid_sim_navier_stokes/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <NavierStokes
+      title="Fluid Flow Simulation with the Navier-Stokes Equation"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/fire/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Fire title="Smoke and Fire Simulation" description="Put cool description here"/>
-));
+buildPage(
+  "projects/icosahedron/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Icosahedron
+      title="Drawing a Sphere by Recursive Segmentation of an Icosahedron"
+      description="Put cool description here"
+    />,
+  ),
+);
 
+buildPage(
+  "projects/inter_molecular_forces/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <InterMolecularForce
+      title="Intermolecular forces condensation simulation"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/fluid_sim_navier_stokes/index.html", ReactDOMServer.renderToStaticMarkup(
-  <NavierStokes title="Fluid Flow Simulation with the Navier-Stokes Equation" description="Put cool description here"/>
-));
+buildPage(
+  "projects/jello/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Jello
+      title="Simulating Jello with Hooke's Law"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/icosahedron/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Icosahedron title="Drawing a Sphere by Recursive Segmentation of an Icosahedron" description="Put cool description here"/>
-));
+buildPage(
+  "projects/kernel_module_encoder_driver/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <KernelModuleEncoderDriver
+      title="Linux Device Driver for a Motor Encoder"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/inter_molecular_forces/index.html", ReactDOMServer.renderToStaticMarkup(
-  <InterMolecularForce title="Intermolecular forces condensation simulation" description="Put cool description here"/>
-));
+buildPage(
+  "projects/mandelbrot/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Mandelbrot
+      title="Using a GPU to Draw the Mandelbrot Set"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/jello/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Jello title="Simulating Jello with Hooke's Law" description="Put cool description here"/>
-));
+buildPage(
+  "projects/motor_pwm/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <MotorPWM
+      title="Motor Speed Control using Raspberry Pi PWM"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/kernel_module_encoder_driver/index.html", ReactDOMServer.renderToStaticMarkup(
-  <KernelModuleEncoderDriver title="Linux Device Driver for a Motor Encoder" description="Put cool description here"/>
-));
+buildPage(
+  "projects/planets/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <Planets
+      title="Apply Textures to a Sphere"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/mandelbrot/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Mandelbrot title="Using a GPU to Draw the Mandelbrot Set" description="Put cool description here"/>
-));
+buildPage(
+  "projects/pulse_width_modulation/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <PulseWidthModulation
+      title="PWM on a Raspberry Pi using direct hardware access"
+      description="Put cool description here"
+    />,
+  ),
+);
 
+buildPage(
+  "projects/seedling_segmentation/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <SeedlingSegmentation
+      title="Isolating and Segmenting Images of Seedlings"
+      description="Put cool description here"
+    />,
+  ),
+);
 
+buildPage(
+  "projects/seedlings_tensorflow/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <SeedlingTensorflow
+      title="Deep Learning with TensorFlow and Keras to Classify Seedlings"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/motor_pwm/index.html", ReactDOMServer.renderToStaticMarkup(
-  <MotorPWM title="Motor Speed Control using Raspberry Pi PWM" description="Put cool description here"/>
-));
+buildPage(
+  "projects/sphere_reflection_texture/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <SphereReflectionTexture
+      title="Apply Textures to 3D Surfaces"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/planets/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Planets title="Apply Textures to a Sphere" description="Put cool description here"/>
-));
+buildPage(
+  "projects/sphere_shadows/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <SphereShadows
+      title="Lighting and Shadows in a 3D Scene"
+      description="Put cool description here"
+    />,
+  ),
+);
 
+buildPage(
+  "projects/water_marbles/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <WaterMarbles
+      title="Liquid Simulation using Particles"
+      description="Put cool description here"
+    />,
+  ),
+);
 
-buildPage("projects/pulse_width_modulation/index.html", ReactDOMServer.renderToStaticMarkup(
-  <PulseWidthModulation title="PWM on a Raspberry Pi using direct hardware access" description="Put cool description here"/>
-));
-
-buildPage("projects/seedling_segmentation/index.html", ReactDOMServer.renderToStaticMarkup(
-  <SeedlingSegmentation title="Isolating and Segmenting Images of Seedlings" description="Put cool description here"/>
-));
-
-
-buildPage("projects/seedlings_tensorflow/index.html", ReactDOMServer.renderToStaticMarkup(
-  <SeedlingTensorflow title="Deep Learning with TensorFlow and Keras to Classify Seedlings" description="Put cool description here"/>
-));
-
-
-buildPage("projects/sphere_reflection_texture/index.html", ReactDOMServer.renderToStaticMarkup(
-  <SphereReflectionTexture title="Apply Textures to 3D Surfaces" description="Put cool description here"/>
-));
-
-
-buildPage("projects/sphere_shadows/index.html", ReactDOMServer.renderToStaticMarkup(
-  <SphereShadows title="Lighting and Shadows in a 3D Scene" description="Put cool description here"/>
-));
-
-
-buildPage("projects/water_marbles/index.html", ReactDOMServer.renderToStaticMarkup(
-  <WaterMarbles title="Liquid Simulation using Particles" description="Put cool description here"/>
-));
-
-buildPage("projects/phone_controller/index.html", ReactDOMServer.renderToStaticMarkup(
-  <PhoneController title="Controlling a Raspberry Pi with a Cell Phone" description="Put cool description here"/>
-));
+buildPage(
+  "projects/phone_controller/index.html",
+  ReactDOMServer.renderToStaticMarkup(
+    <PhoneController
+      title="Controlling a Raspberry Pi with a Cell Phone"
+      description="Put cool description here"
+    />,
+  ),
+);
