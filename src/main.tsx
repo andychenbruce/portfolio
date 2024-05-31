@@ -20,6 +20,8 @@ import DepthPerception from './pages/projects/depth_perception.js';
 import Fire from './pages/projects/fire.js';
 import NavierStokes from './pages/projects/fluid_sim_navier_stokes.js';
 
+import Icosahedron from './pages/projects/icosahedron.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -76,3 +78,8 @@ buildPage("projects/fire/index.html", ReactDOMServer.renderToStaticMarkup(
 buildPage("projects/fluid_sim_navier_stokes/index.html", ReactDOMServer.renderToStaticMarkup(
   <NavierStokes title="Fluid Flow Simulation with the Navier-Stokes Equation" description="Put cool description here"/>
 ));
+
+buildPage("projects/icosahedron/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Icosahedron title="Drawing a Sphere by Recursive Segmentation of an Icosahedron" description="Put cool description here"/>
+));
+
