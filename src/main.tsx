@@ -33,6 +33,8 @@ import MotorPWM from './pages/projects/motor_pwm.js';
 
 import PhoneController from './pages/projects/phone_controller.js';
 
+import Planets from './pages/projects/planets.js';
+
 
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
@@ -118,8 +120,8 @@ buildPage("projects/motor_pwm/index.html", ReactDOMServer.renderToStaticMarkup(
   <MotorPWM title="Motor Speed Control using Raspberry Pi PWM" description="Put cool description here"/>
 ));
 
-buildPage("projects/phone_controller/index.html", ReactDOMServer.renderToStaticMarkup(
-  <PhoneController title="Controlling a Raspberry Pi with a Cell Phone" description="Put cool description here"/>
+buildPage("projects/planets/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Planets title="Apply Textures to a Sphere" description="Put cool description here"/>
 ));
 
 
