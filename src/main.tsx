@@ -17,6 +17,7 @@ import Capstone from './pages/projects/capstone.js';
 import DeltaGcode from './pages/projects/delta_gcode.js';
 
 import DepthPerception from './pages/projects/depth_perception.js';
+import Fire from './pages/projects/fire.js';
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -64,4 +65,8 @@ buildPage("projects/delta_gcode/index.html", ReactDOMServer.renderToStaticMarkup
 
 buildPage("projects/depth_perception/index.html", ReactDOMServer.renderToStaticMarkup(
   <DepthPerception title="Depth Perception in Images of Seedlings" description="Put cool description here"/>
+));
+
+buildPage("projects/fire/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Fire title="Smoke and Fire Simulation" description="Put cool description here"/>
 ));

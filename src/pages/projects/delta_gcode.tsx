@@ -1,17 +1,9 @@
-import hljs from 'highlight.js';
 import React from 'react';
 import {Tex} from 'react-tex';
 
-import fs from 'fs';
-
+import {AndyCodeBlock} from '../../include_code.js';
 import Wrapper from '../../wrapper.js';
 
-function make_thing(source_path, language): string{
-  let test_code: string = fs.readFileSync(source_path, 'utf8');
-  const highlightedCode = hljs.highlight(test_code, {language: language}).value;
-
-  return highlightedCode;
-}
 
 function DeltaGcode(props) {
 
@@ -55,10 +47,11 @@ function DeltaGcode(props) {
   delta robot arm by sending G-Code commands over a serial port.  The program is listed below.</p>
 	  <hr className="clearLeft" />
 
-      <pre><code className="codeClass hljs" dangerouslySetInnerHTML={{__html: make_thing("static/projects/delta_gcode/delta.cpp", "cpp")}}></code></pre>
-       	  <hr className="clearLeft" />
-      <pre><code className="codeClass hljs" dangerouslySetInnerHTML={{__html: make_thing("static/projects/delta_gcode/serial.cpp", "cpp")}}></code></pre>
-       	  <hr className="clearLeft" />
+
+      <AndyCodeBlock source_path="static/projects/delta_gcode/delta.cpp" language="cpp" />
+      <hr className="clearLeft" />
+      <AndyCodeBlock source_path="static/projects/delta_gcode/serial.cpp" language="cpp" />
+             	  <hr className="clearLeft" />
 	  
     </Wrapper>
   );

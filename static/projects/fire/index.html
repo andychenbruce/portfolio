@@ -17,50 +17,8 @@
 	<h1>Smoke and Fire Simulation</h1>
       </div>
       <div class="contentDiv">
-	<div id="dvMain">
-	  <div id="dvSmallButtons" class="dvB"></div>
-	  <div id="dvLargeButtons" class="dvB"></div>
-	  <canvas id="canvas" width="800" height="800" oncontextmenu="event.preventDefault()"></canvas>
-	</div>
-	<hr class="clearLeft" />
-
-	<p>To draw the flame, we create a series of circles that rise, expand, and diminish in opacity.</p>
-	<p>To minimize the number of fragments, each circle is represented as a "billboard" rather than a sphere.  A billboard is a flat sprite that is rotated in 3D space to always face the viewer.</p>
-	<hr class="clearLeft"/>
-	<p>To implement the billboard, I take the transformation matrix, and
-	  reverse the rotation while leaving any scaling or translation.
-	  This is done by removing the scaling and translation, and then inverting
-	  the matrix, and multiplying that inverted matrix back to the
-	  original tranformation matrix. The code is listed below.</p>
-	<pre><code class="codeClass andy_include_code language-cpp" src="drawBillboard.cpp">
-	    	</code></pre>
-	<hr class="clearLeft"/>
-	<p>Here is the rest of the code to draw the flame.</p>
-	<pre><code class="codeClass andy_include_code language-cpp" src="main.cpp">
-	    	</code></pre>
-	<hr class="clearLeft"/>
-	<p>Here is the fragment shader that runs on the GPU.</p>
-	<pre><code class="codeClass andy_include_code language-c" src="shader.frag">
-	    
-	</code></pre>
-	<hr class="clearLeft" />
-      </div>
+	
     </div>
-    <script>
-      var g = {};
-      g.smallButtons = true;
-      g.buttonArray = [
-	  [ 0, 'R', 'Reset' ],
-	  [ 0, 'r', 'Run' ],
-	  [ 0, 'S', 'Pause' ],
-      ];
-      var Module = {
-	  canvas: document.getElementById("canvas"),
-	  arguments: ["-tab", "29", "-smallButtons" ]
-      };
-    </script>
-    <script src="/wasm/readfile.js"></script>
-    <script src="/wasm/buttons.js"></script>
-    <script src="/wasm/index.js"></script>
+      
   </body>
 </html>
