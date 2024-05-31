@@ -12,7 +12,8 @@ export let buildPage = function (filepath: string, content: string) {
   fs.mkdirSync(directories, { recursive: true });
   fs.writeFile(
     fullpath,
-    "<!DOCTYPE html>\n<!-- AUTO GENERATED DONT EDIT -->\n" + content,
+    "<!DOCTYPE html>\n<!-- AUTO GENERATED FROM https://github.com/andychenbruce/personal_website DONT EDIT -->\n" +
+      content,
     function (error) {
       if (error) {
         console.error(error);
