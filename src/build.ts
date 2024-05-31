@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export let buildPage = function(path, content) {
-  writeFile(__dirname + '/../dist/' + path + '.html', '<!DOCTYPE html>\n' + content, function(error) {
+  writeFile(__dirname + '/../dist/' + path, '<!DOCTYPE html>\n<!-- AUTO GENERATED DONT EDIT -->\n' + content, function(error) {
     if (error) { 
       console.error(error); 
       return false;
