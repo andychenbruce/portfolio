@@ -40,6 +40,8 @@ import PulseWidthModulation from './pages/projects/pulse_width_modulation.js';
 import SeedlingSegmentation from './pages/projects/seedling_segmentation.js';
 import SeedlingTensorflow from './pages/projects/seedlings_tensorflow.js';
 
+import SphereReflectionTexture from './pages/projects/sphere_reflection_texture.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -142,5 +144,7 @@ buildPage("projects/seedlings_tensorflow/index.html", ReactDOMServer.renderToSta
 ));
 
 
-
+buildPage("projects/sphere_reflection_texture/index.html", ReactDOMServer.renderToStaticMarkup(
+  <SphereReflectionTexture title="Apply Textures to 3D Surfaces" description="Put cool description here"/>
+));
 
