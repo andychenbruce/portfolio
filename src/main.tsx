@@ -25,6 +25,8 @@ import Icosahedron from './pages/projects/icosahedron.js';
 import InterMolecularForce from './pages/projects/inter_molecular_forces.js';
 import Jello from './pages/projects/jello.js';
 
+import KernelModuleEncoderDriver from './pages/projects/kernel_module_encoder_driver.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -92,6 +94,10 @@ buildPage("projects/inter_molecular_forces/index.html", ReactDOMServer.renderToS
 
 buildPage("projects/jello/index.html", ReactDOMServer.renderToStaticMarkup(
   <Jello title="Simulating Jello with Hooke's Law" description="Put cool description here"/>
+));
+
+buildPage("projects/kernel_module_encoder_driver/index.html", ReactDOMServer.renderToStaticMarkup(
+  <KernelModuleEncoderDriver title="Linux Device Driver for a Motor Encoder" description="Put cool description here"/>
 ));
 
 
