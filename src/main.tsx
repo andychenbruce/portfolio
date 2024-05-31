@@ -31,6 +31,10 @@ import Mandelbrot from './pages/projects/mandelbrot.js';
 
 import MotorPWM from './pages/projects/motor_pwm.js';
 
+import PhoneController from './pages/projects/phone_controller.js';
+
+
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -112,6 +116,10 @@ buildPage("projects/mandelbrot/index.html", ReactDOMServer.renderToStaticMarkup(
 
 buildPage("projects/motor_pwm/index.html", ReactDOMServer.renderToStaticMarkup(
   <MotorPWM title="Motor Speed Control using Raspberry Pi PWM" description="Put cool description here"/>
+));
+
+buildPage("projects/phone_controller/index.html", ReactDOMServer.renderToStaticMarkup(
+  <PhoneController title="Controlling a Raspberry Pi with a Cell Phone" description="Put cool description here"/>
 ));
 
 
