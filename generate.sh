@@ -6,6 +6,6 @@ rm -fr dist
 mkdir dist
 
 npx tsc
-node ts_output/pages.js
+node ts_output/main.js
 
 cp -r --interactive static/. dist

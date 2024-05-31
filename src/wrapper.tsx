@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar.js';
+import Navbar from './includes/navbar.js';
 
-function Main({ title, description, ...props }) {
+function Wrapper({ title, description, ...props }) {
   return (
     <html lang="en">
       <head>
@@ -28,4 +28,4 @@ function Main({ title, description, ...props }) {
   );
 };
 
-export default Main;
+export default Wrapper;

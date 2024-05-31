@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { buildPage } from './build.js';
 
-import Home from './pages/Index.js';
+import Index from './pages/index.js';
 
 buildPage('index', ReactDOMServer.renderToStaticMarkup(
-  <Home title="Andy's Project Website" description="Welcome to my website, it's static and splendid!" />
+  <Index title="Andy's Project Website" description="Put cool description here" />
 ));
