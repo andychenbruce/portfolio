@@ -35,7 +35,7 @@ import PhoneController from './pages/projects/phone_controller.js';
 
 import Planets from './pages/projects/planets.js';
 
-
+import PulseWidthModulation from './pages/projects/pulse_width_modulation.js';
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -122,6 +122,11 @@ buildPage("projects/motor_pwm/index.html", ReactDOMServer.renderToStaticMarkup(
 
 buildPage("projects/planets/index.html", ReactDOMServer.renderToStaticMarkup(
   <Planets title="Apply Textures to a Sphere" description="Put cool description here"/>
+));
+
+
+buildPage("projects/pulse_width_modulation/index.html", ReactDOMServer.renderToStaticMarkup(
+  <PulseWidthModulation title="PWM on a Raspberry Pi using direct hardware access" description="Put cool description here"/>
 ));
 
 
