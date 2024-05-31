@@ -1,6 +1,5 @@
 import React from 'react';
-//import Nav from './Nav';
-//import Footer from './Footer';
+import Navbar from './Navbar.js';
 
 function Main({ title, description, ...props }) {
   return (
@@ -9,12 +8,21 @@ function Main({ title, description, ...props }) {
         <title>{ title }</title>
         <meta charSet="utf-8" />
         <meta name="description" content={ description } />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <link href="/css/styles.min.css" rel="stylesheet" />
+	<link href="/style.css" rel="stylesheet" />
         { props.head }
       </head>
       <body>
-        { props.children }
+	<div className="wrapperDiv">
+	  <Navbar />
+	  <div className="headerDiv">
+  <h1>{title}</h1>
+</div>
+	  	  
+	  <div className="contentDiv">
+  { props.children }
+</div>
+	  
+	  </div>
       </body>
     </html>
   );

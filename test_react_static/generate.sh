@@ -7,3 +7,5 @@ mkdir dist
 
 npx tsc
 node ts_output/pages.js
+
+cp -r --interactive static/. dist

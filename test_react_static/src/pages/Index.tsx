@@ -1,11 +1,13 @@
 import React from 'react';
 import Main from '../Main.js';
-
+import AboutInfo from '../includes/about_info.js'
+import MenuList from '../includes/menu_list.js'
 function Index(props) {
     return (
         <Main {...props}>
-            <h1>My Site</h1>
-            <p>Welcome to my website.</p>
+          <AboutInfo />
+	  <hr className="clearLeft" />
+	  <MenuList />
         </Main>
     );
 };
