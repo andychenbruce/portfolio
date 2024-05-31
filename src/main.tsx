@@ -162,3 +162,7 @@ buildPage("projects/sphere_shadows/index.html", ReactDOMServer.renderToStaticMar
 buildPage("projects/water_marbles/index.html", ReactDOMServer.renderToStaticMarkup(
   <WaterMarbles title="Liquid Simulation using Particles" description="Put cool description here"/>
 ));
+
+buildPage("projects/phone_controller/index.html", ReactDOMServer.renderToStaticMarkup(
+  <PhoneController title="Controlling a Raspberry Pi with a Cell Phone" description="Put cool description here"/>
+));
