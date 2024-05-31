@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export let buildPage = function (filepath, content) {
+export let buildPage = function (filepath: string, content: string) {
   let fullpath = __dirname + "/../dist/" + filepath;
   let directories = path.dirname(fullpath);
 

@@ -29,7 +29,7 @@ function AboutInfo() {
       <p>
         If you want to hire me as an intern in machine learning, software
         engineering, or embedded programming, please look at{" "}
-        <a href="Andy-Bruce-Resume.pdf">my resume</a>.
+        <a href="/Andy-Bruce-Resume.pdf">my resume</a>.
       </p>
     </>
   );
