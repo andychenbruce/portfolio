@@ -22,6 +22,8 @@ import NavierStokes from './pages/projects/fluid_sim_navier_stokes.js';
 
 import Icosahedron from './pages/projects/icosahedron.js';
 
+import InterMolecularForce from './pages/projects/inter_molecular_forces.js';
+
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
 ));
@@ -82,4 +84,10 @@ buildPage("projects/fluid_sim_navier_stokes/index.html", ReactDOMServer.renderTo
 buildPage("projects/icosahedron/index.html", ReactDOMServer.renderToStaticMarkup(
   <Icosahedron title="Drawing a Sphere by Recursive Segmentation of an Icosahedron" description="Put cool description here"/>
 ));
+
+buildPage("projects/inter_molecular_forces/index.html", ReactDOMServer.renderToStaticMarkup(
+  <InterMolecularForce title="Intermolecular forces condensation simulation" description="Put cool description here"/>
+));
+
+
 
