@@ -162,11 +162,11 @@ function Project2Body(props) {
       canvas: document.getElementById("canvas"),
       arguments: ["-tab", "9", "-smallButtons" ]
       };`
-      }} />`  
+      }} />
     
-    <script src="/wasm/readfile.js"></script>
-    <script src="/wasm/buttons.js"></script>
-    <script src="/wasm/index.js"></script>
+      <script src="/wasm/readfile.js"></script>
+      <script src="/wasm/buttons.js"></script>
+      <script src="/wasm/index.js"></script>
     </Wrapper>
   );
 };

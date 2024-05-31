@@ -10,6 +10,8 @@ import AboutPage from './pages/about_page.js';
 
 import Project2Body from './pages/projects/2body.js';
 
+import Boltzman from './pages/projects/boltzman_distribution.js';
+
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -39,5 +41,9 @@ buildPage("helpPage.html", ReactDOMServer.renderToStaticMarkup(
 ));
 
 buildPage("projects/2body/index.html", ReactDOMServer.renderToStaticMarkup(
-  <Project2Body title="TODO" description="Put cool description here"/>
+  <Project2Body title="Closed Form Solution to the Two Body Problem" description="Put cool description here"/>
+));
+
+buildPage("projects/boltzman_distribution/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Boltzman title="Non-Ideal Gas Simulation and Boltzmann's Law" description="Put cool description here"/>
 ));
