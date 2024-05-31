@@ -8,6 +8,8 @@ import Index from './pages/index.js';
 import MenuPage from './pages/menu_page.js';
 import AboutPage from './pages/about_page.js';
 
+import Project2Body from './pages/projects/2body.js';
+
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -34,4 +36,8 @@ buildPage("helpPage.html", ReactDOMServer.renderToStaticMarkup(
     <h1>Help</h1>
     <h1>Help</h1>
   </Wrapper>
+));
+
+buildPage("projects/2body/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Project2Body title="TODO" description="Put cool description here"/>
 ));
