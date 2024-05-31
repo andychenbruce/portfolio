@@ -18,6 +18,7 @@ import DeltaGcode from './pages/projects/delta_gcode.js';
 
 import DepthPerception from './pages/projects/depth_perception.js';
 import Fire from './pages/projects/fire.js';
+import NavierStokes from './pages/projects/fluid_sim_navier_stokes.js';
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -69,4 +70,9 @@ buildPage("projects/depth_perception/index.html", ReactDOMServer.renderToStaticM
 
 buildPage("projects/fire/index.html", ReactDOMServer.renderToStaticMarkup(
   <Fire title="Smoke and Fire Simulation" description="Put cool description here"/>
+));
+
+
+buildPage("projects/fluid_sim_navier_stokes/index.html", ReactDOMServer.renderToStaticMarkup(
+  <NavierStokes title="Fluid Flow Simulation with the Navier-Stokes Equation" description="Put cool description here"/>
 ));
