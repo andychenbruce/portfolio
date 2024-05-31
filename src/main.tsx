@@ -23,6 +23,7 @@ import NavierStokes from './pages/projects/fluid_sim_navier_stokes.js';
 import Icosahedron from './pages/projects/icosahedron.js';
 
 import InterMolecularForce from './pages/projects/inter_molecular_forces.js';
+import Jello from './pages/projects/jello.js';
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -89,5 +90,8 @@ buildPage("projects/inter_molecular_forces/index.html", ReactDOMServer.renderToS
   <InterMolecularForce title="Intermolecular forces condensation simulation" description="Put cool description here"/>
 ));
 
+buildPage("projects/jello/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Jello title="Simulating Jello with Hooke's Law" description="Put cool description here"/>
+));
 
 
