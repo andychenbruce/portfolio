@@ -14,13 +14,12 @@ function SeedlingTensorflor(props) {
   return (
     <Wrapper head={new_heads} {...props}>
       <p>
-        To make a
+        To make a{" "}
         <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">
           convolutional neural network
-        </a>
-        using
-        <a href="https://en.wikipedia.org/wiki/Keras">Keras</a>
-        the code is easy and is just:
+        </a>{" "}
+        using <a href="https://en.wikipedia.org/wiki/Keras">Keras</a> the code
+        is easy and is just:
       </p>
       <AndyCodeBlock
         source_path="static/projects/seedlings_tensorflow/keras_simple.py"

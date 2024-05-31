@@ -35,7 +35,7 @@ function Capstone(props) {
 
       <p>
         For my senior Capstone project, I have designed, built, and programmed
-        an agricultural robot for
+        an agricultural robot for{" "}
         <a href="https://en.wikipedia.org/wiki/Sustainable_agriculture">
           sustainable agriculture
         </a>
@@ -66,10 +66,10 @@ function Capstone(props) {
       <p>
         Conventional farms use plowing to turn under weeds and weed seeds. But
         plowing leads to erosion and two billion tonnes of soil carbon loss
-        every year to oxidation. An alternative is
+        every year to oxidation. An alternative is{" "}
         <a href="https://en.wikipedia.org/wiki/No-till_farming">
           no-till farming
-        </a>
+        </a>{" "}
         which requires heavy use of herbicides. Using robotics for the precise
         application of herbicides can reduce the use of these problematic
         chemicals. Organic alternatives can be used since a robot can
@@ -103,46 +103,44 @@ function Capstone(props) {
           differential wheeled robot
         </a>{" "}
         with two pivot wheels and two independently motorized wheels used to
-        both steer and propel the robot. The robot's computer is a
+        both steer and propel the robot. The robot's computer is a{" "}
         <a href="https://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi 4B</a>{" "}
         running Linux, and the vision system is a stereoscopic Arducam.
       </p>
 
       <p>
-        My robot uses a
-        <a href="https://en.wikipedia.org/wiki/Delta_robot">Delta robot arm</a>
+        My robot uses a{" "}
+        <a href="https://en.wikipedia.org/wiki/Delta_robot">Delta robot arm</a>{" "}
         to control the position of the actuator used for spraying, injecting,
         and dispensing seeds. A delta robot is not as precise as other robot arm
         geometries, but the positioning is much faster, and the millimeter-level
         accuracy is adequate for my application. The delta arm is controlled
-        with
-        <a href="https://en.wikipedia.org/wiki/G-code">G-Code</a>, a standard
-        programming language for industrial automation.
+        with <a href="https://en.wikipedia.org/wiki/G-code">G-Code</a>, a
+        standard programming language for industrial automation.
       </p>
 
       <p>
         Although I will not complete my robot until May of 2022, it is mostly
         working. The motor control and navigation software are done and working.
         The vision system performs depth analysis and uses a neural network
-        trained with
-        <a href="https://en.wikipedia.org/wiki/TensorFlow">TensorFlow</a>
-        to accurately discriminate between crop seedlings and weeds. I am
-        currently building the end-effectors, including the sprayer, seed
-        dispenser, and fluid injector.
+        trained with{" "}
+        <a href="https://en.wikipedia.org/wiki/TensorFlow">TensorFlow</a> to
+        accurately discriminate between crop seedlings and weeds. I am currently
+        building the end-effectors, including the sprayer, seed dispenser, and
+        fluid injector.
       </p>
 
       <p>
         I learned a tremendous amount by doing this project. I learned how to
-        install Linux, interface to the
-        <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">PWM</a>
-        timers, use
+        install Linux, interface to the{" "}
+        <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">PWM</a>{" "}
+        timers, use{" "}
         <a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">
           memory-mapped I/O
         </a>
         , and write a device driver to read the motor encoders. I now understand
         pixel-level processing of images and learned to use neural nets with
-        TensorFlow and
-        <a href="https://en.wikipedia.org/wiki/Keras">Keras</a>.
+        TensorFlow and <a href="https://en.wikipedia.org/wiki/Keras">Keras</a>.
       </p>
 
       <p>

@@ -62,7 +62,7 @@ function DeltaGcode(props) {
         </div>
       </div>
       <p>
-        The delta robot arm is programmed with
+        The delta robot arm is programmed with{" "}
         <a href="https://en.wikipedia.org/wiki/G-code">G-code</a>, a simple
         language used for the control of many machine tools.
       </p>

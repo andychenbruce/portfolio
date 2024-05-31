@@ -1,7 +1,13 @@
 import React from "react";
 import hljs from "highlight.js";
 import fs from "fs";
-export function AndyCodeBlock({ source_path, language }: {source_path: string; language:string}) {
+export function AndyCodeBlock({
+  source_path,
+  language,
+}: {
+  source_path: string;
+  language: string;
+}) {
   let test_code: string = fs.readFileSync(source_path, "utf8");
   const highlightedCode = hljs.highlight(test_code, {
     language: language,

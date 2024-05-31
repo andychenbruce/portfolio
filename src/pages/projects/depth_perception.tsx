@@ -11,11 +11,9 @@ function DepthPerception(props) {
           ArduCam Stereo Camera
         </div>
       </div>
-
       <a href="https://en.wikipedia.org/wiki/Block-matching_algorithm">
         block-matching algorithm
-      </a>
-
+      </a>{" "}
       <a href="https://en.wikipedia.org/wiki/OpenCV">OpenCV</a>
       <hr className="clearLeft" />
       <div className="imageContainer floatLeft">
@@ -32,7 +30,6 @@ function DepthPerception(props) {
         </div>
       </div>
       <hr className="clearLeft" />
-
       <img src="/imgs/Under-Construction.jpg" />
       <hr className="clearLeft" />
     </Wrapper>

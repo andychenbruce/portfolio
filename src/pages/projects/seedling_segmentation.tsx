@@ -43,12 +43,12 @@ function SeedlingSegmentation(props) {
       </p>
       <img height="186" src="dual-camera.jpg" />
       <p>
-        The camera is an
+        The camera is an{" "}
         <a href="https://www.uctronics.com/arducam-synchronized-stereo-camera-bundle-kit-5mp-for-raspberry-pi-2254.html">
           Arducam 5MP Steroscopic Camera
         </a>
-        . I bought it from
-        <a href="https://uctronics.com">Uctronics.com</a> for $89.
+        . I bought it from <a href="https://uctronics.com">Uctronics.com</a> for
+        $89.
       </p>
       <hr className="clearLeft" />
       <h2>Thresholding</h2>
@@ -68,7 +68,7 @@ function SeedlingSegmentation(props) {
         where 0 is black and 255 is bright.
       </p>
       <p>
-        Converting RBG to HSV is simple, I just copied the
+        Converting RBG to HSV is simple, I just copied the{" "}
         <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB">
           algorithm from Wikipedia
         </a>

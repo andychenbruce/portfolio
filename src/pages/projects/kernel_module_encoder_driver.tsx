@@ -40,11 +40,11 @@ function KernelmoduleEncoderDriver(props) {
       </div>
 
       <p>
-        For my robot project, I used two Uxcell gear motors with
+        For my robot project, I used two Uxcell gear motors with{" "}
         <a href="https://en.wikipedia.org/wiki/Hall_effect_sensor">
           Hall effect encoders
         </a>
-        . I bought the
+        . I bought the{" "}
         <a href="https://www.amazon.com/gp/product/B0792RX5X1/">
           motors from Amazon
         </a>

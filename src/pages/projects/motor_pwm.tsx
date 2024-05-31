@@ -1,7 +1,4 @@
 import React from "react";
-import { Tex } from "react-tex";
-
-import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
 
 function MotorPWM(props) {
@@ -59,7 +56,7 @@ function MotorPWM(props) {
       </div>
       <p>
         This is the wiring diagram for connecting the Raspberry Pi header to the
-        H-Bridge. I made the connections with
+        H-Bridge. I made the connections with{" "}
         <a href="https://en.wikipedia.org/wiki/Wire_wrap">wire wrap</a>.
       </p>
 
@@ -78,7 +75,7 @@ function MotorPWM(props) {
         <a href="https://en.wikipedia.org/wiki/Buck_converter">
           buck converter
         </a>
-        . I bought a four pack of these buck converters
+        . I bought a four pack of these buck converters{" "}
         <a href="https://www.amazon.com/gp/product/B087RHWTJW/">
           on Amazon for $12
         </a>

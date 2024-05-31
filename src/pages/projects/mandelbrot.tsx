@@ -61,7 +61,7 @@ function DeltaGcode(props) {
       <p>
         In the mandelbrot each point is calculated independently. This makes it
         perfect for drawing in parallel by the GPU since each pixel can be
-        independantly calculated in the fragment shader, written in
+        independantly calculated in the fragment shader, written in{" "}
         <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language">GLSL</a>
         :
       </p>

@@ -1,10 +1,7 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
-
-// <AndyCodeBlock source_path="static/projects/delta_gcode/serial.cpp" language="cpp" />
 
 function PhoneController(props) {
   let new_heads = (
@@ -27,7 +24,7 @@ function PhoneController(props) {
       </p>
 
       <p>
-        The first step is to write an HTTP server to open a
+        The first step is to write an HTTP server to open a{" "}
         <a href="https://en.wikipedia.org/wiki/Network_socket">TCP/IP socket</a>{" "}
         and send requested files to the client browser. The code to do that is
         listed below.
