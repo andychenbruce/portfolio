@@ -44,6 +44,8 @@ import SphereReflectionTexture from './pages/projects/sphere_reflection_texture.
 
 import SphereShadows from './pages/projects/sphere_shadows.js';
 
+import WaterMarbles from './pages/projects/water_marbles.js';
+
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -156,3 +158,7 @@ buildPage("projects/sphere_shadows/index.html", ReactDOMServer.renderToStaticMar
   <SphereShadows title="Lighting and Shadows in a 3D Scene" description="Put cool description here"/>
 ));
 
+
+buildPage("projects/water_marbles/index.html", ReactDOMServer.renderToStaticMarkup(
+  <WaterMarbles title="Liquid Simulation using Particles" description="Put cool description here"/>
+));

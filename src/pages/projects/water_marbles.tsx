@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="cache-control" content="no-store" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <title>Liquid Simulation using Particles</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
-    <link rel="stylesheet" href="/style.css" />  
-    <script src="/andy_replace.js" type="module"></script>
-  </head>
-  <body>
-    <div class="wrapperDiv">
-      <div class="andy_replace" src="/includes/navbar.html"></div>
-      <div class="headerDiv">
-	<h1>Liquid Simulation using Particles</h1>
-      </div>
-      <div class="contentDiv">
-	<div id="dvMain">
-	  <div id="dvSmallButtons" class="dvB"></div>
-	  <div id="dvLargeButtons" class="dvB"></div>
-	  <canvas id="canvas" width="800" height="800" oncontextmenu="event.preventDefault()"></canvas>
+import React from 'react';
+import {Tex} from 'react-tex';
+
+import Wrapper from '../../wrapper.js';
+
+function Project2Body(props) {
+
+  let new_head = (<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossOrigin="anonymous" />);
+
+  return (
+    <Wrapper head={new_head} {...props}>
+      <div id="dvMain">
+	  <div id="dvSmallButtons" className="dvB"></div>
+	  <div id="dvLargeButtons" className="dvB"></div>
+	  <canvas id="canvas" width="800" height="800" onContextMenu={(event) => event.preventDefault()}></canvas>
 	</div>
-	<hr class="clearLeft" />
-</br>
+	<hr className="clearLeft" />
+<br/>
 Interactive, try to drag, rotate and zoom. Allowed since it uses Web Assembly.
-</br>
-</br>
+<br/>
+<br/>
 This simulation is extremely simple. Each ball has a constant acceleration in a vector that goes downwards relative to the camera for gravity, and each time frame, if a ball is touching another ball apply an elastic collision according to <a href="https://www.sjsu.edu/faculty/watkins/collision.htm">this website</a>.
-</br>
-</br>
+<br/>
+<br/>
 I was origionally going to add surface tention by simulating the intermolecular-forces between the particles to see if it would look better, but the problem there is that each ball acts like a molecule and not a percentage of the water and basically as if it was on a microscopic scale, not macroscpic where the IMF's are usually neglegable. A link to the actual IMF simulation is found on the home page, but it doesn't look as good as this simulation.
-</br>
-<hr class="clearLeft" />
-      </div>
-    </div>
-    <script>
+<br/>
+<hr className="clearLeft" />
+
+  <script dangerouslySetInnerHTML= {{ __html: `
       var g = {};
       g.smallButtons = true;
       g.buttonArray = [
@@ -47,10 +39,15 @@ I was origionally going to add surface tention by simulating the intermolecular-
       var Module = {
 	  canvas: document.getElementById("canvas"),
 	  arguments: ["-tab", "23", "-smallButtons" ]
-      };
+  };` }} >
     </script>
     <script src="/wasm/readfile.js"></script>
     <script src="/wasm/buttons.js"></script>
-    <script src="/wasm/index.js"></script>
-  </body>
-</html>
+				      <script src="/wasm/index.js"></script>
+				      
+    </Wrapper>
+  );
+};
+
+export default Project2Body;
+
