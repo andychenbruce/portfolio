@@ -12,6 +12,8 @@ import Project2Body from './pages/projects/2body.js';
 
 import Boltzman from './pages/projects/boltzman_distribution.js';
 
+import Capstone from './pages/projects/capstone.js';
+
 
 buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
   <Index title="Andy's Project Website" description="Put cool description here" />
@@ -46,4 +48,8 @@ buildPage("projects/2body/index.html", ReactDOMServer.renderToStaticMarkup(
 
 buildPage("projects/boltzman_distribution/index.html", ReactDOMServer.renderToStaticMarkup(
   <Boltzman title="Non-Ideal Gas Simulation and Boltzmann's Law" description="Put cool description here"/>
+));
+
+buildPage("projects/capstone/index.html", ReactDOMServer.renderToStaticMarkup(
+  <Capstone title="Capstone: A Robot for Sustainable Agriculture" description="Put cool description here"/>
 ));
