@@ -14,20 +14,24 @@ buildPage('index.html', ReactDOMServer.renderToStaticMarkup(
 ));
 
 buildPage('menuPage.html', ReactDOMServer.renderToStaticMarkup(
-  <MenuPage title="Andy's Project Website" description="Put cool description here" />
+  <MenuPage title="Menu" description="Put cool description here" />
 ));
 
 buildPage('aboutPage.html', ReactDOMServer.renderToStaticMarkup(
-  <AboutPage title="Andy's Project Website" description="Put cool description here" />
-));
-
-buildPage('aboutPage.html', ReactDOMServer.renderToStaticMarkup(
-  <AboutPage title="Andy's Project Website" description="Put cool description here" />
+  <AboutPage title="About" description="Put cool description here" />
 ));
 
 buildPage("contactPage.html", ReactDOMServer.renderToStaticMarkup(
-  <Wrapper title="Andy's Project Website" description="Put cool description here">
+  <Wrapper title="Contact" description="Put cool description here">
     <p>Phone number: 14082073992</p>
     <p>Email: chengong456@qq.com</p>
+  </Wrapper>
+));
+
+buildPage("helpPage.html", ReactDOMServer.renderToStaticMarkup(
+  <Wrapper title="Help" description="Put cool description here">
+    <h1>Help</h1>
+    <h1>Help</h1>
+    <h1>Help</h1>
   </Wrapper>
 ));
