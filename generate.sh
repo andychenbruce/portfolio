@@ -3,7 +3,7 @@ set -e
 
 rm -fr ts_output
 rm -fr dist
-mkdir --parents dist
+mkdir dist
 
 npx tsc
 node ts_output/main.js
