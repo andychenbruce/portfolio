@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-declare -a NAMES=("icosahedron" "navier_stokes")
+declare -a NAMES=("icosahedron")
 
 for NAME in "${NAMES[@]}"
 do
