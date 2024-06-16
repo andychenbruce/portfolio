@@ -8,26 +8,25 @@ mkdir dist
 npx tsc
 node ts_output/main.js
 
-declare -a NAMES=("icosahedron")
+cp -r --interactive static/. dist
+
+echo "COMPILING RUST STUFF"
+
+declare -a NAMES=("icosahedron" "mandelbrot")
 
 for NAME in "${NAMES[@]}"
 do
     rm -fr "projects/$NAME/wasm"
 done
 
-
-cd new_stuff_src
+for NAME in "${NAMES[@]}"
+do
+    cargo build --release --package "$NAME" --target wasm32-unknown-unknown
+done
 
 for NAME in "${NAMES[@]}"
 do
-    cargo build --package "$NAME" --target wasm32-unknown-unknown
+    wasm-bindgen --target web "target/wasm32-unknown-unknown/release/$NAME.wasm" --out-dir "dist/projects/$NAME/wasm"
 done
 
-cd ..
-
-for NAME in "${NAMES[@]}"
-do
-    wasm-bindgen --target web "target/wasm32-unknown-unknown/debug/$NAME.wasm" --out-dir "static/projects/$NAME/wasm"
-done
-
-cp -r --interactive static/. dist
+echo "DONE"

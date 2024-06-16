@@ -11,12 +11,7 @@ function DeltaGcode(props) {
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
       />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-        integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-        crossOrigin="anonymous"
-      />
+      <script type="module" src="./main.js"></script>
     </>
   );
 
@@ -26,7 +21,7 @@ function DeltaGcode(props) {
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
         <canvas
-          id="canvas"
+          id="andy_canvas"
           width="800"
           height="800"
           onContextMenu={(event) => event.preventDefault()}
@@ -70,23 +65,6 @@ function DeltaGcode(props) {
         language="c"
       />
       <hr className="clearLeft" />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-      var g = {};
-      g.smallButtons = true;
-      g.buttonArray = [
-	  [ 0, 'R', 'Reset' ],
-      ];
-      var Module = {
-	  canvas: document.getElementById("canvas"),
-	  arguments: ["-tab", "3", "-smallButtons" ]
-	    };`,
-        }}
-      ></script>
-      <script src="/wasm/readfile.js"></script>
-      <script src="/wasm/buttons.js"></script>
-      <script src="/wasm/index.js"></script>
     </Wrapper>
   );
 }

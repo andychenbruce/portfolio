@@ -8,19 +8,15 @@ pub struct ShaderProg<'a, T> {
     pub draw_func: T,
 }
 
-pub fn setup_canvas<T, G, F, C1, C2, C3>(
+pub fn setup_canvas<T, G, F, C>(
     canvas_id: &str,
     shader_prog: ShaderProg<T>,
-    mousedown_callback: Option<C1>,
-    mouseup_callback: Option<C2>,
-    mousemove_callback: Option<C3>,
+    canvas_callbacks: Vec<(&str, C)>,
     make_globals: F,
 ) -> (web_sys::WebGl2RenderingContext, web_sys::WebGlProgram)
 where
     T: FnMut(G) + 'static,
-    C1: FnMut(G, web_sys::Event) + 'static,
-    C2: FnMut(G, web_sys::Event) + 'static,
-    C3: FnMut(G, web_sys::Event) + 'static,
+    C: FnMut(G, web_sys::Event) + 'static,
     G: Clone + 'static,
     F: FnOnce(web_sys::WebGl2RenderingContext, web_sys::WebGlProgram) -> G,
 {
@@ -83,32 +79,26 @@ where
         make_globals(context.clone(), program.clone()),
         &canvas,
         shader_prog.draw_func,
-        mousedown_callback,
-        mouseup_callback,
-        mousemove_callback,
+        canvas_callbacks,
     );
 
     (context, program)
 }
 
-fn setup_callbacks<T, G, C1, C2, C3>(
+fn setup_callbacks<T, G, C>(
     globals: G,
     canvas: &web_sys::HtmlCanvasElement,
     mut draw_func: T,
-    mousedown_callback: Option<C1>,
-    mouseup_callback: Option<C2>,
-    mousemove_callback: Option<C3>,
+    canvas_callbacks: Vec<(&str, C)>,
 ) where
     T: FnMut(G) + 'static,
-    C1: FnMut(G, web_sys::Event) + 'static,
-    C2: FnMut(G, web_sys::Event) + 'static,
-    C3: FnMut(G, web_sys::Event) + 'static,
+    C: FnMut(G, web_sys::Event) + 'static,
     G: Clone + 'static,
 {
-    setup_callback(globals.clone(), canvas, "mousedown", mousedown_callback);
-    setup_callback(globals.clone(), canvas, "mouseup", mouseup_callback);
-    setup_callback(globals.clone(), canvas, "mousemove", mousemove_callback);
-
+    for callback in canvas_callbacks.into_iter() {
+        let (callback_type, closure) = callback;
+        setup_callback(globals.clone(), canvas, callback_type, closure);
+    }
     //draw loop
     let f = std::rc::Rc::new(std::cell::RefCell::new(None));
     let g = f.clone();
@@ -125,25 +115,19 @@ fn setup_callback<C, G>(
     globals: G,
     canvas: &web_sys::HtmlCanvasElement,
     callback_type: &str,
-    callback: Option<C>,
+    mut callback: C,
 ) where
     C: FnMut(G, web_sys::Event) + 'static,
     G: Clone + 'static,
 {
-    if let Some(mut callback) = callback {
-        let andy_callback =
-            Closure::wrap(
-                Box::new(move |e: web_sys::Event| callback(globals.clone(), e))
-                    as Box<dyn FnMut(_)>,
-            );
-        canvas
-            .add_event_listener_with_callback(
-                callback_type,
-                andy_callback.as_ref().dyn_ref().unwrap(),
-            )
-            .unwrap();
-        std::mem::forget(andy_callback); //mem leak, too bad
-    }
+    let andy_callback =
+        Closure::wrap(
+            Box::new(move |e: web_sys::Event| callback(globals.clone(), e)) as Box<dyn FnMut(_)>,
+        );
+    canvas
+        .add_event_listener_with_callback(callback_type, andy_callback.as_ref().dyn_ref().unwrap())
+        .unwrap();
+    std::mem::forget(andy_callback); //mem leak, too bad
 }
 
 fn request_animation_frame(f: &Closure<dyn FnMut()>) -> i32 {

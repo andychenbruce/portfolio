@@ -1,12 +1,11 @@
-//#version 410 core
-#version 300 es // Use this for WebAssembly
+#version 300 es
 
 // A fragment shader implementation for drawing the
 // Mandelbrot Set.
 
-precision mediump float; // Use medium precision (32 bit)
+precision highp float; // Use high precision (32 bit)
 
-in vec3 mPosition;  //input position
+in vec4 mPosition;  //input position
 out vec4 fragColor; //output RGBA color
 
 vec3
@@ -64,6 +63,6 @@ mandelbrot(vec3 mpos)
 void
 main()
 {
-  vec3 f3 = mandelbrot(mPosition);
+  vec3 f3 = mandelbrot(mPosition.xyz);
   fragColor = vec4(f3.rgb, 1); // Set opacity to 1.0
 }

@@ -201,9 +201,10 @@ fn set_canvas(
                 )
             },
         },
-        Some(andy_mousedown_callback),
-        Some(andy_mouseup_callback),
-        Some(andy_mousemove_callback),
+        vec![
+            ("mousedown", andy_mousedown_callback as fn(Globals, web_sys::Event)),
+            ("mouseup", andy_mouseup_callback),
+            ("mousemove", andy_mousemove_callback)],
         make_globals,
     );
 }

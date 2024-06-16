@@ -3,7 +3,6 @@ resolver = "2"
 members = [
   "crates/andy_webgl_utils",
   "crates/icosahedron",
-  "crates/navier_stokes",
   "crates/mandelbrot"
 ]
 

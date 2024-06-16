@@ -2,11 +2,12 @@
 
 uniform mat4 perspectiveMatrix;
 uniform mat4 cameraMatrix;
+uniform mat4 modelMatrix;
 
 in vec3 position;
-out vec4 inputPos;
+out vec4 mPosition;
 
 void main() {
-    inputPos = modelMatrix * vec4(position, 1.0);
-    gl_Position = perspectiveMatrix * cameraMatrix * vec4(position, 1.0);
+  mPosition = vec4(position, 1.0);
+  gl_Position = perspectiveMatrix * cameraMatrix * modelMatrix * vec4(position, 1.0);
 }

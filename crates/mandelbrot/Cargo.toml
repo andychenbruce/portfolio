@@ -32,5 +32,6 @@ features = [
   'WebGlUniformLocation',
   'EventListener',
   'Event',
-  'MouseEvent'
+  'MouseEvent',
+  'WheelEvent'
 ]
