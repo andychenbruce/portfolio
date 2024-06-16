@@ -61,7 +61,7 @@ function DeltaGcode(props) {
         :
       </p>
       <AndyCodeBlock
-        source_path="static/projects/mandelbrot/mandelbrot.frag"
+        source_path="crates/mandelbrot/src/shaders_source/frag.glsl"
         language="c"
       />
       <hr className="clearLeft" />
