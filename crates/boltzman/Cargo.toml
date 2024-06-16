@@ -1,5 +1,5 @@
 [package]
-name = "icosahedron"
+name = "boltzman"
 version = "0.1.0"
 edition = "2021"
 authors = ["陈功 <chengong456@qq.com>"]
@@ -33,5 +33,6 @@ features = [
   'WebGlUniformLocation',
   'EventListener',
   'Event',
-  'MouseEvent'
+  'MouseEvent',
+  'WheelEvent'
 ]

@@ -1,3 +1,4 @@
+use andy_webgl_utils::matrix_to_vec;
 use cgmath::SquareMatrix;
 use wasm_bindgen::prelude::*;
 use web_sys::Event;
@@ -153,15 +154,6 @@ fn draw(globals: Globals) {
     );
 
     draw_square(&globals);
-}
-
-fn matrix_to_vec(mat: cgmath::Matrix4<f32>) -> [f32; 16] {
-    [
-        mat.x.x, mat.x.y, mat.x.z, mat.x.w, //x col
-        mat.y.x, mat.y.y, mat.y.z, mat.y.w, //y col
-        mat.z.x, mat.z.y, mat.z.z, mat.z.w, //z col
-        mat.w.x, mat.w.y, mat.w.z, mat.w.w, //w col
-    ]
 }
 
 fn draw_square(globals: &Globals) {

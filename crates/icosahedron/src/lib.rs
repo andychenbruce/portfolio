@@ -1,7 +1,7 @@
-mod icosahedron;
+use andy_webgl_utils::matrix_to_vec;
 use wasm_bindgen::prelude::*;
 
-use cgmath::SquareMatrix;
+use cgmath::{InnerSpace, SquareMatrix};
 const TRIANGLE_FRAGS: bool = true;
 const PHI: f32 = 1.618_034;
 const GOLDEN_RECTANGLE_VERTS: &[f32] = &[
@@ -170,9 +170,9 @@ fn set_canvas(
     frags: FragLevel,
 ) {
     let mut verts: Vec<f32> = GOLDEN_RECTANGLE_VERTS.to_vec();
-    let mut ico_verts = icosahedron::generate_verticies();
+    let mut ico_verts = generate_sphere_util::generate_verticies();
     for _ in 0..iters {
-        ico_verts = icosahedron::sphere_recurse_verts(ico_verts);
+        ico_verts = generate_sphere_util::sphere_recurse_verts(ico_verts);
     }
 
     verts.extend(
@@ -265,7 +265,7 @@ fn draw(globals: Globals, config: DrawConfig) {
             .cross(move_direction_vector.truncate());
         if length(cross) != 0.0 {
             *camera_rotate_matrix = cgmath::Matrix4::from_axis_angle(
-                normalize(cross),
+                cross.normalize(),
                 cgmath::Rad(length(cross) / 200.0),
             ) * (*camera_rotate_matrix);
         }
@@ -281,36 +281,36 @@ fn draw(globals: Globals, config: DrawConfig) {
     if config.rectangles {
         draw_rectangle(&globals, model_matrix, FragEnum::Red);
         let rotated_1 = cgmath::Matrix4::from_axis_angle(
-            normalize(cgmath::Vector3 {
+            cgmath::Vector3 {
                 x: 1.0,
                 y: 0.0,
                 z: 1.0,
-            }),
+            }.normalize(),
             cgmath::Rad(std::f32::consts::TAU / 2.0),
         ) * cgmath::Matrix4::from_axis_angle(
-            normalize(cgmath::Vector3 {
+            cgmath::Vector3 {
                 x: 0.0,
                 y: 0.0,
                 z: 1.0,
-            }),
+            }.normalize(),
             cgmath::Rad(std::f32::consts::TAU / 4.0),
         );
         draw_rectangle(&globals, model_matrix * rotated_1, FragEnum::Green);
 
         draw_rectangle(&globals, model_matrix, FragEnum::Red);
         let rotated_2 = cgmath::Matrix4::from_axis_angle(
-            normalize(cgmath::Vector3 {
+            cgmath::Vector3 {
                 x: 1.0,
                 y: 0.0,
                 z: 1.0,
-            }),
+            }.normalize(),
             cgmath::Rad(std::f32::consts::TAU / 2.0),
         ) * cgmath::Matrix4::from_axis_angle(
-            normalize(cgmath::Vector3 {
+            cgmath::Vector3 {
                 x: -1.0,
                 y: 0.0,
                 z: 0.0,
-            }),
+            }.normalize(),
             cgmath::Rad(std::f32::consts::TAU / 4.0),
         );
         draw_rectangle(&globals, model_matrix * rotated_2, FragEnum::Blue);
@@ -318,11 +318,11 @@ fn draw(globals: Globals, config: DrawConfig) {
 
     if config.light {
         let light_pos = (cgmath::Matrix4::from_axis_angle(
-            normalize(cgmath::Vector3 {
+            cgmath::Vector3 {
                 x: 0.0,
                 y: 0.0,
                 z: 1.0,
-            }),
+            }.normalize(),
             cgmath::Rad((((current_time_milis % 3000) as f32) / 3000.0) * std::f32::consts::TAU),
         ) * cgmath::Vector4 {
             x: 2.5,
@@ -365,19 +365,6 @@ fn draw(globals: Globals, config: DrawConfig) {
         config.num_triangles,
         config.wires,
     );
-}
-
-fn matrix_to_vec(mat: cgmath::Matrix4<f32>) -> [f32; 16] {
-    [
-        mat.x.x, mat.x.y, mat.x.z, mat.x.w, //x col
-        mat.y.x, mat.y.y, mat.y.z, mat.y.w, //y col
-        mat.z.x, mat.z.y, mat.z.z, mat.z.w, //z col
-        mat.w.x, mat.w.y, mat.w.z, mat.w.w, //w col
-    ]
-}
-
-fn normalize(vec: cgmath::Vector3<f32>) -> cgmath::Vector3<f32> {
-    vec / length(vec)
 }
 
 fn length(vec: cgmath::Vector3<f32>) -> f32 {

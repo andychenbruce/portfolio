@@ -6,6 +6,7 @@ version = 3
 name = "andy_webgl_utils"
 version = "0.1.0"
 dependencies = [
+ "cgmath",
  "console_error_panic_hook",
  "js-sys",
  "wasm-bindgen",
@@ -27,6 +28,20 @@ name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+
+[[package]]
+name = "boltzman"
+version = "0.1.0"
+dependencies = [
+ "andy_webgl_utils",
+ "cgmath",
+ "console_error_panic_hook",
+ "generate_sphere_util",
+ "js-sys",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
 
 [[package]]
 name = "bumpalo"
@@ -61,12 +76,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "generate_sphere_util"
+version = "0.1.0"
+dependencies = [
+ "andy_webgl_utils",
+ "cgmath",
+ "console_error_panic_hook",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+]
+
+[[package]]
 name = "icosahedron"
 version = "0.1.0"
 dependencies = [
  "andy_webgl_utils",
  "cgmath",
  "console_error_panic_hook",
+ "generate_sphere_util",
  "js-sys",
  "wasm-bindgen",
  "wasm-bindgen-futures",
