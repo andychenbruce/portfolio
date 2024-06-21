@@ -5,24 +5,29 @@ import Wrapper from "../../wrapper.js";
 
 function Boltzman(props) {
   let new_head = (
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossOrigin="anonymous"
-    />
+    <>
+      <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+	integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+	crossOrigin="anonymous"
+      />
+      <script type="module" src="./main.js"></script>
+    </>
   );
 
   return (
     <Wrapper head={new_head} {...props}>
       <div id="dvMain">
-        <div id="dvSmallButtons" className="dvB"></div>
-        <div id="dvLargeButtons" className="dvB"></div>
         <canvas
-          id="canvas"
+          id="andy_canvas"
           width="800"
           height="800"
-          onContextMenu={(event) => event.preventDefault()}
+        ></canvas>
+	<canvas
+          id="graph_canvas"
+          width="800"
+          height="800"
         ></canvas>
       </div>
       <hr className="clearLeft" />
@@ -79,11 +84,7 @@ function Boltzman(props) {
       <br />
       <p>
         the blue graph isn't actually exactly the correct equation for this
-        system since the units didn't convert nicely when I did it. It is also
-        graphed poorly since it is in the fragment shader but when displayed is
-        scaled in the y direction 8 times so it looks stretched, but it would be
-        really hard to fix for not much extra readability and it already seems
-        to fit the bar graph pretty well.
+        system since the units didn't convert nicely when I did it.
       </p>
       <br />
       <p>
@@ -99,27 +100,6 @@ function Boltzman(props) {
         propery
       </p>
       <hr className="clearLeft" />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            var g = {};
-      g.smallButtons = true;
-      g.buttonArray = [
-	  [ 0, 'R', 'Reset' ],
-	  [ 0, 'r', 'Run' ],
-	  [ 0, 'S', 'Pause' ],
-	  [ 0, 'c', 'Cage' ],
-	  [ 0, 'z', 'Floor' ],
-      ];
-      var Module = {
-	  canvas: document.getElementById("canvas"),
-	  arguments: ["-tab", "17", "-smallButtons" ]
-      };`,
-        }}
-      />
-      <script src="/wasm/readfile.js"></script>
-      <script src="/wasm/buttons.js"></script>
-      <script src="/wasm/index.js"></script>
     </Wrapper>
   );
 }

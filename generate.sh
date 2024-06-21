@@ -12,7 +12,7 @@ cp -r --interactive static/. dist
 
 echo "COMPILING RUST STUFF"
 
-declare -a NAMES=("icosahedron" "mandelbrot")
+declare -a NAMES=("icosahedron" "mandelbrot" "boltzman_distribution")
 
 for NAME in "${NAMES[@]}"
 do

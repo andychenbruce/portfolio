@@ -1,68 +1,80 @@
 #version 300 es
 
-// A fragment shader implementation for drawing the
-// Mandelbrot Set.
+precision highp float;
 
-precision highp float; // Use high precision (32 bit)
+uniform uint fragEnum;
+uint ENUM_FLOOR = 0u;
+uint ENUM_BLACK = 1u;
+uint ENUM_WHITE = 2u;
+uint ENUM_RED = 3u;
+uint ENUM_GREEN = 4u;
+uint ENUM_BLUE = 5u;
+uint ENUM_CYAN = 6u;
+uint ENUM_MAGENTA = 7u;
+uint ENUM_YELLOW = 8u;
 
-in vec4 mPosition;  //input position
-out vec4 fragColor; //output RGBA color
+uniform vec3 lightPos;
+uniform mat4 cameraMatrix;
 
-vec3
-mandelbrot(vec3 mpos)
-{
-  float x = 1.5 * mpos.x - 0.7;
-  float y = 1.5 * mpos.y;
-  float zi = 0.0;
-  float zr = 0.0;
-  int count;
-  const int maxCount = 100;
-  for (count = 0; count < maxCount; ++count) {
-    float zr0 = zr;
-    zr = zr*zr - zi*zi + x;
-    zi = 2.0*zr0*zi + y;
-    float a = zr*zr + zi* zi;
-    if (a >= 4.0) {
-      break;
-    }
-  }
+in vec3 model_pos;
+in vec3 world_pos;
+out vec4 outColor;
 
-  // From here on is just coloring
+float AMBIENT_BRIGHTNESS = 0.4;
+float DIFFUSE_BRIGHTNESS = 0.6;
 
-  float H = float(count) * (360.0/float(maxCount)); //hue, scaled betwee 0 to 360
-  float S = 1.0; // saturation
-  float V = 1.0; // value
 
-  // HSV to RGB
-
-  float C = V*S;
-  float Hp = H/60.0;
-  float oddPart = Hp - 2.0*floor(Hp/2.0); // mod 2
-  float X = C*(1.0-abs(oddPart-1.0));
-
-  vec3 rgb;
-  if ((0.0 <= Hp) && (Hp < 1.0)) {
-    rgb = vec3(C, X, 0);
-  } else if ((1.0 <= Hp) && (Hp < 2.0)) {
-    rgb = vec3(X, C, 0);
-  } else if ((2.0 <= Hp) && (Hp < 3.0)) {
-    rgb = vec3(0, C, X);
-  } else if ((3.0 <= Hp) && (Hp < 4.0)) {
-    rgb = vec3(0, X, C);
-  } else if ((4.0 <= Hp) && (Hp < 5.0)) {
-    rgb = vec3(X, 0, C);
-  } else if ((5.0 <= Hp) && (Hp < 6.0)) {
-    rgb = vec3(C, 0, X);
-  } else {
-    rgb = vec3(0, 0, 0); // Black when count == 100
-  }
-  float m = V-C;
-  return rgb + vec3(m, m, m);
+float diffuse_reflect_factor(){
+  vec3 dir = vec3(lightPos) - vec3(world_pos);
+  float cosine = dot(normalize(dir), normalize(vec3(model_pos)));
+  float cf = clamp((AMBIENT_BRIGHTNESS * cosine) + DIFFUSE_BRIGHTNESS, 0.0, 1.0);
+  return cf;
 }
 
-void
-main()
-{
-  vec3 f3 = mandelbrot(mPosition.xyz);
-  fragColor = vec4(f3.rgb, 1); // Set opacity to 1.0
+float specular_reflect_factor(){
+  vec3 camera_pos = vec3(inverse(cameraMatrix) * vec4(0.0, 0.0, 0.0, 1.0));
+  vec3 incident = -(camera_pos - vec3(world_pos));
+  vec3 optimal_dir = normalize(reflect(incident, normalize(vec3(model_pos))));
+  vec3 light_dir = normalize(lightPos - vec3(world_pos));
+  float cos = dot(optimal_dir, light_dir);
+  float shinyness = 5.0;
+  float factor = pow(clamp(cos, 0.0, 1.0), shinyness);
+  return factor;
+}
+
+vec4 make_spectral(vec3 base_color){
+  vec4 regular_color = vec4(diffuse_reflect_factor() * base_color, 1.0);
+  vec4 light_color = vec4(1.0, 1.0, 1.0, 1.0);
+  float specular_factor = specular_reflect_factor();
+  return (specular_factor * light_color) + ((1.0-specular_factor) * regular_color);
+}
+
+void main() {
+  if(fragEnum == ENUM_FLOOR){
+    bool x = (int(floor(model_pos.x*2.0)) % 2) == 0;
+    bool z = (int(floor(model_pos.z*2.0)) % 2) == 0;
+    if(x != z){
+      outColor = vec4(0.9, 0.9, 0.9, 1.0);
+    }else{
+      outColor = vec4(0.6, 0.4, 0.8, 1.0);
+    }
+  }else if(fragEnum == ENUM_BLACK){
+    outColor = vec4(0.0, 0.0, 0.0, 1.0);
+  }else if(fragEnum == ENUM_WHITE){
+    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+  }else if(fragEnum == ENUM_RED){
+    outColor = make_spectral(vec3(1.0, 0.0, 0.0));
+  }else if(fragEnum == ENUM_GREEN){
+    outColor = make_spectral(vec3(0.0, 1.0, 0.0));
+  }else if(fragEnum == ENUM_BLUE){
+    outColor = make_spectral(vec3(0.0, 0.0, 1.0));
+  }else if(fragEnum == ENUM_CYAN){
+    outColor = make_spectral(vec3(0.0, 1.0, 1.0));
+  }else if(fragEnum == ENUM_MAGENTA){
+    outColor = make_spectral(vec3(1.0, 0.0, 1.0));
+  }else if(fragEnum == ENUM_YELLOW){
+    outColor = make_spectral(vec3(1.0, 1.0, 0.0));
+  }else{
+    outColor = vec4(model_pos, 1.0);
+  }
 }

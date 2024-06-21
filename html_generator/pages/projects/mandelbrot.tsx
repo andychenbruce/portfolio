@@ -8,6 +8,12 @@ function DeltaGcode(props) {
   let new_heads = (
     <>
       <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+	integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+	crossOrigin="anonymous"
+      />
+      <link
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
       />
@@ -18,8 +24,6 @@ function DeltaGcode(props) {
   return (
     <Wrapper head={new_heads} {...props}>
       <div id="dvMain">
-        <div id="dvSmallButtons" className="dvB"></div>
-        <div id="dvLargeButtons" className="dvB"></div>
         <canvas
           id="andy_canvas"
           width="800"

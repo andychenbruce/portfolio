@@ -5,9 +5,11 @@ uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
 
 in vec3 position;
-out vec4 mPosition;
+out vec3 model_pos;
+out vec3 world_pos;
 
 void main() {
-  mPosition = vec4(position, 1.0);
+  model_pos = position;
+  world_pos = (modelMatrix * vec4(position, 1.0)).xyz;
   gl_Position = perspectiveMatrix * cameraMatrix * modelMatrix * vec4(position, 1.0);
 }

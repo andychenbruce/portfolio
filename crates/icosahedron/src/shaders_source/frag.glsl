@@ -18,16 +18,16 @@ uint ENUM_BEACHBALL = 10u;
 uniform vec3 lightPos;
 uniform mat4 cameraMatrix;
 
-in vec4 inputPos;
+in vec3 model_pos;
+in vec3 world_pos;
 out vec4 outColor;
 
 float AMBIENT_BRIGHTNESS = 0.4;
 float DIFFUSE_BRIGHTNESS = 0.6;
 
 vec3 getBeachBallColor(){
-  vec3 mpos = normalize(vec3(inputPos));
-  float x = mpos.x;
-  float y = mpos.y;
+  float x = model_pos.x;
+  float y = model_pos.y;
   float r = x*x + y*y;
   if (r < 0.03) {
     return vec3(1, 1, 0);
@@ -54,17 +54,17 @@ vec3 getBeachBallColor(){
 }
 
 float diffuse_reflect_factor(){
-  vec3 dir = vec3(lightPos) - vec3(inputPos);
-  float cosine = dot(normalize(dir), normalize(vec3(inputPos)));
+  vec3 dir = vec3(lightPos) - vec3(world_pos);
+  float cosine = dot(normalize(dir), normalize(vec3(model_pos)));
   float cf = clamp((AMBIENT_BRIGHTNESS * cosine) + DIFFUSE_BRIGHTNESS, 0.0, 1.0);
   return cf;
 }
 
 float specular_reflect_factor(){
   vec3 camera_pos = vec3(inverse(cameraMatrix) * vec4(0.0, 0.0, 0.0, 1.0));
-  vec3 incident = -(camera_pos - vec3(inputPos));
-  vec3 optimal_dir = normalize(reflect(incident, normalize(vec3(inputPos))));
-  vec3 light_dir = normalize(lightPos - vec3(inputPos));
+  vec3 incident = -(camera_pos - vec3(world_pos));
+  vec3 optimal_dir = normalize(reflect(incident, normalize(vec3(model_pos))));
+  vec3 light_dir = normalize(lightPos - vec3(world_pos));
   float cos = dot(optimal_dir, light_dir);
   float shinyness = 5.0;
   float factor = pow(clamp(cos, 0.0, 1.0), shinyness);
@@ -101,6 +101,6 @@ void main() {
     float specular_factor = specular_reflect_factor();
     outColor = (specular_factor * light_color) + ((1.0-specular_factor) * regular_color);
   }else{
-    outColor = inputPos;
+    outColor = vec4(model_pos, 1.0);
   }
 }

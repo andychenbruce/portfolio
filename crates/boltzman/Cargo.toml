@@ -1,5 +1,5 @@
 [package]
-name = "boltzman"
+name = "boltzman_distribution"
 version = "0.1.0"
 edition = "2021"
 authors = ["陈功 <chengong456@qq.com>"]
@@ -34,5 +34,6 @@ features = [
   'EventListener',
   'Event',
   'MouseEvent',
-  'WheelEvent'
+  'WheelEvent',
+  "CanvasRenderingContext2d"
 ]
