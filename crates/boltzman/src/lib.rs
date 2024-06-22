@@ -235,6 +235,7 @@ pub fn andy_main() {
                 graph_canvas,
             )
         },
+        [0.7, 0.85, 1.0, 1.0],
     );
 }
 
@@ -368,15 +369,11 @@ fn draw(globals: Globals) {
             (ball.pos.y, &mut ball.vel.y),
             (ball.pos.z, &mut ball.vel.z),
         ] {
-            if direction.0 + BALL_RADIUS >= 1.0 {
-                if *direction.1 > 0.0 {
-                    *direction.1 *= -1.0;
-                }
+            if (direction.0 + BALL_RADIUS) >= 1.0 && (*direction.1 > 0.0) {
+                *direction.1 *= -1.0;
             }
-            if direction.0 - BALL_RADIUS <= -1.0 {
-                if *direction.1 < 0.0 {
-                    *direction.1 *= -1.0;
-                }
+            if (direction.0 - BALL_RADIUS <= -1.0) && (*direction.1 < 0.0) {
+                *direction.1 *= -1.0;
             }
         }
     }

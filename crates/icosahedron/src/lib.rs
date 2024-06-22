@@ -202,10 +202,15 @@ fn set_canvas(
             },
         },
         vec![
-            ("mousedown", andy_mousedown_callback as fn(Globals, web_sys::Event)),
+            (
+                "mousedown",
+                andy_mousedown_callback as fn(Globals, web_sys::Event),
+            ),
             ("mouseup", andy_mouseup_callback),
-            ("mousemove", andy_mousemove_callback)],
+            ("mousemove", andy_mousemove_callback),
+        ],
         make_globals,
+        [0.2, 0.3, 0.5, 1.0],
     );
 }
 
@@ -285,14 +290,16 @@ fn draw(globals: Globals, config: DrawConfig) {
                 x: 1.0,
                 y: 0.0,
                 z: 1.0,
-            }.normalize(),
+            }
+            .normalize(),
             cgmath::Rad(std::f32::consts::TAU / 2.0),
         ) * cgmath::Matrix4::from_axis_angle(
             cgmath::Vector3 {
                 x: 0.0,
                 y: 0.0,
                 z: 1.0,
-            }.normalize(),
+            }
+            .normalize(),
             cgmath::Rad(std::f32::consts::TAU / 4.0),
         );
         draw_rectangle(&globals, model_matrix * rotated_1, FragEnum::Green);
@@ -303,14 +310,16 @@ fn draw(globals: Globals, config: DrawConfig) {
                 x: 1.0,
                 y: 0.0,
                 z: 1.0,
-            }.normalize(),
+            }
+            .normalize(),
             cgmath::Rad(std::f32::consts::TAU / 2.0),
         ) * cgmath::Matrix4::from_axis_angle(
             cgmath::Vector3 {
                 x: -1.0,
                 y: 0.0,
                 z: 0.0,
-            }.normalize(),
+            }
+            .normalize(),
             cgmath::Rad(std::f32::consts::TAU / 4.0),
         );
         draw_rectangle(&globals, model_matrix * rotated_2, FragEnum::Blue);
@@ -322,7 +331,8 @@ fn draw(globals: Globals, config: DrawConfig) {
                 x: 0.0,
                 y: 0.0,
                 z: 1.0,
-            }.normalize(),
+            }
+            .normalize(),
             cgmath::Rad((((current_time_milis % 3000) as f32) / 3000.0) * std::f32::consts::TAU),
         ) * cgmath::Vector4 {
             x: 2.5,

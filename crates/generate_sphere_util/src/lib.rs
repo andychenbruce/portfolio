@@ -9,14 +9,16 @@ pub fn generate_verticies() -> Vec<[cgmath::Vector4<f32>; 3]> {
             x: 1.0,
             y: 0.0,
             z: 1.0,
-        }.normalize(),
+        }
+        .normalize(),
         cgmath::Rad(std::f32::consts::TAU / 2.0),
     ) * cgmath::Matrix4::from_axis_angle(
         cgmath::Vector3 {
             x: 0.0,
             y: 0.0,
             z: 1.0,
-        }.normalize(),
+        }
+        .normalize(),
         cgmath::Rad(std::f32::consts::TAU / 4.0),
     );
     let rotated_2 = cgmath::Matrix4::from_axis_angle(
@@ -24,14 +26,16 @@ pub fn generate_verticies() -> Vec<[cgmath::Vector4<f32>; 3]> {
             x: 1.0,
             y: 0.0,
             z: 1.0,
-        }.normalize(),
+        }
+        .normalize(),
         cgmath::Rad(std::f32::consts::TAU / 2.0),
     ) * cgmath::Matrix4::from_axis_angle(
         cgmath::Vector3 {
             x: -1.0,
             y: 0.0,
             z: 0.0,
-        }.normalize(),
+        }
+        .normalize(),
         cgmath::Rad(std::f32::consts::TAU / 4.0),
     );
     let rotate_idk = cgmath::Matrix4::from_axis_angle(
@@ -39,7 +43,8 @@ pub fn generate_verticies() -> Vec<[cgmath::Vector4<f32>; 3]> {
             x: 0.0,
             y: 1.0,
             z: PHI,
-        }.normalize(),
+        }
+        .normalize(),
         cgmath::Rad(std::f32::consts::TAU / 5.0),
     );
 
@@ -105,7 +110,8 @@ pub fn sphere_recurse_verts(
         .flat_map(|triangle| {
             let splits: [cgmath::Vector4<f32>; 3] = (0..3)
                 .map(|num| {
-                    normalize_vec(triangle
+                    normalize_vec(
+                        triangle
                             .into_iter()
                             .enumerate()
                             .map(|(n, x)| {
@@ -115,8 +121,8 @@ pub fn sphere_recurse_verts(
                                     x
                                 }
                             })
-                        .sum::<cgmath::Vector4<f32>>()
-                        / 2.0
+                            .sum::<cgmath::Vector4<f32>>()
+                            / 2.0,
                     )
                 })
                 .collect::<Vec<cgmath::Vector4<f32>>>()
@@ -144,11 +150,11 @@ pub fn sphere_recurse_verts(
     poo
 }
 
-pub fn make_sphere_verts(num_iters: u32) -> Vec<[cgmath::Vector4<f32>; 3]>{
-    if num_iters == 0{
+pub fn make_sphere_verts(num_iters: u32) -> Vec<[cgmath::Vector4<f32>; 3]> {
+    if num_iters == 0 {
         return generate_verticies();
     }
-    return sphere_recurse_verts(make_sphere_verts(num_iters - 1));
+    sphere_recurse_verts(make_sphere_verts(num_iters - 1))
 }
 
 fn normalize_vec(v: cgmath::Vector4<f32>) -> cgmath::Vector4<f32> {

@@ -13,6 +13,7 @@ pub fn setup_canvas<T, G, F, C>(
     shader_prog: ShaderProg<T>,
     canvas_callbacks: Vec<(&str, C)>,
     make_globals: F,
+    clear_color: [f32; 4],
 ) -> (web_sys::WebGl2RenderingContext, web_sys::WebGlProgram)
 where
     T: FnMut(G) + 'static,
@@ -35,7 +36,12 @@ where
         .unwrap()
         .dyn_into()
         .unwrap();
-    context.clear_color(0.7, 0.85, 1.0, 1.0);
+    context.clear_color(
+        clear_color[0],
+        clear_color[1],
+        clear_color[2],
+        clear_color[3],
+    );
     context.clear(web_sys::WebGl2RenderingContext::COLOR_BUFFER_BIT);
     context.enable(web_sys::WebGl2RenderingContext::DEPTH_TEST);
     context.enable(web_sys::WebGl2RenderingContext::BLEND);

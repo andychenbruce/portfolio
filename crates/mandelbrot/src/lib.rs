@@ -89,6 +89,7 @@ pub fn andy_main() {
             ("wheel", andy_mouse_scroll_callback),
         ],
         make_globals,
+        [0.7, 0.85, 1.0, 1.0],
     );
 }
 
