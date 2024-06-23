@@ -2,7 +2,7 @@ import React from "react";
 import Wrapper from "../wrapper.js";
 import AboutInfo from "../includes/about_info.js";
 import MenuList from "../includes/menu_list.js";
-function Index(props) {
+function Index(props: any) {
   return (
     <Wrapper {...props}>
       <AboutInfo />

@@ -1,9 +1,10 @@
 import React from "react";
-import { Tex } from "react-tex";
+import {MakeMath} from "../../render_math.js";
+
 
 import Wrapper from "../../wrapper.js";
 
-function Boltzman(props) {
+function Boltzman({title}: {title: string}) {
   let new_head = (
     <>
       <link
@@ -17,8 +18,8 @@ function Boltzman(props) {
   );
 
   return (
-    <Wrapper head={new_head} {...props}>
-      <div id="dvMain">
+    <Wrapper head={new_head} title={title}>
+      <div className="boltzmanCanvases" >
         <canvas
           id="andy_canvas"
           width="800"
@@ -27,7 +28,7 @@ function Boltzman(props) {
 	<canvas
           id="graph_canvas"
           width="800"
-          height="800"
+          height="400"
         ></canvas>
       </div>
       <hr className="clearLeft" />
@@ -63,8 +64,8 @@ function Boltzman(props) {
         for the maxwell boltzman distribution is
       </p>
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "f(v) = {({m \\over 2\\pi kT})^{3/2}}4\\pi v^2e^{-{{mv^2} \\over {2kT}}}"
           }
         />
@@ -72,15 +73,15 @@ function Boltzman(props) {
       <br />
       where
       <br />
-      <Tex texContent={"f(v)"} /> is the probability
+      <MakeMath tex={"f(v)"} /> is the probability
       <br />
-      <Tex texContent={"v"} /> is the velocity
+      <MakeMath tex={"v"} /> is the velocity
       <br />
-      <Tex texContent={"m"} /> is the mass
+      <MakeMath tex={"m"} /> is the mass
       <br />
-      <Tex texContent={"k"} /> is the boltzmann constant
+      <MakeMath tex={"k"} /> is the boltzmann constant
       <br />
-      <Tex texContent={"T"} /> is the temperature
+      <MakeMath tex={"T"} /> is the temperature
       <br />
       <p>
         the blue graph isn't actually exactly the correct equation for this

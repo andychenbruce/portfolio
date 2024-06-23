@@ -1,9 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import Wrapper from "../../wrapper.js";
+import {MakeMath} from "../../render_math.js";
 
-function Project2Body(props) {
+function Project2Body({title}: {title: string}) {
   let new_head = (
     <link
       rel="stylesheet"
@@ -14,7 +14,7 @@ function Project2Body(props) {
   );
 
   return (
-    <Wrapper head={new_head} {...props}>
+    <Wrapper head={new_head} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -32,38 +32,34 @@ function Project2Body(props) {
         <a href="https://en.wikipedia.org/wiki/Orbit_equation">wikipedia</a>
       </p>
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
-            "r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot cos(\\theta)}"
-          }
-        />
+	<MakeMath tex={"r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot cos(\\theta)}"} />
       </div>
       Where
       <br />
-      <Tex texContent={"l"} /> = angular momentum
+      <MakeMath tex={"l"} /> = angular momentum
       <br />
-      <Tex texContent={"m"} /> = small body mass
+      <MakeMath tex={"m"} /> = small body mass
       <br />
-      <Tex texContent={"M"} /> = large body mass
+      <MakeMath tex={"M"} /> = large body mass
       <br />
-      <Tex texContent={"\\mu = GM"} /> = the standard gravitational parameter
+      <MakeMath tex={"\\mu = GM"} /> = the standard gravitational parameter
       <br />
-      <Tex texContent={"e"} /> = the eccentricity of the orbit
+      <MakeMath tex={"e"} /> = the eccentricity of the orbit
       <br />
-      <Tex texContent={"\\theta"} /> = angle from the periapsis, the closest
+      <MakeMath tex={"\\theta"} /> = angle from the periapsis, the closest
       point
       <br />
       <br />
       <br />
-      If <Tex texContent={"l"} /> is the angular momentum, dividing it by the
-      mass, <Tex texContent={"m"} />, would give the angular velocity, let that
-      be <Tex texContent={"a"} />.
+      If <MakeMath tex={"l"} /> is the angular momentum, dividing it by the
+      mass, <MakeMath tex={"m"} />, would give the angular velocity, let that
+      be <MakeMath tex={"a"} />.
       <br />
-      <Tex texContent={"a = {l \\over m}"} />
+      <MakeMath tex={"a = {l \\over m}"} />
       <br />
       so then
       <br />
-      <Tex texContent={"{l^2 \\over m^2 \\mu} = {a^2 \\over \\mu}"} />
+      <MakeMath tex={"{l^2 \\over m^2 \\mu} = {a^2 \\over \\mu}"} />
       <br />
       making the equation independent of the smaller body's mass as expected
       <br />
@@ -79,15 +75,15 @@ function Project2Body(props) {
         velocity
       </p>
       <br />
-      let <Tex texContent={"\\vec{p}"} /> be the difference in postion of the 2
+      let <MakeMath tex={"\\vec{p}"} /> be the difference in postion of the 2
       objects
       <br />
-      let <Tex texContent={"\\vec{v}"} /> be the difference in velocity of the 2
+      let <MakeMath tex={"\\vec{v}"} /> be the difference in velocity of the 2
       objects
       <br />
       so then
       <br />
-      <Tex texContent={"a = ||\\vec{p} \\times \\vec{v}||"} />
+      <MakeMath tex={"a = ||\\vec{p} \\times \\vec{v}||"} />
       <br />
       <br />
       <br />
@@ -101,15 +97,15 @@ function Project2Body(props) {
         magnitude of the eccentricity. It is calculated by
       </p>
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\vec{e} = {\\vec{v} \\times (\\vec{p} \\times \\vec{v}) \\over \\mu} - {\\vec{p} \\over ||\\vec{p}||}"
         }
       />
       <br />
       so then
       <br />
-      <Tex texContent={"e = ||\\vec{e}||"} />
+      <MakeMath tex={"e = ||\\vec{e}||"} />
       <br />
       <br />
       <br />
@@ -120,18 +116,18 @@ function Project2Body(props) {
         I derived is:
       </p>
       <br />
-      <Tex texContent={"\\vec{e}"} /> goes from the apoapsis to the periapsis.
+      <MakeMath tex={"\\vec{e}"} /> goes from the apoapsis to the periapsis.
       Because the periapsis and apoapsis are always 180 degrees apart, it goes
       through the center so it also goes from the center to the periapsis. By
-      rotating <Tex texContent={"\\vec{e}"} /> around the normal vector to the
-      plane by <Tex texContent={"\\theta"} /> it will give the direction the
-      position is in 3d space since <Tex texContent={"\\theta"} /> is defined as
+      rotating <MakeMath tex={"\\vec{e}"} /> around the normal vector to the
+      plane by <MakeMath tex={"\\theta"} /> it will give the direction the
+      position is in 3d space since <MakeMath tex={"\\theta"} /> is defined as
       the angle from the periapsis.
       <br />
       <br />
       The normal vector to the plane can be definded as
       <br />
-      <Tex texContent={"\\vec{n} = \\vec{p} \\times \\vec{v}"} />
+      <MakeMath tex={"\\vec{n} = \\vec{p} \\times \\vec{v}"} />
       <br />
       since both the position vector and velocity vector must be on the orbit's
       plane. This technically won't work if the position vector and velocity
@@ -142,43 +138,43 @@ function Project2Body(props) {
       <br />
       <p>
         {" "}
-        <Tex texContent={"\\vec{e}"} /> can be rotated around{" "}
-        <Tex texContent={"\\vec{n}"} /> using the{" "}
+        <MakeMath tex={"\\vec{e}"} /> can be rotated around{" "}
+        <MakeMath tex={"\\vec{n}"} /> using the{" "}
         <a href="https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">
           Rodrigues' rotation formula
         </a>
         , which rotates a vector around a unit normal vector. Because the
         ecentricity vector also lies on the plane,{" "}
-        <Tex texContent={"\\vec{n}"} /> is already a normal vector to it, it
+        <MakeMath tex={"\\vec{n}"} /> is already a normal vector to it, it
         just needs to be normalised to a unit vector
       </p>
       <br />
       <br />
-      <Tex texContent={"\\vec{m} = {\\vec{n} \\over ||\\vec{n}||}"} />
+      <MakeMath tex={"\\vec{m} = {\\vec{n} \\over ||\\vec{n}||}"} />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\vec{o} = \\vec{e}cos(\\theta) + (\\vec{m} \\times \\vec{e})sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - cos(\\theta))"
         }
       />
       <br />
       <br />
-      Where <Tex texContent={"\\vec{o}"} /> would be pointing in the direction
+      Where <MakeMath tex={"\\vec{o}"} /> would be pointing in the direction
       from the center to the position at angle $\theta$ from the periapsis.
       <br />
       <br />
-      Now taking <Tex texContent={"\\vec{o}"} />, normalizing it into a unit
+      Now taking <MakeMath tex={"\\vec{o}"} />, normalizing it into a unit
       vector, then multiplying by r will give the final position.
       <br />
       <br />
-      <Tex texContent={"r{\\vec{o} \\over ||\\vec{o}||}"} />
+      <MakeMath tex={"r{\\vec{o} \\over ||\\vec{o}||}"} />
       <br />
       which is equal to
       <br />
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "{a^2 \\over \\mu}{1 \\over 1+ecos(\\theta)}{\\vec{o} \\over ||\\vec{o}||}"
           }
         />
@@ -186,25 +182,25 @@ function Project2Body(props) {
       <br />
       where
       <br />
-      <Tex texContent={"a = ||\\vec{p} \\times \\vec{v}||"} />
+      <MakeMath tex={"a = ||\\vec{p} \\times \\vec{v}||"} />
       <br />
-      <Tex texContent={"\\mu = -GM"} />
+      <MakeMath tex={"\\mu = -GM"} />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\vec{e} = {\\vec{v} \\times (\\vec{p} \\times \\vec{v}) \\over \\mu} - {\\vec{p} \\over ||\\vec{p}||}"
         }
       />
       <br />
-      <Tex texContent={"e = ||\\vec{e}||"} />
+      <MakeMath tex={"e = ||\\vec{e}||"} />
       <br />
-      <Tex texContent={"\\vec{n} = \\vec{p} \\times \\vec{v}"} /> or{" "}
-      <Tex texContent={"\\vec{v} \\times \\vec{p}"} />, doesn't matter
+      <MakeMath tex={"\\vec{n} = \\vec{p} \\times \\vec{v}"} /> or{" "}
+      <MakeMath tex={"\\vec{v} \\times \\vec{p}"} />, doesn't matter
       <br />
-      <Tex texContent={"\\vec{m} = {\\vec{n} \\over ||\\vec{n}||}"} />
+      <MakeMath tex={"\\vec{m} = {\\vec{n} \\over ||\\vec{n}||}"} />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\vec{o} = \\vec{e}cos(\\theta) + (\\vec{m} \\times \\vec{e})sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - cos(\\theta))"
         }
       />
@@ -241,7 +237,7 @@ function Project2Body(props) {
       <br />
       <p>
         The black lines are actually drawn pretty inefficently. Since the
-        function is based on <Tex texContent={"\\theta"} /> which is an angle
+        function is based on <MakeMath tex={"\\theta"} /> which is an angle
         the farther away portions of orbits get only a few points since they
         occupy less of the angle, you can see the far out parts of the elipses
         get jankey since they are drawn with fewer points. Also the lines are

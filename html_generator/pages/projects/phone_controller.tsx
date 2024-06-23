@@ -3,7 +3,7 @@ import React from "react";
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
 
-function PhoneController(props) {
+function PhoneController({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -12,7 +12,7 @@ function PhoneController(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <p>
         In <a href="p02_PWM.html">the previous project</a>, I implemented PWM on
         a Raspberry Pi using direct hardware access.

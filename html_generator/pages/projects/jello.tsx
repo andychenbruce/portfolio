@@ -1,9 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
+import {MakeMath} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
 
-function Jello(props) {
+function Jello({title}: {title: string}) {
   let new_head = (
     <link
       rel="stylesheet"
@@ -14,7 +14,7 @@ function Jello(props) {
   );
 
   return (
-    <Wrapper head={new_head} {...props}>
+    <Wrapper head={new_head} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -31,10 +31,10 @@ function Jello(props) {
         A cube of 10x10x10 points are all connected up to 26 of their neighbors
         by springs following Hookes Law
       </p>
-      <Tex texContent={"F = -kx"} />
+      <MakeMath tex={"F = -kx"} />
       <p>
-        where <Tex texContent={"k"} /> is a constant and{" "}
-        <Tex texContent={"x"} /> is the distance from the spring's rest
+        where <MakeMath tex={"k"} /> is a constant and{" "}
+        <MakeMath tex={"x"} /> is the distance from the spring's rest
         position.
       </p>
       <br />

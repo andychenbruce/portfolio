@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "preserveConstEnums": true,
     "sourceMap": true,
     "rootDir": "html_generator/",

@@ -2,9 +2,9 @@ import React from "react";
 
 import Wrapper from "../../wrapper.js";
 
-function SeedlingSegmentation(props) {
+function SeedlingSegmentation({title}: {title: string}) {
   return (
-    <Wrapper {...props}>
+    <Wrapper title={title}>
       <div>
         <h2>Collecting the images</h2>
         <div className="imageContainer floatLeft">

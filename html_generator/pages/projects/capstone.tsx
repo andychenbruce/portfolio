@@ -2,9 +2,9 @@ import React from "react";
 
 import Wrapper from "../../wrapper.js";
 
-function Capstone(props) {
+function Capstone({title}: {title: string}) {
   return (
-    <Wrapper {...props}>
+    <Wrapper title={title}>
       <div className="imageContainer floatLeft">
         <video className="floatLeft" width="640" controls>
           <source src="Farmbot-ParkingLot-001-720.mp4" type="video/mp4" /> Your

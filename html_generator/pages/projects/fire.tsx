@@ -3,7 +3,7 @@ import React from "react";
 import Wrapper from "../../wrapper.js";
 import { AndyCodeBlock } from "../../include_code.js";
 
-function Fire(props) {
+function Fire({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -12,7 +12,7 @@ function Fire(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>

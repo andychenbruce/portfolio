@@ -1,10 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import Wrapper from "../../wrapper.js";
 import { AndyCodeBlock } from "../../include_code.js";
 
-function Boltzman(props) {
+function Boltzman({title}: {title: string}) {
   let new_head = (
     <link
       rel="stylesheet"
@@ -13,7 +12,7 @@ function Boltzman(props) {
   );
 
   return (
-    <Wrapper head={new_head} {...props}>
+    <Wrapper head={new_head} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>

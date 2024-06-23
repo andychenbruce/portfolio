@@ -1,9 +1,8 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import Wrapper from "../../wrapper.js";
 
-function Project2Body(props) {
+function Project2Body(props: any): React.JSX.Element {
   let new_head = (
     <link
       rel="stylesheet"

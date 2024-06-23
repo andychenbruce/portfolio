@@ -3,7 +3,7 @@ import React from "react";
 import Wrapper from "../../wrapper.js";
 import { AndyCodeBlock } from "../../include_code.js";
 
-function PulseWidthModulation(props) {
+function PulseWidthModulation({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -12,7 +12,7 @@ function PulseWidthModulation(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <p>
         As part of my Capstone robot project, I need to control the speed of the
         drive wheels. This is done using{" "}

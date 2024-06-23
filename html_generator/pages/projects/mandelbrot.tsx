@@ -1,10 +1,10 @@
 import React from "react";
-import { Tex } from "react-tex";
+import {MakeMath} from "../../render_math.js";
 
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
 
-function DeltaGcode(props) {
+function DeltaGcode({title}: {title: string}) {
   let new_heads = (
     <>
       <link
@@ -22,7 +22,7 @@ function DeltaGcode(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div id="dvMain">
         <canvas
           id="andy_canvas"
@@ -49,11 +49,11 @@ function DeltaGcode(props) {
         </a>{" "}
         if z diverges when repetatively calculated, where:
       </h3>
-      <Tex texContent={"z_0 = 0+0i"} />
+      <MakeMath tex={"z_0 = 0+0i"} />
       <br />
-      <Tex texContent={"z_{n+1} = z_n^2 + c"} />
+      <MakeMath tex={"z_{n+1} = z_n^2 + c"} />
       <br />
-      <Tex texContent={"c"} /> is the starting point which is a complex number
+      <MakeMath tex={"c"} /> is the starting point which is a complex number
       <br />
       <br />
       <br />

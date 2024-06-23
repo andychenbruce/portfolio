@@ -1,10 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
 
-function Planets(props) {
+function Planets({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -13,7 +12,7 @@ function Planets(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>

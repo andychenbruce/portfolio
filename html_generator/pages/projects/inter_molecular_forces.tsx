@@ -1,9 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
+import {MakeMath} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
 
-function InterMolecularForce(props) {
+function InterMolecularForce({title}: {title: string}) {
   let new_head = (
     <link
       rel="stylesheet"
@@ -14,7 +14,7 @@ function InterMolecularForce(props) {
   );
 
   return (
-    <Wrapper head={new_head} {...props}>
+    <Wrapper head={new_head} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -41,22 +41,22 @@ function InterMolecularForce(props) {
         is the sum of its Lennards-Jones potential relative to every other atom
       </p>
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "E(r) = 4\\epsilon [({\\sigma \\over r})^{12} - ({\\sigma \\over r})^{6}]"
           }
         />
       </div>
       <br />
       where
-      <Tex texContent={"E(r)"} /> is the potential energy for that distance
+      <MakeMath tex={"E(r)"} /> is the potential energy for that distance
       <br />
-      <Tex texContent={"r"} /> is the distance between particles
+      <MakeMath tex={"r"} /> is the distance between particles
       <br />
-      <Tex texContent={"\\epsilon"} /> is the depth of the potential well,
+      <MakeMath tex={"\\epsilon"} /> is the depth of the potential well,
       basically the potential energy at the minimum or most stable
       <br />
-      <Tex texContent={"\\sigma"} /> is where potential energy is zero,
+      <MakeMath tex={"\\sigma"} /> is where potential energy is zero,
       basically the size of the particle.
       <br />
       <p>
@@ -67,7 +67,7 @@ function InterMolecularForce(props) {
       </p>
       <br />
       The bottom of the energy well is{" "}
-      <Tex texContent={"r = {2^{1/6}}\\sigma"} />
+      <MakeMath tex={"r = {2^{1/6}}\\sigma"} />
       <br />
       <p>
         A more accurate simulation would put the potential energy into the
@@ -78,58 +78,58 @@ function InterMolecularForce(props) {
         solution.
       </p>
       <br />
-      <Tex texContent={"v"} /> = change in distance of nuclei, like velocity but
+      <MakeMath tex={"v"} /> = change in distance of nuclei, like velocity but
       only the direction toward the other nuclei
       <br />
-      <Tex texContent={"r"} /> = distance between nuclei
+      <MakeMath tex={"r"} /> = distance between nuclei
       <br />
-      <Tex texContent={"K"} /> = kinetic energy of <Tex texContent={"v"} />
+      <MakeMath tex={"K"} /> = kinetic energy of <MakeMath tex={"v"} />
       <br />
       <br />
       <br />
-      <Tex texContent={"v = {dr \\over dt}"} />
+      <MakeMath tex={"v = {dr \\over dt}"} />
       <br />
-      <Tex texContent={"K = {1 \\over 2}v^2"} />
+      <MakeMath tex={"K = {1 \\over 2}v^2"} />
       <br />
-      taking the derivative of <Tex texContent={"K"} /> with respect to{" "}
-      <Tex texContent={"t"} />
+      taking the derivative of <MakeMath tex={"K"} /> with respect to{" "}
+      <MakeMath tex={"t"} />
       <br />
-      <Tex texContent={"{dK \\over dt} = v{dv \\over dt}"} />
+      <MakeMath tex={"{dK \\over dt} = v{dv \\over dt}"} />
       <br />
-      dividing both sides by <Tex texContent={"v"} />
+      dividing both sides by <MakeMath tex={"v"} />
       <br />
-      <Tex texContent={"{dK \\over dt}{1 \\over v} = {dv \\over dt}"} />
+      <MakeMath tex={"{dK \\over dt}{1 \\over v} = {dv \\over dt}"} />
       <br />
-      substitute <Tex texContent={"v"} /> for{" "}
-      <Tex texContent={"{dr \\over dt}"} />
+      substitute <MakeMath tex={"v"} /> for{" "}
+      <MakeMath tex={"{dr \\over dt}"} />
       <br />
-      <Tex
-        texContent={"{dK \\over dt}{1 \\over {dr \\over dt}} = {dv \\over dt}"}
+      <MakeMath
+        tex={"{dK \\over dt}{1 \\over {dr \\over dt}} = {dv \\over dt}"}
       />
       <br />
       simplify to
       <br />
-      <Tex texContent={"{dK \\over dt}{{dt \\over dr}} = {dv \\over dt}"} />
+      <MakeMath tex={"{dK \\over dt}{{dt \\over dr}} = {dv \\over dt}"} />
       <br />
-      the <Tex texContent={"dt"} />
+      the <MakeMath tex={"dt"} />
       's cancel to become
       <br />
-      <Tex texContent={"{dK \\over dr} = {dv \\over dt}"} />
+      <MakeMath tex={"{dK \\over dr} = {dv \\over dt}"} />
       <br />
       The change in velocity over the change in time is just acceleration so
       <br />
-      acceleration = <Tex texContent={"{dK \\over dr}"} />
+      acceleration = <MakeMath tex={"{dK \\over dr}"} />
       <br />
       Now let's assume that kinetic energy is the only energy exchanged with
       potential energy, ignoring electron levels, etc. So the only place a drop
       in potential energy can go is into kinetic energy, so
       <br />
-      acceleration = <Tex texContent={"{dK \\over dr} = -{dE(r) \\over dr}"} />
+      acceleration = <MakeMath tex={"{dK \\over dr} = -{dE(r) \\over dr}"} />
       <br />
       Taking the derivative of the Lennards-Jones potential gives
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{dE(r) \\over dr} = 4\\epsilon [-12{{({\\sigma \\over r})^{13}} \\over \\sigma} + 6{{({\\sigma \\over r})^{7}} \\over \\sigma}]"
         }
       />
@@ -137,8 +137,8 @@ function InterMolecularForce(props) {
       So finally an easily implementable numeric solution
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "acceleration = 4\\epsilon [-12{{({\\sigma \\over r})^{13}} \\over \\sigma} + 6{{({\\sigma \\over r})^{7}} \\over \\sigma}]"
           }
         />
@@ -150,16 +150,16 @@ function InterMolecularForce(props) {
       <br />
       <p>
         In the simulation above this exact equation is implemented except when{" "}
-        <Tex texContent={"r"} /> approaches very close to{" "}
-        <Tex texContent={"\\sigma"} /> because the Lennards-Jones potential has
+        <MakeMath tex={"r"} /> approaches very close to{" "}
+        <MakeMath tex={"\\sigma"} /> because the Lennards-Jones potential has
         an extremely steep incline, so the derivative makes an extremely large
         acceleration. Because the simulation only does one physics tick in a set
         time frame it can't simulate sharp changes. Realistically the atoms
         would be pushed apart before it reaches that close the simulation does
         have atoms get that close due to a large enought{" "}
-        <Tex texContent={"dt"} /> causing innaccuraccies in each time tick. To
+        <MakeMath tex={"dt"} /> causing innaccuraccies in each time tick. To
         compensate the equation is disabled for when{" "}
-        <Tex texContent={"r < 1.07\\sigma"} />, and instead applies an elastic
+        <MakeMath tex={"r < 1.07\\sigma"} />, and instead applies an elastic
         collission which is closer to real life than the numerical solution. The
         elastic collision equation in 3D is taken from{" "}
         <a href="https://en.wikipedia.org/wiki/Elastic_collision#Two-dimensional">

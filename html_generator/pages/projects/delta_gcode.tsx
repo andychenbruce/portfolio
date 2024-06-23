@@ -1,10 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
 
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
 
-function DeltaGcode(props) {
+function DeltaGcode({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -13,7 +12,7 @@ function DeltaGcode(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div className="imageContainer floatLeft">
         <img src="Delta-X.jpg" width="487" height="479" />
         <div className="imageCaption" style={{ width: "487px" }}>

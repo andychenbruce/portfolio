@@ -1,10 +1,9 @@
 import React from "react";
-import { Tex } from "react-tex";
+import {MakeMath} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
-import { AndyCodeBlock } from "../../include_code.js";
 
-function NavierStokes(props) {
+function NavierStokes({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -15,7 +14,7 @@ function NavierStokes(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -35,8 +34,8 @@ function NavierStokes(props) {
         says that the Navier-Stokes equation is
       </p>
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "\\rho{D\\mathbf{u} \\over Dt} = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
           }
         />
@@ -44,52 +43,52 @@ function NavierStokes(props) {
       <p>where</p>
       <br />
       <p>
-        <Tex texContent={"\\rho"} /> is density
+        <MakeMath tex={"\\rho"} /> is density
       </p>
       <br />
-      <Tex texContent={"\\mathbf{u}"} /> is the velocity vector
+      <MakeMath tex={"\\mathbf{u}"} /> is the velocity vector
       <br />
-      <Tex texContent={"p"} /> is the pressure
+      <MakeMath tex={"p"} /> is the pressure
       <br />
-      <Tex texContent={"mathbf{\tau}"} /> stress tensor
+      <MakeMath tex={"mathbf{\tau}"} /> stress tensor
       <br />
-      <Tex texContent={"g"} /> is any other acceleration, basically the "other"
+      <MakeMath tex={"g"} /> is any other acceleration, basically the "other"
       category like walls, gravity, surface tension, diffusion, ect
       <br />
-      <Tex texContent={"\\nabla"} /> is the gradient, equal to{" "}
-      <Tex
-        texContent={
+      <MakeMath tex={"\\nabla"} /> is the gradient, equal to{" "}
+      <MakeMath
+        tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y}, {\\partial \\over \\partial z}, ...)"
         }
       />{" "}
       for however many dimentions. This simulation is only 2 dimentional for
       display purpouses so in this case it is just{" "}
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y})"
         }
       />
       .
       <br />
-      <Tex texContent={"{\\nabla \\cdotp}"} /> is the divergence and is just the
+      <MakeMath tex={"{\\nabla \\cdotp}"} /> is the divergence and is just the
       dot product of the gradient with the origional vector so it is equal to to
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y}, {\\partial \\over \\partial z} ...) \\cdotp (F_x, F_y, F_z, ...) = {\\partial F_x\\over \\partial x} + {\\partial F_y\\over \\partial y} + {\\partial F_z\\over \\partial z}, ..."
         }
       />{" "}
       for however many dimentions. Again this one is 2 dimentions so it's just
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{\\partial F_x\\over \\partial x} + {\\partial F_y\\over \\partial y}"
         }
       />
       .
       <br />
-      <Tex texContent={"D\\mathbf{} \\over Dt"} /> is the material vector which
+      <MakeMath tex={"D\\mathbf{} \\over Dt"} /> is the material vector which
       is just{" "}
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{\\partial  \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla"
         }
       />
@@ -98,36 +97,36 @@ function NavierStokes(props) {
       here it is taking the matieral derivative of the velocity, or saying how
       the velocity follows itself
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{D\\mathbf{u} \\over Dt} = {\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u}"
         }
       />
       <br />
       which expanded further makes
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{\\partial\\mathbf{u} \\over \\partial t} + {u_x}{\\partial\\mathbf{u} \\over \\partial x} + {u_y}{\\partial\\mathbf{u} \\over \\partial y}"
         }
       />
       <br />
       which is actually just equal to
       <br />
-      <Tex texContent={"d\\mathbf{u} \\over dt"} /> which the acceleration
+      <MakeMath tex={"d\\mathbf{u} \\over dt"} /> which the acceleration
       vector, so the velocity moving based on the velocity field (iteself) is
       just the acceleration field
       <br />
       let
-      <Tex texContent={"\\mathbf{a}"} /> be the acceleration vector
+      <MakeMath tex={"\\mathbf{a}"} /> be the acceleration vector
       <br />
-      <Tex texContent={"\\mathbf{a} = {D\\mathbf{u} \\over Dt}"} />
+      <MakeMath tex={"\\mathbf{a} = {D\\mathbf{u} \\over Dt}"} />
       <br />
       so the origional equation becomes
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "\\rho{\\mathbf{a}} = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
           }
         />
@@ -135,7 +134,7 @@ function NavierStokes(props) {
       <br />
       next,
       <br />
-      <Tex texContent={"\\mathbf{\\tau}"} /> basically doesn't matter here since
+      <MakeMath tex={"\\mathbf{\\tau}"} /> basically doesn't matter here since
       it is the stress tensor used for viscosity and when the shape of the box
       is changing size and volume, stuff like that is ignored for this
       simulation
@@ -143,15 +142,15 @@ function NavierStokes(props) {
       now the equation is getting easier and looks like
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={"\\rho{\\mathbf{a}} = -\\nabla p + \\rho \\mathbf{g}"}
+        <MakeMath
+          tex={"\\rho{\\mathbf{a}} = -\\nabla p + \\rho \\mathbf{g}"}
         />
       </div>
       <br />
       also just ignore extra forces for now so
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex texContent={"\\rho{\\mathbf{a}} = -\\nabla p"} />
+        <MakeMath tex={"\\rho{\\mathbf{a}} = -\\nabla p"} />
       </div>
       <br />
       now this is easy, acceleration time density (fluid equivelent of force,
@@ -160,26 +159,26 @@ function NavierStokes(props) {
       the direction the derivative/gradient is negative.
       <br />
       In incompressable fluids, density is constant so
-      <Tex texContent={"\\rho"} /> is basically a constant and can be ignored
+      <MakeMath tex={"\\rho"} /> is basically a constant and can be ignored
       too. Because
-      <Tex texContent={"\\rho"} /> is constant,
-      <Tex texContent={"{d\\rho \\over dt} = 0"} />
+      <MakeMath tex={"\\rho"} /> is constant,
+      <MakeMath tex={"{d\\rho \\over dt} = 0"} />
       <br />
       conservation of mass equation is
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "{d\\rho \\over dt} + \\nabla \\cdotp (\\rho \\mathbf{u}) = 0"
           }
         />
       </div>
       <br />
       but because
-      <Tex texContent={"{d\\rho \\over dt} = 0"} /> it is just
-      <Tex texContent={"\\nabla \\cdotp (\\rho \\mathbf{u}) = 0"} />, and since
-      <Tex texContent={"\\rho"} /> doesnt change it can be divided out of the
+      <MakeMath tex={"{d\\rho \\over dt} = 0"} /> it is just
+      <MakeMath tex={"\\nabla \\cdotp (\\rho \\mathbf{u}) = 0"} />, and since
+      <MakeMath tex={"\\rho"} /> doesnt change it can be divided out of the
       divergence since it is the same at every point to where
-      <Tex texContent={"\\nabla \\cdotp \\mathbf{u} = 0"} />, which also makes
+      <MakeMath tex={"\\nabla \\cdotp \\mathbf{u} = 0"} />, which also makes
       sense. One point can't have 2 neighboring points both pulling from it or
       else that means it is going in 2 directions and creating new mass, or if a
       cell has 2 neighbors going into it mass is deleted since density can't
@@ -188,24 +187,24 @@ function NavierStokes(props) {
       The opposite of divergence is curl, and every vector field can be
       reresented as a vector field of just the divergence plus a field of just
       the curl,
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\mathbf{u_{divergence}} + \\mathbf{u_{curl}} = \\mathbf{u}"
         }
       />
       . To get just the curl one takes the origional vector field and subtracts
       the divergence to leave the curl,
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "\\mathbf{u_{curl}} = \\mathbf{u} - \\mathbf{u_{divergence}}"
         }
       />
       . The divergence only field,
-      <Tex texContent={"\\mathbf{u_{divergence}}"} /> is really complicated to
+      <MakeMath tex={"\\mathbf{u_{divergence}}"} /> is really complicated to
       calculate and would take like 10 pages to explain but basically it's just:
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "p(x, y) = {p(x-1, y) + (p(x+1, y) + p(x, y-1) + p(x, y+1) -  {\\nabla \\cdotp \\mathbf{u}(x, y)} \\over 4}"
         }
       />
@@ -215,13 +214,13 @@ function NavierStokes(props) {
       <br />
       and with that system of equations
       <br />
-      <Tex texContent={"\\mathbf{u_d} = \\nabla p(x,y)"} />
+      <MakeMath tex={"\\mathbf{u_d} = \\nabla p(x,y)"} />
       <br />
       to then calculate
-      <Tex texContent={"\\mathbf{u_c} = \\mathbf{u} - \\mathbf{u_d}"} /> and
+      <MakeMath tex={"\\mathbf{u_c} = \\mathbf{u} - \\mathbf{u_d}"} /> and
       then use
-      <Tex texContent={"\\mathbf{u_c}"} /> as the new
-      <Tex texContent={"\\mathbf{u}"} /> for the next time step
+      <MakeMath tex={"\\mathbf{u_c}"} /> as the new
+      <MakeMath tex={"\\mathbf{u}"} /> for the next time step
       <br />
       <br />
       In the code this systems of equations could be solved with a massive
@@ -233,9 +232,9 @@ function NavierStokes(props) {
       </a>{" "}
       method, basically just putting random numbers in to start, then going
       through each
-      <Tex texContent={"p"} />
+      <MakeMath tex={"p"} />
       -value and substituting the other
-      <Tex texContent={"p"} />
+      <MakeMath tex={"p"} />
       -values over and over and hope it converges to the right solution (I'm not
       even joking this is literatly what the code does).
       <br />
@@ -257,17 +256,17 @@ function NavierStokes(props) {
       take the average values of their neighbors over time this is modeled by
       <br />
       <div style={{ textAlign: "center" }}>
-        <Tex
-          texContent={
+        <MakeMath
+          tex={
             "a_n(x, y) = a_c(x, y) + k*({a_n(x-1, y) + a_n(x+1, y) + a_n(x, y-1) + a_n(x, y+1)\\over 4} - a_c(x, y))"
           }
         />
       </div>
       <br />
       between the new and the current attrubute,
-      <Tex texContent={"a"} /> and the percent it goes towards it in that time
+      <MakeMath tex={"a"} /> and the percent it goes towards it in that time
       tick,
-      <Tex texContent={"k"} />
+      <MakeMath tex={"k"} />
       <br />
       this is again a system of equations that can easily be solved with the
       Gauss-Seidel method
@@ -289,16 +288,16 @@ function NavierStokes(props) {
       This is probably obvious but for the numerical implementation of
       derivatives it is just
       <br />
-      <Tex
-        texContent={"{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x) \\over h}"}
+      <MakeMath
+        tex={"{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x) \\over h}"}
       />
       <br />
       <br />
       which can also be
       <br />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x-0) \\over h-(-0)}"
         }
       />
@@ -307,15 +306,15 @@ function NavierStokes(props) {
       then to
       <br />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x-h) \\over h-(-h)}"
         }
       />
       <br />
       <br />
-      <Tex
-        texContent={
+      <MakeMath
+        tex={
           "{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x-h) \\over 2h}"
         }
       />
@@ -324,7 +323,7 @@ function NavierStokes(props) {
       and in code form with the voxels where the position must be integers the
       most accurate would be would be
       <br />
-      <Tex texContent={"{df(x) \\over dx} = {f(x+1)-f(x-1) \\over 2}"} />
+      <MakeMath tex={"{df(x) \\over dx} = {f(x+1)-f(x-1) \\over 2}"} />
       <br />
       <br />
       <br />

@@ -3,7 +3,7 @@ import React from "react";
 import Wrapper from "../../wrapper.js";
 import { AndyCodeBlock } from "../../include_code.js";
 
-function SeedlingTensorflor(props) {
+function SeedlingTensorflor({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -12,7 +12,7 @@ function SeedlingTensorflor(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <p>
         To make a{" "}
         <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">

@@ -1,7 +1,7 @@
 import React from "react";
 import Wrapper from "../../wrapper.js";
 
-function MotorPWM(props) {
+function MotorPWM({title}: {title: string}) {
   let new_heads = (
     <>
       <link
@@ -18,7 +18,7 @@ function MotorPWM(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <hr className="clearLeft" />
       <div className="imageContainer floatLeft">
         <img src="L298-H-Bridge.jpg" width="353" height="393" />

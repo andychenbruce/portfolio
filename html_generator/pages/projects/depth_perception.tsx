@@ -2,9 +2,9 @@ import React from "react";
 
 import Wrapper from "../../wrapper.js";
 
-function DepthPerception(props) {
+function DepthPerception({title}: {title: string}) {
   return (
-    <Wrapper {...props}>
+    <Wrapper title={title}>
       <div className="imageContainer floatLeft">
         <img src="Arducam-Stereo-Camera.jpg" width="610" height="470" />
         <div className="imageCaption" style={{ width: "610px" }}>

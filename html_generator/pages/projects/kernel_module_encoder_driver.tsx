@@ -2,10 +2,11 @@ import React from "react";
 
 import { AndyCodeBlock } from "../../include_code.js";
 import Wrapper from "../../wrapper.js";
+import { abort } from "process";
 
 //<AndyCodeBlock source_path="static/projects/delta_gcode/delta.cpp" language="cpp" />
 
-function KernelmoduleEncoderDriver(props) {
+function KernelmoduleEncoderDriver({title}: {title: string}) {
   let new_heads = (
     <link
       rel="stylesheet"
@@ -14,7 +15,7 @@ function KernelmoduleEncoderDriver(props) {
   );
 
   return (
-    <Wrapper head={new_heads} {...props}>
+    <Wrapper head={new_heads} title={title}>
       <div className="imageContainer floatLeft">
         <img src="i05-Uxcell-Motor.jpg" width="465" height="349" />
         <div className="imageCaption" style={{ width: "465px" }}>
@@ -32,7 +33,7 @@ function KernelmoduleEncoderDriver(props) {
         computer.
       </p>
 
-      <div className="imageContainer floatLeft">
+      <div className="imageContainer">
         <img src="i05-Encoder-Wires.jpg" width="423" height="362" />
         <div className="imageCaption" style={{ width: "423px" }}>
           Encoder on the end of the motor shaft

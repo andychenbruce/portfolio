@@ -36,19 +36,13 @@ buildPage(
   "contactPage.html",
   ReactDOMServer.renderToStaticMarkup(
     <Wrapper title="Contact" >
-      <p>Phone number: 14082073992</p>
-      <p>Email: chengong456@qq.com</p>
-    </Wrapper>,
-  ),
-);
-
-buildPage(
-  "helpPage.html",
-  ReactDOMServer.renderToStaticMarkup(
-    <Wrapper title="Help" >
-      <h1>Help</h1>
-      <h1>Help</h1>
-      <h1>Help</h1>
+      <address>
+	<a href="mailto:chengong456@qq.com">chengong456@qq.com</a>
+	<br/>
+	<a href="tel:+14082073992">+1(408)207-3992</a>
+	<br/>
+	<a href="https://github.com/andychenbruce">Github</a>
+      </address>
     </Wrapper>,
   ),
 );

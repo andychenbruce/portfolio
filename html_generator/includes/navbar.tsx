@@ -5,28 +5,23 @@ function Navbar() {
     <div className="mainMenuBarDiv">
       <ul className="mainMenuBarList">
         <li className="mb_li">
-          <a className="button" href="/">
+          <a className="menu_button" href="/">
             Home
           </a>
         </li>
         <li className="mb_li">
-          <a className="button" href="/menuPage.html">
+          <a className="menu_button" href="/menuPage.html">
             Menu
           </a>
         </li>
         <li className="mb_li">
-          <a className="button" href="/aboutPage.html">
+          <a className="menu_button" href="/aboutPage.html">
             About
           </a>
         </li>
         <li className="mb_li">
-          <a className="button" href="/contactPage.html">
+          <a className="menu_button" href="/contactPage.html">
             Contact
-          </a>
-        </li>
-        <li className="mb_li">
-          <a className="button" href="/helpPage.html">
-            Help
           </a>
         </li>
       </ul>
