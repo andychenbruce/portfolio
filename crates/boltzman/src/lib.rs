@@ -33,6 +33,7 @@ struct MouseState {
     mouse_drag_pos: Option<(i32, i32)>,
 }
 
+#[derive(Debug)]
 struct Ball {
     pos: cgmath::Vector3<f32>,
     vel: cgmath::Vector3<f32>,
@@ -50,7 +51,7 @@ struct Globals {
     camera_rotate_matrix: std::sync::Arc<std::sync::Mutex<cgmath::Matrix4<f32>>>,
     camera_offset_matrix: cgmath::Matrix4<f32>,
     sphere_verts_start: i32,
-    balls: std::sync::Arc<std::sync::Mutex<Vec<Ball>>>,
+    balls: std::sync::Arc<std::sync::Mutex<[Ball; NUM_BALLS]>>,
     graph_canvas_context: web_sys::CanvasRenderingContext2d,
     graph_canvas: web_sys::HtmlCanvasElement,
 }
@@ -69,6 +70,7 @@ fn make_globals(
     sphere_verts_start: i32,
     graph_canvas_context: web_sys::CanvasRenderingContext2d,
     graph_canvas: web_sys::HtmlCanvasElement,
+    balls: std::sync::Arc<std::sync::Mutex<[Ball; NUM_BALLS]>>,
 ) -> Globals {
     let camera_rotate_matrix =
         std::sync::Arc::new(std::sync::Mutex::new(cgmath::Matrix4::identity()));
@@ -100,13 +102,6 @@ fn make_globals(
         mouse_drag_pos: Some((0, 0)),
     }));
 
-    let balls = (0..NUM_BALLS)
-        .map(|_| Ball {
-            pos: make_random_vec(),
-            vel: cgmath::Vector3::new(1.0, 1.0, 1.0),
-        })
-        .collect();
-
     Globals {
         context,
         last_tick_time: std::sync::Arc::new(std::sync::Mutex::new(0)),
@@ -122,7 +117,7 @@ fn make_globals(
             z: -3.0,
         }),
         sphere_verts_start,
-        balls: std::sync::Arc::new(std::sync::Mutex::new(balls)),
+        balls,
         graph_canvas_context,
         graph_canvas,
     }
@@ -209,6 +204,17 @@ pub fn andy_main() {
     graph_context.set_stroke_style(&"blue".to_owned().into());
     graph_context.set_line_width(3.0);
 
+    let balls = std::sync::Arc::new(std::sync::Mutex::new(
+        (0..NUM_BALLS)
+            .map(|_| Ball {
+                pos: make_random_vec(),
+                vel: cgmath::Vector3::new(1.0, 1.0, 1.0),
+            })
+            .collect::<Vec<Ball>>()
+            .try_into()
+            .unwrap(),
+    ));
+
     let (_context, _program) = andy_webgl_utils::setup_canvas(
         "andy_canvas",
         andy_webgl_utils::ShaderProg {
@@ -233,10 +239,25 @@ pub fn andy_main() {
                 sphere_verts_start,
                 graph_context,
                 graph_canvas,
+                balls.clone(),
             )
         },
         [0.7, 0.85, 1.0, 1.0],
     );
+
+    let poo = Closure::wrap(Box::new(move || {
+        let mut thing = balls.lock().unwrap();
+        tick(thing.as_mut());
+    }) as Box<dyn FnMut()>);
+
+    web_sys::window()
+        .unwrap()
+        .set_interval_with_callback_and_timeout_and_arguments_0(
+            poo.as_ref().dyn_ref().unwrap(),
+            1000 / 60,
+        ).unwrap();
+    
+    std::mem::forget(poo); //mem leak
 }
 
 fn andy_mousedown_callback(globals: Globals, _e: web_sys::Event) {
@@ -254,6 +275,43 @@ fn andy_mousemove_callback(globals: Globals, e: web_sys::Event) {
     if mouse_state.mouse_down {
         mouse_state.mouse_drag_pos_prev = mouse_state.mouse_drag_pos;
         mouse_state.mouse_drag_pos = Some((mouse_event.x(), mouse_event.y()));
+    }
+}
+
+fn tick(balls: &mut [Ball]) {
+    for i in 0..NUM_BALLS {
+        for j in (i + 1)..NUM_BALLS {
+            let dist = balls[i].pos.distance(balls[j].pos);
+            if dist < 2.0 * BALL_RADIUS {
+                //https://www.sjsu.edu/faculty/watkins/collision.htm
+                let pos_diff_norm = (balls[i].pos - balls[j].pos).normalize();
+                let vel_diff = balls[i].vel - balls[j].vel;
+                let vel_change = cgmath::dot(pos_diff_norm, vel_diff);
+                if vel_change < 0.0 {
+                    balls[i].vel -= vel_change * pos_diff_norm;
+                    balls[j].vel += vel_change * pos_diff_norm;
+                }
+            }
+        }
+    }
+
+    for ball in balls.iter_mut() {
+        for direction in [
+            (ball.pos.x, &mut ball.vel.x),
+            (ball.pos.y, &mut ball.vel.y),
+            (ball.pos.z, &mut ball.vel.z),
+        ] {
+            if (direction.0 + BALL_RADIUS) >= 1.0 && (*direction.1 > 0.0) {
+                *direction.1 *= -1.0;
+            }
+            if (direction.0 - BALL_RADIUS <= -1.0) && (*direction.1 < 0.0) {
+                *direction.1 *= -1.0;
+            }
+        }
+    }
+
+    for ball in balls.iter_mut() {
+        ball.pos += 0.01 * ball.vel;
     }
 }
 
@@ -333,7 +391,10 @@ fn draw(globals: Globals) {
         FragEnum::Magenta,
         FragEnum::Yellow,
     ];
-    for (i, ball) in globals.balls.lock().unwrap().iter().enumerate() {
+
+    let balls = globals.balls.lock().unwrap();
+
+    for (i, ball) in balls.iter().enumerate() {
         let model_matrix =
             cgmath::Matrix4::from_translation(ball.pos) * cgmath::Matrix4::from_scale(BALL_RADIUS);
         draw_triangles_frags(
@@ -343,43 +404,6 @@ fn draw(globals: Globals) {
             globals.sphere_verts_start,
             NUM_SPHERE_TRIANGLES,
         );
-    }
-
-    let mut balls = globals.balls.lock().unwrap();
-
-    for i in 0..NUM_BALLS {
-        for j in (i + 1)..NUM_BALLS {
-            let dist = balls[i].pos.distance(balls[j].pos);
-            if dist < 2.0 * BALL_RADIUS {
-                //https://www.sjsu.edu/faculty/watkins/collision.htm
-                let pos_diff_norm = (balls[i].pos - balls[j].pos).normalize();
-                let vel_diff = balls[i].vel - balls[j].vel;
-                let vel_change = cgmath::dot(pos_diff_norm, vel_diff);
-                if vel_change < 0.0 {
-                    balls[i].vel -= vel_change * pos_diff_norm;
-                    balls[j].vel += vel_change * pos_diff_norm;
-                }
-            }
-        }
-    }
-
-    for ball in balls.iter_mut() {
-        for direction in [
-            (ball.pos.x, &mut ball.vel.x),
-            (ball.pos.y, &mut ball.vel.y),
-            (ball.pos.z, &mut ball.vel.z),
-        ] {
-            if (direction.0 + BALL_RADIUS) >= 1.0 && (*direction.1 > 0.0) {
-                *direction.1 *= -1.0;
-            }
-            if (direction.0 - BALL_RADIUS <= -1.0) && (*direction.1 < 0.0) {
-                *direction.1 *= -1.0;
-            }
-        }
-    }
-
-    for ball in balls.iter_mut() {
-        ball.pos += 0.01 * ball.vel;
     }
 
     let mut buckets: [usize; NUM_BUCKETS] = [0; NUM_BUCKETS];

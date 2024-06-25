@@ -10,6 +10,8 @@ node ts_output/main.js
 
 cp -r --interactive static/. dist
 
+ps2pdf static/Andy-Bruce-Resume.ps dist/Andy-Bruce-Resume.pdf
+
 echo "COMPILING RUST STUFF"
 
 declare -a NAMES=("icosahedron" "mandelbrot" "boltzman_distribution")
