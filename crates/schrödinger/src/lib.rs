@@ -4,9 +4,9 @@ use std::f32::consts::TAU;
 use wasm_bindgen::prelude::*;
 
 type Complex = nalgebra::Complex<f32>;
-type AndyMatrix = nalgebra::SMatrix<Complex, NUM_BUCKETS, NUM_BUCKETS>;
-type AndyVector = nalgebra::SVector<Complex, NUM_BUCKETS>;
-const NUM_BUCKETS: usize = 40;
+type AndyMatrix = nalgebra::DMatrix<Complex>;
+type AndyVector = nalgebra::DVector<Complex>;
+const NUM_BUCKETS: usize = 100;
 const BUCKET_SIZE: f32 = 1.0;
 const H_BAR: f32 = 1.0;
 
@@ -148,16 +148,15 @@ fn make_initial_wave() -> AndyVector {
         exponent.exp() * normalization
     };
 
-    TryInto::<[Complex; NUM_BUCKETS]>::try_into((0..NUM_BUCKETS)
+    AndyVector::from_vec((0..NUM_BUCKETS)
         .map(at_point)
         .collect::<Vec<_>>())
-        .unwrap()
-        .into()
+    
 }
 
 fn make_next_wave(curr_wave: &AndyVector) -> AndyVector {
-    let dt = 1.0;
-    let mut mat = std::boxed::Box::new(AndyMatrix::zeros());
+    let dt = 0.4;
+    let mut mat = std::boxed::Box::new(AndyMatrix::zeros(NUM_BUCKETS, NUM_BUCKETS));
 
     for i in 0..NUM_BUCKETS {
         if i != 0 {
