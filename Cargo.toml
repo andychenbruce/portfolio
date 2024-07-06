@@ -13,8 +13,8 @@ members = [
 wasm-bindgen = "0.2.92"
 andy_webgl_utils = { path = "crates/andy_webgl_utils" }
 generate_sphere_util = { path = "crates/generate_sphere_util" }
-wasm-bindgen-futures = "0.4.37"
-js-sys = "0.3.66"
+wasm-bindgen-futures = "0.4.42"
+js-sys = "0.3.69"
 console_error_panic_hook = "0.1.7"
 cgmath = "0.18.0"
-web-sys = "0.3.66"
+web-sys = "0.3.69"

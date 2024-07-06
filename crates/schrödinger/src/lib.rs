@@ -1,90 +1,20 @@
-use std::f64::consts::TAU;
+use std::f32::consts::TAU;
 
 //https://www.astro.utoronto.ca/~mahajan/notebooks/quantum_tunnelling.html
 use wasm_bindgen::prelude::*;
 
-const NUM_BUCKETS: usize = 180;
-const BUCKET_SIZE: f64 = 1.0;
-const H_BAR: f64 = 1.0;
-
-#[derive(Debug, Copy, Clone)]
-struct Complex {
-    real: f64,
-    imag: f64,
-}
-
-impl Complex {
-    fn new(real: f64, imag: f64) -> Self {
-        Complex { real, imag }
-    }
-
-    fn exp(&self) -> Self {
-        //e^(a+ib) = e^a * e^(ib) = e^a * (cos(b) + i*sin(b))
-
-        let real_scale = self.real.exp();
-        let imag_real = self.imag.cos();
-        let imag_imag = self.imag.sin();
-
-        Complex {
-            real: imag_real,
-            imag: imag_imag,
-        } * real_scale
-    }
-
-    fn magnitude(&self) -> f64 {
-        (self.real * self.real) + (self.imag * self.imag)
-    }
-}
-
-impl std::ops::Mul<f64> for Complex {
-    type Output = Self;
-
-    fn mul(self, rhs: f64) -> Self::Output {
-        Complex {
-            real: self.real * rhs,
-            imag: self.imag * rhs,
-        }
-    }
-}
-
-impl std::ops::Mul<Complex> for Complex {
-    type Output = Self;
-
-    fn mul(self, rhs: Complex) -> Self::Output {
-        Complex {
-            real: (self.real * rhs.real) - (self.imag * rhs.imag),
-            imag: (self.imag * rhs.real) + (self.real * rhs.imag),
-        }
-    }
-}
-
-impl std::ops::Mul<Complex> for f64 {
-    type Output = Complex;
-
-    fn mul(self, rhs: Complex) -> Self::Output {
-        Complex {
-            real: rhs.real * self,
-            imag: rhs.imag * self,
-        }
-    }
-}
-
-impl std::ops::Add<Complex> for Complex {
-    type Output = Self;
-
-    fn add(self, rhs: Complex) -> Self::Output {
-        Complex {
-            real: self.real + rhs.real,
-            imag: self.imag + rhs.imag,
-        }
-    }
-}
+type Complex = nalgebra::Complex<f32>;
+type AndyMatrix = nalgebra::SMatrix<Complex, NUM_BUCKETS, NUM_BUCKETS>;
+type AndyVector = nalgebra::SVector<Complex, NUM_BUCKETS>;
+const NUM_BUCKETS: usize = 40;
+const BUCKET_SIZE: f32 = 1.0;
+const H_BAR: f32 = 1.0;
 
 #[derive(Clone)]
 struct Globals {
     canvas: web_sys::HtmlCanvasElement,
     context: web_sys::CanvasRenderingContext2d,
-    wave: std::sync::Arc<std::sync::Mutex<[Complex; NUM_BUCKETS]>>,
+    wave: std::sync::Arc<std::sync::Mutex<AndyVector>>,
 }
 
 #[wasm_bindgen]
@@ -133,14 +63,14 @@ pub fn andy_main() {
         .unwrap()
         .set_interval_with_callback_and_timeout_and_arguments_0(
             poo.as_ref().dyn_ref().unwrap(),
-            1000 / 10,
+            1000 / 60,
         )
         .unwrap();
 
     std::mem::forget(poo); //mem leak
 }
 
-fn tick(old_wave: &mut [Complex; NUM_BUCKETS]) {
+fn tick(old_wave: &mut AndyVector) {
     calc_wave_area(old_wave);
     *old_wave = make_next_wave(old_wave);
 }
@@ -162,7 +92,7 @@ fn draw(globals: Globals) {
     globals.context.begin_path();
     globals.context.move_to(0.0, 0.0);
     for i in 0..NUM_BUCKETS {
-        let prob = wave[i].real;
+        let prob = wave[i].re as f64;
         globals.context.line_to(
             (i as f64) * width_per_bucket,
             (0.5 * (height as f64)) - (prob * (height as f64)),
@@ -174,10 +104,10 @@ fn draw(globals: Globals) {
     globals.context.begin_path();
     globals.context.move_to(0.0, 0.0);
     for i in 0..NUM_BUCKETS {
-        let prob = wave[i].imag;
+        let prob = wave[i].im as f64;
         globals.context.line_to(
             (i as f64) * width_per_bucket,
-            (0.5*(height as f64)) - (prob * (height as f64)),
+            (0.5 * (height as f64)) - (prob * (height as f64)),
         );
     }
     globals.context.stroke();
@@ -186,7 +116,7 @@ fn draw(globals: Globals) {
     globals.context.begin_path();
     globals.context.move_to(0.0, 0.0);
     for i in 0..NUM_BUCKETS {
-        let prob = wave[i].magnitude();
+        let prob = wave[i].norm() as f64;
         globals.context.line_to(
             (i as f64) * width_per_bucket,
             (0.5 * (height as f64)) - (prob * (height as f64)),
@@ -202,12 +132,12 @@ fn request_animation_frame(f: &Closure<dyn FnMut()>) -> i32 {
         .unwrap()
 }
 
-fn make_initial_wave() -> [Complex; NUM_BUCKETS] {
-    let sigma_squared: f64 = 25.0;
-    let x_0 = (BUCKET_SIZE * (NUM_BUCKETS as f64)) / 2.0;
+fn make_initial_wave() -> AndyVector {
+    let sigma_squared: f32 = 25.0;
+    let x_0 = (BUCKET_SIZE * (NUM_BUCKETS as f32)) / 2.0;
     let p_0 = 1.0;
     let at_point = |bucket: usize| {
-        let x = (bucket as f64) * BUCKET_SIZE;
+        let x = (bucket as f32) * BUCKET_SIZE;
 
         let normalization = (1.0 / (TAU * sigma_squared)).sqrt().sqrt();
         let exponent_real = -((x - x_0) * (x - x_0)) / (4.0 * sigma_squared);
@@ -218,58 +148,38 @@ fn make_initial_wave() -> [Complex; NUM_BUCKETS] {
         exponent.exp() * normalization
     };
 
-    (0..NUM_BUCKETS)
+    TryInto::<[Complex; NUM_BUCKETS]>::try_into((0..NUM_BUCKETS)
         .map(at_point)
-        .collect::<Vec<_>>()
-        .try_into()
+        .collect::<Vec<_>>())
         .unwrap()
+        .into()
 }
 
-fn make_next_wave(curr_wave: &[Complex; NUM_BUCKETS]) -> [Complex; NUM_BUCKETS] {
+fn make_next_wave(curr_wave: &AndyVector) -> AndyVector {
     let dt = 1.0;
+    let mut mat = std::boxed::Box::new(AndyMatrix::zeros());
 
-    let new_wave = curr_wave
-        .into_iter()
-        .enumerate()
-        .map(|(index, curr)| {
-            let prev = if index == 0 {
-                None
-            } else {
-                curr_wave.get(index - 1)
-            };
-            let next = curr_wave.get(index + 1);
+    for i in 0..NUM_BUCKETS {
+        if i != 0 {
+            *mat.index_mut((i, i - 1)) = Complex::new(1.0, 0.0);
+        }
+        *mat.index_mut((i, i)) = Complex::new(-2.0, 0.0);
+        if i != NUM_BUCKETS - 1 {
+            *mat.index_mut((i, i + 1)) = Complex::new(1.0, 0.0);
+        }
+    }
 
-            let second_deriv_dx = if prev.is_none() {
-                (*curr * -2.0) + *next.unwrap()
-            } else if next.is_none() {
-                *prev.unwrap() + (*curr * -2.0)
-            } else {
-                *prev.unwrap() + (*curr * -2.0) + *next.unwrap()
-            } * (1.0 / (BUCKET_SIZE * BUCKET_SIZE));
+    *mat *= Complex::new(1.0 / (BUCKET_SIZE * BUCKET_SIZE), 0.0);
 
-            let kinetic_energy = (-0.5)  * second_deriv_dx;
+    web_sys::console::log_1(&"bruhbruh".into());
+    *mat = *mat * (Complex::i() * dt);
+    web_sys::console::log_1(&"multing".into());
+    mat = std::boxed::Box::new(mat.exp());
+    web_sys::console::log_1(&"kkkk".into());
+    
+    let new_wave = std::boxed::Box::new(*mat * curr_wave);
 
-            let potential_energy = Complex {
-                real: 0.0,
-                imag: 0.0,
-            } * *curr;
-
-            let hamiltonian = kinetic_energy + potential_energy;
-
-            let deriv_dt = Complex {
-                real: 0.0,
-                imag: -1.0,
-            } * hamiltonian;
-                
-            let new = *curr + (deriv_dt * dt);
-
-            return new;
-        })
-        .collect::<Vec<_>>()
-        .try_into()
-        .unwrap();
-
-    return new_wave;
+    return *new_wave;
 }
 
 #[wasm_bindgen]
@@ -277,11 +187,8 @@ pub fn set_panic_hook() {
     console_error_panic_hook::set_once();
 }
 
+fn calc_wave_area(wave: &AndyVector) {
+    let sum: f32 = wave.iter().map(|x| x.norm() * BUCKET_SIZE).sum();
 
-fn calc_wave_area(wave: &[Complex; NUM_BUCKETS]){
-
-    let sum: f64 = wave.iter().map(|x| x.magnitude() * BUCKET_SIZE).sum();
-
-    web_sys::console::log_1(&format!("area: {:?}", sum).into());
-        
+    web_sys::console::log_1(&format!("mm area: {:?}", sum).into());
 }

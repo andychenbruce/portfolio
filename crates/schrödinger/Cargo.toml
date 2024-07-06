@@ -15,7 +15,7 @@ js-sys = { workspace = true }
 console_error_panic_hook = { workspace = true }
 cgmath = { workspace = true }
 generate_sphere_util = { workspace = true }
-
+nalgebra = "0.33.0"
 [dependencies.web-sys]
 workspace = true
 features = [
