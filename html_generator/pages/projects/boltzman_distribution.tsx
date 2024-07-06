@@ -20,15 +20,15 @@ function Boltzman({title}: {title: string}) {
   return (
     <Wrapper head={new_head} title={title}>
       <div className="boltzmanCanvases" >
-        <canvas
-          id="andy_canvas"
-          width="800"
-          height="800"
-        ></canvas>
 	<canvas
           id="graph_canvas"
           width="800"
           height="400"
+        ></canvas>
+        <canvas
+          id="andy_canvas"
+          width="800"
+          height="800"
         ></canvas>
       </div>
       <hr className="clearLeft" />

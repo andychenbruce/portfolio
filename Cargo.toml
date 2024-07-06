@@ -5,7 +5,8 @@ members = [
   "crates/generate_sphere_util",
   "crates/icosahedron",
   "crates/mandelbrot",
-  "crates/boltzman"
+  "crates/boltzman",
+  "crates/schrödinger"
 ]
 
 [workspace.dependencies]

@@ -21,6 +21,7 @@ import SeedlingTensorflow from "../pages/projects/seedlings_tensorflow.js";
 import SphereReflectionTexture from "../pages/projects/sphere_reflection_texture.js";
 import SphereShadows from "../pages/projects/sphere_shadows.js";
 import WaterMarbles from "../pages/projects/water_marbles.js";
+import Schrödinger from "../pages/projects/schrödinger.js";
 
 
 export const ProjectsList = [
@@ -128,6 +129,11 @@ export const ProjectsList = [
     react: InterMolecularForce,
     path: "inter_molecular_forces",
     title: "Intermolecular forces condensation simulation"
+  },
+    {
+    react: Schrödinger,
+    path: "schrödinger",
+    title: "Simulating Schrödinger Equation in 1 Dimension"
   },
 ];
 

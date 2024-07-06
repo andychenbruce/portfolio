@@ -14,7 +14,7 @@ ps2pdf static/Andy-Bruce-Resume.ps dist/Andy-Bruce-Resume.pdf
 
 echo "COMPILING RUST STUFF"
 
-declare -a NAMES=("icosahedron" "mandelbrot" "boltzman_distribution")
+declare -a NAMES=("icosahedron" "mandelbrot" "boltzman_distribution" "schrödinger")
 
 for NAME in "${NAMES[@]}"
 do
