@@ -192,3 +192,11 @@ canvas {
 #dvLargeButtons { width: 256px; background-color: red; }
 
 #imgCanvas { display: none; }
+
+#boltzmanDiv {
+    text-align: "center"
+}
+
+#boltzmanDiv p {
+    text-align: "left"
+}

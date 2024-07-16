@@ -11,10 +11,13 @@ function Icosahedron({title}: {title: string}) {
     <Wrapper head={new_head} title={title}>
       <canvas width="600" height="600" id="big_canvas"></canvas>
       <hr />
-      <div>
-        <canvas width="400" height="400" id="small_canvas0"></canvas>
+      <div className="boltzmanDiv"  >
+        <canvas width="400" height="400" id="small_canvas0" />
+	<br/>
+	<p style={{textAlign: "left"}}>
         First, we draw three orthoganal golden rectangles centered on the
-        origin.
+          origin.
+	  </p>
         <hr />
         <canvas width="400" height="400" id="small_canvas1"></canvas>
         Then connect the corners of the golden rectangles.

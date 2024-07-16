@@ -5,28 +5,28 @@ import Wrapper from "../../wrapper.js";
 
 function InterMolecularForce({title}: {title: string}) {
   let new_head = (
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossOrigin="anonymous"
-    />
+    <>
+      <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+	integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+	crossOrigin="anonymous"
+      />
+      <script type="module" src="./main.js"></script>
+    </>
   );
 
   return (
     <Wrapper head={new_head} title={title}>
       <div id="dvMain">
-        <div id="dvSmallButtons" className="dvB"></div>
-        <div id="dvLargeButtons" className="dvB"></div>
         <canvas
-          id="canvas"
+          id="andy_canvas"
           width="800"
           height="800"
           onContextMenu={(event) => event.preventDefault()}
         ></canvas>
       </div>
       <hr className="clearLeft" />
-      <h2>Intermolecular force simulator</h2>
       <br />
       <p>
         I modeled it off of the Lennard-Jones potential (
@@ -43,7 +43,7 @@ function InterMolecularForce({title}: {title: string}) {
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
-            "E(r) = 4\\epsilon [({\\sigma \\over r})^{12} - ({\\sigma \\over r})^{6}]"
+            "E(r) = 4\\epsilon [\\left(\\dfrac{\\sigma}{r}\\right)^{12} - \\left(\\dfrac{\\sigma}{r}\\right)^{6}]"
           }
         />
       </div>
@@ -66,8 +66,7 @@ function InterMolecularForce({title}: {title: string}) {
         potential energy is zero.
       </p>
       <br />
-      The bottom of the energy well is{" "}
-      <MakeMath tex={"r = {2^{1/6}}\\sigma"} />
+      The bottom of the energy well is <MakeMath tex={"r = {2^{1/6}}\\sigma"} />
       <br />
       <p>
         A more accurate simulation would put the potential energy into the
@@ -87,59 +86,58 @@ function InterMolecularForce({title}: {title: string}) {
       <br />
       <br />
       <br />
-      <MakeMath tex={"v = {dr \\over dt}"} />
+      <MakeMath tex={"v = \\dfrac{dr}{dt}"} />
       <br />
-      <MakeMath tex={"K = {1 \\over 2}v^2"} />
+      <MakeMath tex={"K = \\dfrac{1}{2}v^2"} />
       <br />
       taking the derivative of <MakeMath tex={"K"} /> with respect to{" "}
       <MakeMath tex={"t"} />
       <br />
-      <MakeMath tex={"{dK \\over dt} = v{dv \\over dt}"} />
+      <MakeMath tex={"\\dfrac{dK}{dt} = v\\dfrac{dv}{dt}"} />
       <br />
       dividing both sides by <MakeMath tex={"v"} />
       <br />
-      <MakeMath tex={"{dK \\over dt}{1 \\over v} = {dv \\over dt}"} />
+      <MakeMath tex={"\\dfrac{dK}{dt}\\dfrac{1}{v} = \\dfrac{dv}{dt}"} />
       <br />
       substitute <MakeMath tex={"v"} /> for{" "}
-      <MakeMath tex={"{dr \\over dt}"} />
+      <MakeMath tex={"\\dfrac{dr}{dt}"} />
       <br />
       <MakeMath
-        tex={"{dK \\over dt}{1 \\over {dr \\over dt}} = {dv \\over dt}"}
+        tex={"\\dfrac{dK}{dt}\\dfrac{1}{\\frac{dr}{dt}} = \\dfrac{dv}{dt}"}
       />
       <br />
       simplify to
       <br />
-      <MakeMath tex={"{dK \\over dt}{{dt \\over dr}} = {dv \\over dt}"} />
+      <MakeMath tex={"\\dfrac{dK}{dt}\\dfrac{dt}{dr} = \\dfrac{dv}{dt}"} />
       <br />
-      the <MakeMath tex={"dt"} />
-      's cancel to become
+      the <MakeMath tex={"dt"} />'s cancel to become
       <br />
-      <MakeMath tex={"{dK \\over dr} = {dv \\over dt}"} />
+      <MakeMath tex={"\\dfrac{dK}{dr} = \\dfrac{dv}{dt}"} />
       <br />
       The change in velocity over the change in time is just acceleration so
       <br />
-      acceleration = <MakeMath tex={"{dK \\over dr}"} />
+      acceleration = <MakeMath tex={"\\dfrac{dK}{dr}"} />
       <br />
       Now let's assume that kinetic energy is the only energy exchanged with
       potential energy, ignoring electron levels, etc. So the only place a drop
       in potential energy can go is into kinetic energy, so
       <br />
-      acceleration = <MakeMath tex={"{dK \\over dr} = -{dE(r) \\over dr}"} />
+      acceleration = <MakeMath tex={"\\dfrac{dK}{dr} = -\\dfrac{dE(r)}{dr}"} />
       <br />
       Taking the derivative of the Lennards-Jones potential gives
       <br />
       <MakeMath
         tex={
-          "{dE(r) \\over dr} = 4\\epsilon [-12{{({\\sigma \\over r})^{13}} \\over \\sigma} + 6{{({\\sigma \\over r})^{7}} \\over \\sigma}]"
+          "\\dfrac{dE(r)}{dr} = 4\\epsilon [-12\\dfrac{(\\dfrac{\\sigma}{r})^{13}}{\\sigma} + 6\\dfrac{(\\dfrac{\\sigma}{r})^{7}}{\\sigma}]"
         }
       />
       <br />
       So finally an easily implementable numeric solution
       <br />
       <div style={{ textAlign: "center" }}>
-        <MakeMath
+        acceleration = <MakeMath
           tex={
-            "acceleration = 4\\epsilon [-12{{({\\sigma \\over r})^{13}} \\over \\sigma} + 6{{({\\sigma \\over r})^{7}} \\over \\sigma}]"
+            "4\\epsilon [-12\\dfrac{(\\dfrac{\\sigma}{r})^{13}}{\\sigma} + 6\\dfrac{(\\dfrac{\\sigma}{r})^{7}}{\\sigma}]"
           }
         />
       </div>
@@ -177,28 +175,6 @@ function InterMolecularForce({title}: {title: string}) {
         simulation already doesn't run well, but the basic concept of IMF
         simulation is still there
       </p>
-      <hr className="clearLeft" />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-	var g = {};
-	g.smallButtons = true;
-	g.buttonArray = [
-	[ 0, 'R', 'Reset' ],
-	[ 0, 'r', 'Run' ],
-	[ 0, 'S', 'Pause' ],
-	[ 0, 'c', 'Cage' ],
-	[ 0, 'z', 'Floor' ],
-	];
-	var Module = {
-	  canvas: document.getElementById("canvas"),
- arguments: ["-tab", "22", "-smallButtons" ]
-	};`,
-        }}
-      />
-      <script src="/wasm/readfile.js"></script>
-      <script src="/wasm/buttons.js"></script>
-      <script src="/wasm/index.js"></script>
     </Wrapper>
   );
 }

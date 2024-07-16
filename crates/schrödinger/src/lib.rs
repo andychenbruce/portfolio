@@ -9,6 +9,7 @@ type AndyVector = nalgebra::DVector<Complex>;
 const NUM_BUCKETS: usize = 100;
 const BUCKET_SIZE: f32 = 1.0;
 const H_BAR: f32 = 1.0;
+const MASS: f32 = 1.0;
 
 #[derive(Clone)]
 struct Globals {
@@ -148,15 +149,13 @@ fn make_initial_wave() -> AndyVector {
         exponent.exp() * normalization
     };
 
-    AndyVector::from_vec((0..NUM_BUCKETS)
-        .map(at_point)
-        .collect::<Vec<_>>())
-    
+    AndyVector::from_vec((0..NUM_BUCKETS).map(at_point).collect::<Vec<_>>())
 }
 
 fn make_next_wave(curr_wave: &AndyVector) -> AndyVector {
     let dt = 0.4;
-    let mut mat = std::boxed::Box::new(AndyMatrix::zeros(NUM_BUCKETS, NUM_BUCKETS));
+
+    let mut mat = AndyMatrix::zeros(NUM_BUCKETS, NUM_BUCKETS);
 
     for i in 0..NUM_BUCKETS {
         if i != 0 {
@@ -168,17 +167,14 @@ fn make_next_wave(curr_wave: &AndyVector) -> AndyVector {
         }
     }
 
-    *mat *= Complex::new(1.0 / (BUCKET_SIZE * BUCKET_SIZE), 0.0);
+    mat *= -Complex::new(
+        (H_BAR * H_BAR) / (2.0 * MASS * BUCKET_SIZE * BUCKET_SIZE),
+        0.0,
+    );
 
-    web_sys::console::log_1(&"bruhbruh".into());
-    *mat = *mat * (Complex::i() * dt);
-    web_sys::console::log_1(&"multing".into());
-    mat = std::boxed::Box::new(mat.exp());
-    web_sys::console::log_1(&"kkkk".into());
-    
-    let new_wave = std::boxed::Box::new(*mat * curr_wave);
+    mat *= -Complex::i() * dt / H_BAR;
 
-    return *new_wave;
+    mat.exp() * curr_wave
 }
 
 #[wasm_bindgen]

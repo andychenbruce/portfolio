@@ -6,9 +6,11 @@ const TRIANGLE_FRAGS: bool = true;
 
 const ITERS: u32 = 2;
 const NUM_SPHERE_TRIANGLES: i32 = 20 * (4_i32.pow(ITERS));
-const BALL_RADIUS: f32 = 0.05;
-const NUM_BALLS: usize = 300;
-const HEIGHT_PER_BALL: f64 = 5.0;
+const BALL_RADIUS: f32 = 0.03;
+const NUM_BALLS: usize = 600;
+
+const POTENTIAL_ZERO: f32 = 2.5 * BALL_RADIUS;
+const EPSILON: f32 = 0.0001;
 
 const NUM_BUCKETS: usize = 40;
 const BUCKET_PER_VELOCITY: f32 = 0.15;
@@ -52,8 +54,6 @@ struct Globals {
     camera_offset_matrix: cgmath::Matrix4<f32>,
     sphere_verts_start: i32,
     balls: std::sync::Arc<std::sync::Mutex<[Ball; NUM_BALLS]>>,
-    graph_canvas_context: web_sys::CanvasRenderingContext2d,
-    graph_canvas: web_sys::HtmlCanvasElement,
 }
 
 fn make_random_vec() -> cgmath::Vector3<f32> {
@@ -68,8 +68,6 @@ fn make_globals(
     context: web_sys::WebGl2RenderingContext,
     program: web_sys::WebGlProgram,
     sphere_verts_start: i32,
-    graph_canvas_context: web_sys::CanvasRenderingContext2d,
-    graph_canvas: web_sys::HtmlCanvasElement,
     balls: std::sync::Arc<std::sync::Mutex<[Ball; NUM_BALLS]>>,
 ) -> Globals {
     let camera_rotate_matrix =
@@ -118,8 +116,6 @@ fn make_globals(
         }),
         sphere_verts_start,
         balls,
-        graph_canvas_context,
-        graph_canvas,
     }
 }
 
@@ -185,30 +181,11 @@ pub fn andy_main() {
             .collect::<Vec<f32>>(),
     );
 
-    let graph_canvas = web_sys::window()
-        .unwrap()
-        .document()
-        .unwrap()
-        .get_element_by_id("graph_canvas")
-        .unwrap()
-        .dyn_into::<web_sys::HtmlCanvasElement>()
-        .unwrap();
-
-    let graph_context: web_sys::CanvasRenderingContext2d = graph_canvas
-        .get_context("2d")
-        .unwrap()
-        .unwrap()
-        .dyn_into()
-        .unwrap();
-    graph_context.set_fill_style(&"red".to_owned().into());
-    graph_context.set_stroke_style(&"blue".to_owned().into());
-    graph_context.set_line_width(3.0);
-
     let balls = std::sync::Arc::new(std::sync::Mutex::new(
         (0..NUM_BALLS)
             .map(|_| Ball {
                 pos: make_random_vec(),
-                vel: cgmath::Vector3::new(1.0, 1.0, 1.0),
+                vel: cgmath::Vector3::new(0.0, 0.0, 0.0),
             })
             .collect::<Vec<Ball>>()
             .try_into()
@@ -232,16 +209,7 @@ pub fn andy_main() {
             ("mouseup", andy_mouseup_callback),
             ("mousemove", andy_mousemove_callback),
         ],
-        |context, program| {
-            make_globals(
-                context,
-                program,
-                sphere_verts_start,
-                graph_context,
-                graph_canvas,
-                balls.clone(),
-            )
-        },
+        |context, program| make_globals(context, program, sphere_verts_start, balls.clone()),
         [0.7, 0.85, 1.0, 1.0],
     );
 
@@ -280,6 +248,29 @@ fn andy_mousemove_callback(globals: Globals, e: web_sys::Event) {
 }
 
 fn tick(balls: &mut [Ball]) {
+    for ball1 in 0..NUM_BALLS {
+        for ball2 in (ball1 + 1)..NUM_BALLS {
+            let pos_diff = balls[ball2].pos - balls[ball1].pos;
+
+            let dist = pos_diff.magnitude();
+            if dist > 2.0 * BALL_RADIUS {
+                let dir = pos_diff.normalize();
+
+                let acceleration = 4.0
+                    * EPSILON
+                    * (-12.0 * ((POTENTIAL_ZERO / dist).powi(13) / POTENTIAL_ZERO)
+                        + 6.0 * ((POTENTIAL_ZERO / dist).powi(7) / POTENTIAL_ZERO));
+
+                balls[ball1].vel += acceleration * dir.normalize();
+                balls[ball2].vel -= acceleration * dir.normalize();
+            }
+        }
+    }
+
+    for ball in balls.iter_mut() {
+        ball.vel *= 0.995; //idk "friction"
+    }
+
     for i in 0..NUM_BALLS {
         for j in (i + 1)..NUM_BALLS {
             let dist = balls[i].pos.distance(balls[j].pos);
@@ -418,47 +409,6 @@ fn draw(globals: Globals) {
             buckets[bucket_num] += 1;
         }
     }
-
-    globals.graph_canvas_context.clear_rect(
-        0.0,
-        0.0,
-        globals.graph_canvas.width().into(),
-        globals.graph_canvas.height().into(),
-    );
-
-    let canvas_height: f64 = globals.graph_canvas.height().into();
-
-    let width: f64 = (globals.graph_canvas.width() as f64) / (NUM_BUCKETS as f64);
-    for (i, num) in buckets.into_iter().enumerate() {
-        globals.graph_canvas_context.fill_rect(
-            width * (i as f64),
-            canvas_height,
-            width,
-            -HEIGHT_PER_BALL * (num as f64),
-        );
-    }
-
-    let temp: f64 = 1.0;
-    let boltzman_const: f64 = 1.0;
-    let mass: f64 = 1.0;
-    globals.graph_canvas_context.begin_path();
-    globals.graph_canvas_context.move_to(0.0, 0.0);
-    for i in 0..buckets.len() {
-        let v = (i as f64) * (BUCKET_PER_VELOCITY as f64);
-        let prob = (mass / (std::f64::consts::TAU * boltzman_const * temp))
-            .powi(3)
-            .sqrt()
-            * 2.0
-            * std::f64::consts::TAU
-            * v.powi(2)
-            * ((-mass * v * v) / (2.0 * boltzman_const * temp)).exp()
-            * (BUCKET_PER_VELOCITY as f64);
-        globals.graph_canvas_context.line_to(
-            width * (i as f64),
-            canvas_height - (prob * (NUM_BALLS as f64) * HEIGHT_PER_BALL),
-        );
-    }
-    globals.graph_canvas_context.stroke();
 }
 
 fn length(vec: cgmath::Vector3<f32>) -> f32 {

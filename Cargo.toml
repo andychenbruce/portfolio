@@ -6,7 +6,8 @@ members = [
   "crates/icosahedron",
   "crates/mandelbrot",
   "crates/boltzman",
-  "crates/schrödinger"
+  "crates/schrödinger",
+  "crates/inter_molecular_forces"
 ]
 
 [workspace.dependencies]
