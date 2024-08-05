@@ -1,5 +1,11 @@
 72 700 translate
 
+% https://www.linuxquestions.org/questions/programming-9/postscript-hyperlinks-574701/
+%%
+% If pdfmark is defined, use it (for hyperlinks & other pdf-not-postscript features)
+% otherwise give pdfmark a null definition so that we don't get any errors.
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+
 /font { exch findfont exch scalefont setfont } def
 /black { 0 0 0 setrgbcolor } def
 /title { black	/AvantGarde-Demi 24 font 0 0 moveto show } def
@@ -13,7 +19,7 @@
     show 0 -10 moveto 
     show 0 -20 moveto 
     show 0 -30 moveto
-    show 0 -40 moveto 
+    makeLink 0 -40 moveto 
     show
     grestore
 } def
@@ -69,6 +75,29 @@
     0 -12 translate
 } def
 
+/makeLink{
+    currentpoint
+    3 copy
+    pop pop
+    show newpath
+    moveto
+    [ /Rect
+      [ 
+	4 copy
+	pop pop pop
+	false charpath pathbbox 
+	2 add 4 1 roll 2 add 4 1 roll 2 sub 4 1 roll 2 sub 4 1 roll
+	newpath ]
+      /Action <<
+		  /Subtype /URI /URI (https://www.andycbruce.com)
+	      >>
+      /Subtype
+      /Link
+      /ANN pdfmark
+
+    pop
+} def
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 (Andrew Bruce) title
@@ -76,11 +105,16 @@
 (github.com/andychenbruce)
 (www.andycbruce.com)
 (andycbruce@gmail.com)
-(\(408\) 207-3992)
+(+1 \(408\) 207-3992)
 (6241 Placid Ct, San Jose, CA 95135)
 address
 
 0 -50 translate
+
+% https://stackoverflow.com/questions/38391845/postscript-eps-drawing-rectangle-around-text
+
+0 -20 translate
+
 
 (I am available to work full time from June 17, 2024 to September 20, 2024.) txt
 
