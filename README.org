@@ -48,3 +48,8 @@ A higher number means worse quality and smaller size:
 #+BEGIN_SRC shell
 ffprobe -v error -show_entries stream=width,height robot.h264.30.mp4
 #+END_SRC
+
+** list ghostscript fonts
+#+BEGIN_SRC shell
+gs -q -dNODISPLAY -dBATCH -c '(*) {cvn ==} 256 string /Font resourceforall'
+#+END_SRC

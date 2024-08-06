@@ -1,4 +1,9 @@
-72 700 translate
+/pagewidth  currentpagedevice /PageSize get 0 get def
+/pageheight currentpagedevice /PageSize get 1 get def
+
+/indentAmt 25 def
+/bulletIndent 30 def
+/margin 20 def
 
 % https://www.linuxquestions.org/questions/programming-9/postscript-hyperlinks-574701/
 %%
@@ -8,32 +13,52 @@
 
 /font { exch findfont exch scalefont setfont } def
 /black { 0 0 0 setrgbcolor } def
-/title { black	/AvantGarde-Demi 24 font 0 0 moveto show } def
-/smallFont { black /AvantGarde-Book 9 font } def
+/title { black	/Times-Roman 24 font drawCenteredText } def
+/headerFont { black /AvantGarde-Book 9 font } def
+/smallFont { black /Times-Roman 9 font } def
 
 /address {
     gsave
-    270 10 translate
-    0 0 moveto
+    % 0 0 translate
     smallFont
-    show 0 -10 moveto 
-    show 0 -20 moveto 
-    show 0 -30 moveto
-    makeLink 0 -40 moveto 
-    show
+    pagewidth margin sub -20 alignRight show
+    pagewidth margin sub -30 alignRight makeLink
+    20 -20 moveto makeLink
+    20 -30 moveto makeLink
+    20 -40 moveto makeLink
     grestore
 } def
 
-/redHdr {
+/alignRight{
+    3 -1 roll
+    dup
+    getTextWidth
+    neg
+    4 -1 roll
+    add
+    3 -1 roll
+    moveto
+} def
+
+/printInt{
+    (%stderr)(w)file
+    2 -1 roll
+    dup
+    3 1 roll
+    20 string cvs
+    writestring
+} def
+
+/hdr {
     0 -15 translate
-    0 0 moveto
-    1 0.25 0.25 setrgbcolor
+    20 0 moveto
+    1.0 0.5 0.1 setrgbcolor
     /Bookman-Light 16 font
     show
     0 -18 translate
 } def
 
-/indent {10 0 moveto} def
+/indent {indentAmt 0 moveto} def
 
 /txt {
     indent
@@ -57,7 +82,7 @@
     black
     gsave
     smallFont
-    30 0 translate
+    bulletIndent 0 translate
     newpath -10 3 1.5 0 360 arc closepath fill
     0 0 moveto
     show
@@ -68,86 +93,112 @@
 /bulletWrap {
     gsave
     smallFont
-    30 0 translate
+    bulletIndent 0 translate
     0 0 moveto
     show
     grestore
     0 -12 translate
 } def
 
+/getTextWidth{
+    stringwidth
+    pop
+} def
+
+/drawCenteredText{
+    dup
+    getTextWidth
+    2 div
+    floor
+    neg
+    0 rmoveto
+    show
+} def
+
 /makeLink{
+    exch
     currentpoint
-    3 copy
-    pop pop
+    3 2 roll
+    dup
     show newpath
+    3 1 roll
     moveto
+    % https://stackoverflow.com/questions/38391845/postscript-eps-drawing-rectangle-around-text
     [ /Rect
-      [ 
-	4 copy
-	pop pop pop
+      [ 4 -1 roll
 	false charpath pathbbox 
 	2 add 4 1 roll 2 add 4 1 roll 2 sub 4 1 roll 2 sub 4 1 roll
 	newpath ]
-      /Action <<
-		  /Subtype /URI /URI (https://www.andycbruce.com)
+      /Action << /Subtype /URI /URI
+		 9 -1 roll
 	      >>
       /Subtype
       /Link
       /ANN pdfmark
-
-    pop
 } def
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0 pageheight 20 sub translate
 
+pagewidth .5 mul 30 neg moveto
 (Andrew Bruce) title
 
-(github.com/andychenbruce)
-(www.andycbruce.com)
-(andycbruce@gmail.com)
-(+1 \(408\) 207-3992)
+(github.com/andychenbruce) (https://github.com/andychenbruce)
+(www.andycbruce.com) (https://www.andycbruce.com)
+(andycbruce@gmail.com) (mailto:andycbruce@gmail.com)
+(+1 \(408\) 207-3992) (tel:+14082073992)
 (6241 Placid Ct, San Jose, CA 95135)
 address
 
-0 -50 translate
-
-% https://stackoverflow.com/questions/38391845/postscript-eps-drawing-rectangle-around-text
-
-0 -20 translate
-
+0 -60 translate
 
 (I am available to work full time from June 17, 2024 to September 20, 2024.) txt
 
-(Work Experience) redHdr
-(2023-2024) txt
+(Work Experience) hdr
+
+(May 2024 - Present) txt
+(Graduate Researcher) ( - University of California Santa Cruz, California) subHeader
+(Ported OpenMM, a molecular dynamics simulation library used by thousands of scientists, to run with 16 bit floating point precision on CUDA.) bulletPoint
+(backend of GPU to speed up the simulation of atoms.) bulletWrap
+(Currently training many different neural net models on predicting the energy fields of a protein. If successful could be used to massively speed up the) bulletPoint
+(simulation of proteins.) bulletWrap
+
+0 -10 translate
+
+(July 2023 - March 2024) txt
 (Machine Learning Engineer) ( - Suzhou Benqio Technology Ltd., Suzhou, China) subHeader
-
-(Quantized LLMs using CUDA backend) bulletPoint
-(Wrote custom HTTP servers implementing REST APIs) bulletPoint
-(Wrote a pipeline for OCR-ing PDFs, sentence embeddings, and storing sentences in a) bulletPoint
-(semantic lookup vector database for an insurance company) bulletWrap
-(Wrote a website with WebAssembly) bulletPoint
-(Designed and built an LLM document chat web app, frontend, and backend) bulletPoint
+(Quantized LLMs to GGUF files for more efficient inference on the GPU, reducing memory usage by 4x and allowing inference of a 33 billion) bulletPoint
+(parameter model to run with under 24GB of ram.) bulletWrap
+(Very efficiently retrained LLM's to small custom datasets using LoRA matricies on just a single GPU.) bulletPoint
+(Designed and wrote a custom HTTP server implementing REST APIs. Backend application allowed conversations with any GGUF formatted LLM) bulletPoint
+(using Llama.cpp and Candle, and being able to read information from documents using sentence embeddings and the Qdrant vector database, and) bulletWrap
+(storing conversations using SQLite.) bulletWrap
+(Created a frontend in Webassembly for real time conversation and uploading PDF documents to the LLM.) bulletPoint
+(Designed and wrote a data pipeline for extracting text from pdfs, OCR-ing embedded images using Tesseract, and extraction of relevant information) bulletPoint
+(using sentence transformers for an insurance company to save employees time on finding viable insurance contracts. The entire pipeline had be done) bulletWrap
+(locally, without connection to any of the internet, to prevent sensitive data from leaking.) bulletWrap
 
 0 -10 translate
 
-(2022 - 2023) txt
+(October 2022 - June 2023) txt
 (Embedded and Frontend Developer) ( - PinPoint AVL, Santa Cruz, California) subHeader
-(Programmed embedded applications on Raspberry Pi Pico and Arduinos) bulletPoint
-(Cross-compiling to ARM AArch64) bulletPoint
-(Communicated between microcontrollers using I2C and UART protocols ) bulletPoint
-(Sent data to cell networks through LTE chips) bulletPoint
-(Data processing in Python) bulletPoint		
-(Implement Frontend integration with Google Maps) bulletPoint
+(Created device for tracking busses and counting capacity using a Raspberry Pi Pico, Arduino, a bus driver dashboard, powered by a battery.) bulletPoint
+(Implemented inter-device communication using I2C, and debugging over the UART protocols.) bulletPoint
+(Sent realtime coordinates to the cell network using LTE chips.) bulletPoint
+(Utilized custom multi-core scheduling in the Raspberry Pi to balance workload between logging to disk, LTE communication, and I2C to the Arduino.) bulletPoint
+(Crosscompiled C++ using Cmake to ARM AArch64. Implemented backend REST API in C#.) bulletPoint
+(Implemented frontend Google Maps integration in TypeScript to track the real time location and capacity of UCSC bus routes.) bulletPoint
+(Created many Python scripts for processing data in GTFS feeds and logged data in CSVs.) bulletPoint
 
 0 -10 translate
 
-(2019 - 2022) txt
+(July 2019 - June 2022) txt
 (Mobile Game Developer) ( - AbiTalk, Inc., San Jose, California) subHeader
-(Developed educational mobile games for learning English) bulletPoint
-(Worked with Apple ecosystem, Swift programming, and App Store publishing) bulletPoint
+(Developed educational mobile games for kids learning English and speech impediments.) bulletPoint
+(Implemented GUI, sound design, and sending statistics to the backend to track progress.) bulletPoint
+(Worked with Apple ecosystem, Swift programming, music licensing, and publishing to the IOS App Store) bulletPoint
 
-(Education) redHdr
+(Education) hdr
 
 (2024-Present) txt
 (University of California Santa Cruz) ( - Computer Science MS) subHeader
@@ -157,11 +208,12 @@ address
 
 (2022-2024) txt
 (University of California Santa Cruz) ( - Computer Science BS) subHeader
-(3.92 GPA, with a GPA of 4.0 in my CS classes.) txt
+(3.93 GPA, with a GPA of 4.0 in my CS classes.) txt
 
-(Skills) redHdr
-(C++, Rust, Python, JavaScript, TypeScript, React, PHP, SQL, Node.js, Full-stack, Git, PyTorch, Tensorflow,) txt
-(Keras, CUDA, Machine Learning, Linux Programming, Linux Device Drivers, Embedded Programming,) txt
-(Computer Vision, OpenGL, GLSL, WebAssembly, Agile, Scrum, Chinese) txt
-
+(Skills) hdr
+(C, C++, Rust, Python, JavaScript, TypeScript, React, SQL, SQLite, PyTorch, CUDA kernels, OpenGL, WebGL, GLSL, WebAssembly,) txt
+(Bash, Make, CMake, Git, Embedded Programming, Linux Devops, Linux Device Drivers, Linux Kernel Modules, OSDev) txt
+(Machine Learning, Computer Vision, OpenCV) txt
+(Full-stack,  Agile, Scrum) txt
+(Postscript, LaTeX) txt
 showpage
