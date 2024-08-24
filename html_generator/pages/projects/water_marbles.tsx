@@ -3,17 +3,8 @@ import React from "react";
 import Wrapper from "../../wrapper.js";
 
 function Project2Body(props: any): React.JSX.Element {
-  let new_head = (
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossOrigin="anonymous"
-    />
-  );
-
   return (
-    <Wrapper head={new_head} {...props}>
+    <Wrapper {...props}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>

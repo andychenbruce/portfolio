@@ -10,7 +10,7 @@ node ts_output/main.js
 
 cp -r --interactive static/. dist
 
-ps2pdf static/Andy-Bruce-Resume.ps dist/Andy-Bruce-Resume.pdf
+ps2pdf resume/resume.ps dist/Andy-Bruce-Resume.pdf
 
 echo "COMPILING RUST STUFF"
 

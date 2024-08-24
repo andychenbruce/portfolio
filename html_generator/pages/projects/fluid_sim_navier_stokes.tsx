@@ -1,20 +1,11 @@
 import React from "react";
-import {MakeMath} from "../../render_math.js";
+import {MakeMath, MakeMathCenter} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
 
 function NavierStokes({title}: {title: string}) {
-  let new_heads = (
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossOrigin="anonymous"
-    />
-  );
-
   return (
-    <Wrapper head={new_heads} title={title}>
+    <Wrapper title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -36,7 +27,7 @@ function NavierStokes({title}: {title: string}) {
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
-            "\\rho{D\\mathbf{u} \\over Dt} = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
+            "\\rho\\dfrac{D\\mathbf{u}}{Dt} = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
           }
         />
       </div>
@@ -44,25 +35,23 @@ function NavierStokes({title}: {title: string}) {
       <br />
       <p>
         <MakeMath tex={"\\rho"} /> is density
+        <br />
+	<MakeMath tex={"\\mathbf{u}"} /> is the velocity vector
+	<br />
+	<MakeMath tex={"p"} /> is the pressure
+	<br />
+	<MakeMath tex={"\\mathbf{\\tau}"} /> is the stress tensor
+	<br />
+	<MakeMath tex={"g"} /> is any other acceleration
+	<br />
       </p>
-      <br />
-      <MakeMath tex={"\\mathbf{u}"} /> is the velocity vector
-      <br />
-      <MakeMath tex={"p"} /> is the pressure
-      <br />
-      <MakeMath tex={"mathbf{\tau}"} /> stress tensor
-      <br />
-      <MakeMath tex={"g"} /> is any other acceleration, basically the "other"
-      category like walls, gravity, surface tension, diffusion, ect
-      <br />
       <MakeMath tex={"\\nabla"} /> is the gradient, equal to{" "}
       <MakeMath
         tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y}, {\\partial \\over \\partial z}, ...)"
         }
       />{" "}
-      for however many dimentions. This simulation is only 2 dimentional for
-      display purpouses so in this case it is just{" "}
+      for however many dimensions. This simulation is only 2 dimensional  so in this case it is just{" "}
       <MakeMath
         tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y})"
@@ -70,14 +59,14 @@ function NavierStokes({title}: {title: string}) {
       />
       .
       <br />
-      <MakeMath tex={"{\\nabla \\cdotp}"} /> is the divergence and is just the
-      dot product of the gradient with the origional vector so it is equal to to
+      <MakeMath tex={"{\\nabla \\cdotp}"} /> is the divergence and is the
+      dot product of the gradient with the vector so it is equal to to
       <MakeMath
         tex={
           "({\\partial \\over \\partial x}, {\\partial \\over \\partial y}, {\\partial \\over \\partial z} ...) \\cdotp (F_x, F_y, F_z, ...) = {\\partial F_x\\over \\partial x} + {\\partial F_y\\over \\partial y} + {\\partial F_z\\over \\partial z}, ..."
         }
       />{" "}
-      for however many dimentions. Again this one is 2 dimentions so it's just
+      for however many dimensions. In 2 dimentions it's
       <MakeMath
         tex={
           "{\\partial F_x\\over \\partial x} + {\\partial F_y\\over \\partial y}"
@@ -85,86 +74,134 @@ function NavierStokes({title}: {title: string}) {
       />
       .
       <br />
-      <MakeMath tex={"D\\mathbf{} \\over Dt"} /> is the material vector which
-      is just{" "}
+      <MakeMath tex={"D\\mathbf{} \\over Dt"} /> is the material derivative which
+      is{" "}
       <MakeMath
         tex={
           "{\\partial  \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla"
         }
       />
-      , basically meaning how a material follows its velocity field
+      , which measures how much material will change measured at a point moving with the fluid.
       <br />
-      here it is taking the matieral derivative of the velocity, or saying how
-      the velocity follows itself
+      Here it is taking the matieral derivative of the velocity, or saying how much a particles velocity will change as it flows through the fluid.
       <br />
-      <MakeMath
-        tex={
-          "{D\\mathbf{u} \\over Dt} = {\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u}"
-        }
-      />
-      <br />
-      which expanded further makes
-      <br />
-      <MakeMath
-        tex={
-          "{\\partial\\mathbf{u} \\over \\partial t} + {u_x}{\\partial\\mathbf{u} \\over \\partial x} + {u_y}{\\partial\\mathbf{u} \\over \\partial y}"
-        }
-      />
-      <br />
-      which is actually just equal to
-      <br />
-      <MakeMath tex={"d\\mathbf{u} \\over dt"} /> which the acceleration
-      vector, so the velocity moving based on the velocity field (iteself) is
-      just the acceleration field
-      <br />
-      let
-      <MakeMath tex={"\\mathbf{a}"} /> be the acceleration vector
-      <br />
-      <MakeMath tex={"\\mathbf{a} = {D\\mathbf{u} \\over Dt}"} />
-      <br />
+      <div style={{ textAlign: "center" }}>
+	<MakeMath
+          tex={
+            "{D\\mathbf{u} \\over Dt} = {\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u}"
+          }
+	/>
+      </div>
       so the origional equation becomes
+      <div style={{ textAlign: "center" }}>
+        <MakeMath
+          tex={
+            "\\rho({\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u}) = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
+          }
+        />
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <MakeMath
+          tex={
+            "{\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u} = - \\frac{1}{\\rho} \\nabla p + \\frac{1}{\\rho} \\nabla \\cdotp \\mathbf{ \\tau } + \\mathbf{g}"
+          }
+        />
+      </div>
+      <MakeMath tex={"\\mathbf{\\tau}"} /> doesn't matter here since it is the stress tensor used for viscosity and when the shape of the box is changing size and volume, but both of those are ignored, and we can also don't have any external forces like gravity or electromagnetism so we can ignore <MakeMath tex={"\\mathbf{g}"} />.
       <br />
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
-            "\\rho{\\mathbf{a}} = -\\nabla p + \\nabla \\cdotp \\mathbf{ \\tau } + \\rho \\mathbf{g}"
+            "{\\partial\\mathbf{u} \\over \\partial t} + \\mathbf{u} \\cdotp \\nabla \\mathbf{u} = - \\frac{1}{\\rho} \\nabla p"
           }
         />
       </div>
-      <br />
-      next,
-      <br />
-      <MakeMath tex={"\\mathbf{\\tau}"} /> basically doesn't matter here since
-      it is the stress tensor used for viscosity and when the shape of the box
-      is changing size and volume, stuff like that is ignored for this
-      simulation
-      <br />
-      now the equation is getting easier and looks like
-      <br />
-      <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center" }}>
         <MakeMath
-          tex={"\\rho{\\mathbf{a}} = -\\nabla p + \\rho \\mathbf{g}"}
+          tex={
+            "{\\partial\\mathbf{u} \\over \\partial t} = - \\mathbf{u} \\cdotp \\nabla \\mathbf{u} - \\frac{1}{\\rho} \\nabla p"
+          }
         />
       </div>
-      <br />
-      also just ignore extra forces for now so
-      <br />
       <div style={{ textAlign: "center" }}>
-        <MakeMath tex={"\\rho{\\mathbf{a}} = -\\nabla p"} />
+        <MakeMath
+          tex={
+            "{\\partial\\mathbf{u} \\over \\partial t} = - \\mathbf{u} \\cdotp ({\\partial \\mathbf{u} \\over \\partial x}, {\\partial \\mathbf{u} \\over \\partial y}) - \\frac{1}{\\rho} \\nabla p"
+          }
+        />
       </div>
+            <div style={{ textAlign: "center" }}>
+        <MakeMath
+          tex={
+            "{\\partial\\mathbf{u} \\over \\partial t} = - \\mathbf{u}_x {\\partial \\mathbf{u} \\over \\partial x} - \\mathbf{u}_y {\\partial \\mathbf{u} \\over \\partial y} - \\frac{1}{\\rho} \\nabla p"
+          }
+        />
+      </div>
+      Then expanding the vector
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={`
+\\begin{bmatrix}
+{\\partial\\mathbf{u}_x \\over \\partial t} \\\\
+{\\partial\\mathbf{u}_y \\over \\partial t}
+\\end{bmatrix} = 
+-\\begin{bmatrix}
+\\mathbf{u}_x{\\partial\\mathbf{u}_x \\over \\partial x} \\\\
+\\mathbf{u}_x{\\partial\\mathbf{u}_y \\over \\partial x}
+\\end{bmatrix}
+-\\begin{bmatrix}
+\\mathbf{u}_y{\\partial\\mathbf{u}_x \\over \\partial y} \\\\
+\\mathbf{u}_y{\\partial\\mathbf{u}_y \\over \\partial y}
+\\end{bmatrix}
+-\\frac{1}{\\rho}
+\\begin{bmatrix}
+{\\partial p \\over \\partial x} \\\\
+{\\partial p \\over \\partial y}
+\\end{bmatrix}
+	    `} />
+      </div>
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={`
+\\begin{bmatrix}
+{\\partial\\mathbf{u}_x \\over \\partial t} \\\\
+{\\partial\\mathbf{u}_y \\over \\partial t}
+\\end{bmatrix} = 
+-\\begin{bmatrix}
+\\mathbf{u}_x{\\partial\\mathbf{u}_x \\over \\partial x} + \\mathbf{u}_y{\\partial\\mathbf{u}_x \\over \\partial y} + \\frac{1}{\\rho} {\\partial p \\over \\partial x}\\\\
+\\mathbf{u}_x{\\partial\\mathbf{u}_y \\over \\partial x} + \\mathbf{u}_y{\\partial\\mathbf{u}_y \\over \\partial y} + \\frac{1}{\\rho} {\\partial p \\over \\partial y}
+\\end{bmatrix}
+`} />
+      </div>
+      Applying the finite distance method:
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={`{\\partial f(x) \\over \\partial x} \\approx \\frac{f(x + \\Delta x) - f(x)}{\\Delta x}`} />
+      </div>
+      onto <MakeMath tex={`{\\partial \\mathbf{u}_x \\over \\partial t}`} /> makes:
+      <div style={{ textAlign: "center" }}>
+	<MakeMathCenter tex={`
+\\begin{split}
+\\frac{\\mathbf{u}_x(x, y, t + \\Delta t) - \\mathbf{u}_x(x, y, t)}{\\Delta t} = 
+&-\\mathbf{u}_x(x, y, t) \\frac{\\mathbf{u}_x(x + \\epsilon, y, t) - \\mathbf{u}_x(x - \\epsilon, y, t)}{2 \\epsilon} \\\\
+&-\\mathbf{u}_y(x, y, t) \\frac{\\mathbf{u}_x(x, y + \\epsilon, t) - \\mathbf{u}_x(x, y - \\epsilon, t)}{2 \\epsilon} \\\\
+&-\\frac{1}{\\rho} \\frac{p(x + \\epsilon, y, t) - p(x - \\epsilon, y, t)}{2 \\epsilon}
+\\end{split}`} />
+      </div>
+      <p>Then isolate <MakeMath tex={`\\mathbf{u}_x(x, y, t + \\Delta t)`} />:</p>
+      <MakeMathCenter tex={`
+\\begin{split}
+\\mathbf{u}_x(x, y, t + \\Delta t) = &\\mathbf{u}_x(x, y, t)\\\\
+&-\\Delta t \\mathbf{u}_x(x, y, t) \\frac{\\mathbf{u}_x(x + \\epsilon, y, t) - \\mathbf{u}_x(x - \\epsilon, y, t)}{2 \\epsilon} \\\\
+&-\\Delta t \\mathbf{u}_y(x, y, t) \\frac{\\mathbf{u}_x(x, y + \\epsilon, t) - \\mathbf{u}_x(x, y - \\epsilon, t)}{2 \\epsilon} \\\\
+&-\\Delta t \\frac{1}{\\rho} \\frac{p(x + \\epsilon, y, t) - p(x - \\epsilon, y, t)}{2 \\epsilon}
+\\end{split}`} />
       <br />
-      now this is easy, acceleration time density (fluid equivelent of force,
-      F=ma) is just the oppossite of the gradient in pressure, which makes sense
-      since it would flow from large pressure to small pressure, or where and in
-      the direction the derivative/gradient is negative.
-      <br />
-      In incompressable fluids, density is constant so
-      <MakeMath tex={"\\rho"} /> is basically a constant and can be ignored
-      too. Because
-      <MakeMath tex={"\\rho"} /> is constant,
-      <MakeMath tex={"{d\\rho \\over dt} = 0"} />
-      <br />
-      conservation of mass equation is
+      The first 3 terms are just the advected velocity, because its equal to <MakeMath tex={`\\mathbf{u}_x - \\Delta t \\mathbf{u} \\cdotp \\nabla\\mathbf{u}_x`} />. Make a new variable <MakeMath tex={`a(x, y, t)`} /> for the first 3 terms, the advected velocity.
+      <MakeMathCenter tex={`
+\\begin{split}
+\\mathbf{u}_x(x, y, t + \\Delta t) = &a_x(x, y, t)\\\\
+&-\\Delta t \\frac{1}{\\rho} \\frac{p(x + \\epsilon, y, t) - p(x - \\epsilon, y, t)}{2 \\epsilon}
+\\end{split}`} />
+      In incompressable fluids, density is constant so <MakeMath tex={"\\rho"} /> is a constant.
+      If <MakeMath tex={"\\rho"} /> is constant then <MakeMath tex={"{d\\rho \\over dt} = 0"} /> so the conservation of mass equation:
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
@@ -172,72 +209,80 @@ function NavierStokes({title}: {title: string}) {
           }
         />
       </div>
+      becomes
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={"\\nabla \\cdotp (\\rho \\mathbf{u}) = 0"} />
+      </div>
+      and since <MakeMath tex={"\\rho"} /> is a constant it can be divided out
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={"\\nabla \\cdotp \\mathbf{u} = 0"} />
+      </div>
+      One point can't have 2 neighboring points both pulling from it or else that means it is going in 2 directions and creating new mass, or if a cell has 2 neighbors going into it mass is deleted since density can't change, so the divergence of the velocity at every point must equal zero.
       <br />
-      but because
-      <MakeMath tex={"{d\\rho \\over dt} = 0"} /> it is just
-      <MakeMath tex={"\\nabla \\cdotp (\\rho \\mathbf{u}) = 0"} />, and since
-      <MakeMath tex={"\\rho"} /> doesnt change it can be divided out of the
-      divergence since it is the same at every point to where
-      <MakeMath tex={"\\nabla \\cdotp \\mathbf{u} = 0"} />, which also makes
-      sense. One point can't have 2 neighboring points both pulling from it or
-      else that means it is going in 2 directions and creating new mass, or if a
-      cell has 2 neighbors going into it mass is deleted since density can't
-      change, so the divergence at every point must equal zero.
-      <br />
-      The opposite of divergence is curl, and every vector field can be
-      reresented as a vector field of just the divergence plus a field of just
-      the curl,
-      <MakeMath
-        tex={
-          "\\mathbf{u_{divergence}} + \\mathbf{u_{curl}} = \\mathbf{u}"
-        }
+      So the solution must also have zero divergence
+      <div style={{ textAlign: "center" }}>
+	<MakeMath tex={"{\\partial \\mathbf{u}_x \\over \\partial x} + {\\partial \\mathbf{u}_y \\over \\partial y} = 0"} />
+      </div>
+      Then also apply the finite difference method
+      <MakeMathCenter tex={`
+\\begin{split}
+0 = &{\\mathbf{u}_x(x + \\epsilon, y, t + \\Delta t) - \\mathbf{u}_x(x - \\epsilon, y, t + \\Delta t) \\over 2 \\epsilon} \\\\
+    &{\\mathbf{u}_y(x, y + \\epsilon, t + \\Delta t) - \\mathbf{u}_y(x, y - \\epsilon, t + \\Delta t) \\over 2 \\epsilon}
+\\end{split}`} />
+      We can substitute the previous equation for the 2 derivatives.
+      <br/>
+      <MakeMathCenter tex={`
+\\begin{split}
+0 = \\frac{1}{2\\epsilon}\\Bigg( & \\bigg( a_x(x + \\epsilon, y, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x + 2\\epsilon, y, t) - p(x, y, t)}{2 \\epsilon} \\bigg) \\\\
+                               - & \\bigg( a_x(x - \\epsilon, y, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x - 2\\epsilon, y, t)}{2 \\epsilon} \\bigg) \\\\
+                               + & \\bigg( a_y(x, y + \\epsilon, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x, y + 2\\epsilon, t) - p(x, y, t)}{2 \\epsilon} \\bigg) \\\\
+                               - & \\bigg( a_y(x, y - \\epsilon, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x, y - 2\\epsilon, t)}{2 \\epsilon} \\bigg) \\Bigg)
+\\end{split}`} />
+      Then move the knows and unknowns to the left and right sides.
+      <MakeMathCenter tex={`
+\\begin{split}
+  & a_x(x + \\epsilon, y, t) - a_x(x - \\epsilon, y, t) \\\\
++ & a_y(x, y + \\epsilon, t) - a_y(x, y - \\epsilon, t)
+\\end{split} =
+\\begin{split}
+-\\Bigg( - & \\Delta t \\frac{1}{\\rho} \\frac{p(x + 2\\epsilon, y, t) - p(x, y, t)}{2 \\epsilon} \\bigg) \\\\
+         + & \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x - 2\\epsilon, y, t)}{2 \\epsilon} \\bigg) \\\\
+         - & \\Delta t \\frac{1}{\\rho} \\frac{p(x, y + 2\\epsilon, t) - p(x, y, t)}{2 \\epsilon} \\bigg) \\\\
+         + & \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x, y - 2\\epsilon, t)}{2 \\epsilon} \\bigg) \\Bigg)
+\\end{split}`}
+	/>
+      Then simplify
+      <MakeMathCenter tex={`
+\\begin{split}
+  & a_x(x + \\epsilon, y, t) - a_x(x - \\epsilon, y, t) \\\\
++ & a_y(x, y + \\epsilon, t) - a_y(x, y - \\epsilon, t)
+\\end{split} =
+-\\frac{\\Delta t}{2\\epsilon \\rho}
+\\begin{pmatrix}
+  4p(x, y, t) \\\\
+- p(x + 2\\epsilon, y, t) - p(x - 2\\epsilon, y, t)) \\\\
+- p(x, y + 2\\epsilon, t) - p(x, y - 2\\epsilon, t))
+\\end{pmatrix}`}
       />
-      . To get just the curl one takes the origional vector field and subtracts
-      the divergence to leave the curl,
-      <MakeMath
-        tex={
-          "\\mathbf{u_{curl}} = \\mathbf{u} - \\mathbf{u_{divergence}}"
-        }
-      />
-      . The divergence only field,
-      <MakeMath tex={"\\mathbf{u_{divergence}}"} /> is really complicated to
-      calculate and would take like 10 pages to explain but basically it's just:
+      In the code this systems of equations could be solved with a massive matrix with each voxel as a variable and have very perfect calculations, or just do it iteratevly and approximate with an iterative solver. This code uses the <a href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method">Gauss Seidel</a> method.
+      Set <MakeMath tex={"-\\frac{\\Delta t}{2\\epsilon \\rho} b(x, y, t)"} /> to the left hand side of the equation.
+      
+      <div style={{ textAlign: "center" }}>
+	<MakeMath
+          tex={
+            "p(x, y) = \\dfrac{p(x+\\epsilon, y) + p(x-\\epsilon, y) + p(x, y+\\epsilon) + p(x, y-\\epsilon) - b(x, y)}{4}"
+          }
+	/>
+      </div>
       <br />
-      <MakeMath
-        tex={
-          "p(x, y) = {p(x-1, y) + (p(x+1, y) + p(x, y-1) + p(x, y+1) -  {\\nabla \\cdotp \\mathbf{u}(x, y)} \\over 4}"
-        }
-      />
-      <br />
-      (think the reverse the gradient by taking an integral instead of partial
-      derivative)
-      <br />
-      and with that system of equations
-      <br />
-      <MakeMath tex={"\\mathbf{u_d} = \\nabla p(x,y)"} />
-      <br />
-      to then calculate
-      <MakeMath tex={"\\mathbf{u_c} = \\mathbf{u} - \\mathbf{u_d}"} /> and
-      then use
-      <MakeMath tex={"\\mathbf{u_c}"} /> as the new
-      <MakeMath tex={"\\mathbf{u}"} /> for the next time step
-      <br />
-      <br />
-      In the code this systems of equations could be solved with a massive
-      matrix with each voxel as a variable and have very perfect calculations,
-      or just do it iteratevly and approximate with an iterative solver. This
-      code uses the{" "}
-      <a href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method">
-        Gauss Seidel
-      </a>{" "}
-      method, basically just putting random numbers in to start, then going
-      through each
-      <MakeMath tex={"p"} />
-      -value and substituting the other
-      <MakeMath tex={"p"} />
-      -values over and over and hope it converges to the right solution (I'm not
-      even joking this is literatly what the code does).
-      <br />
+      And with that system of equations iterate by setting the initial guess for every point <MakeMath tex={"p^0(x, y) = 0"} />. Then iterate with
+      <div style={{ textAlign: "center" }}>
+	<MakeMath
+          tex={
+            "p_{n+1}(x, y) = \\dfrac{p_n(x+\\epsilon, y) + p_n(x-\\epsilon, y) + p_n(x, y+\\epsilon) + p_n(x, y-\\epsilon) - b(x, y)}{4}"
+          }
+	/>
+      </div>
       After the divergence is cleared, the velocities just need to move both the
       color, themselves, and any other values in the direction they are
       pointing.
@@ -258,11 +303,10 @@ function NavierStokes({title}: {title: string}) {
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
-            "a_n(x, y) = a_c(x, y) + k*({a_n(x-1, y) + a_n(x+1, y) + a_n(x, y-1) + a_n(x, y+1)\\over 4} - a_c(x, y))"
+            "c_{n+1}(x, y) = c_n(x, y) + k*\\big(\\dfrac{a_n(x-\\epsilon, y) + c_{n+1}(x+\\epsilon, y) + a_{n+1}(x, y-\\epsilon) + a_{n+1}(x, y+\\epsilon)}{4} - c_n(x, y)\\big)"
           }
         />
       </div>
-      <br />
       between the new and the current attrubute,
       <MakeMath tex={"a"} /> and the percent it goes towards it in that time
       tick,
@@ -285,8 +329,7 @@ function NavierStokes({title}: {title: string}) {
       parralel to them
       <br />
       <br />
-      This is probably obvious but for the numerical implementation of
-      derivatives it is just
+      For the numerical implementation of derivatives it is just
       <br />
       <MakeMath
         tex={"{df(x) \\over dx} = lim_{h \\to 0}{f(x+h)-f(x) \\over h}"}
@@ -323,15 +366,13 @@ function NavierStokes({title}: {title: string}) {
       and in code form with the voxels where the position must be integers the
       most accurate would be would be
       <br />
-      <MakeMath tex={"{df(x) \\over dx} = {f(x+1)-f(x-1) \\over 2}"} />
+      <MakeMath tex={"{df(x) \\over dx} = {f(x+\\epsilon)-f(x-\\epsilon) \\over 2}"} />
       <br />
       <br />
       <br />
       used sources:
       <br />
-      https://www.autodesk.com/research/publications/real-time-fluid-dynamics
-      <br />
-      my brain
+      https://jamie-wong.com/2016/08/05/webgl-fluid-simulation/
       <br />
       <hr className="clearLeft" />
       <script

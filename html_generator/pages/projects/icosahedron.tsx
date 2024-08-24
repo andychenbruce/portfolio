@@ -11,7 +11,7 @@ function Icosahedron({title}: {title: string}) {
     <Wrapper head={new_head} title={title}>
       <canvas width="600" height="600" id="big_canvas"></canvas>
       <hr />
-      <div className="boltzmanDiv"  >
+      <div>
         <canvas width="400" height="400" id="small_canvas0" />
 	<br/>
 	<p style={{textAlign: "left"}}>

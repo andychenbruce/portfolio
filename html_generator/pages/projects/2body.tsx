@@ -4,17 +4,8 @@ import Wrapper from "../../wrapper.js";
 import {MakeMath} from "../../render_math.js";
 
 function Project2Body({title}: {title: string}) {
-  let new_head = (
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossOrigin="anonymous"
-    />
-  );
-
   return (
-    <Wrapper head={new_head} title={title}>
+    <Wrapper title={title}>
       <div id="dvMain">
         <div id="dvSmallButtons" className="dvB"></div>
         <div id="dvLargeButtons" className="dvB"></div>
@@ -32,7 +23,7 @@ function Project2Body({title}: {title: string}) {
         <a href="https://en.wikipedia.org/wiki/Orbit_equation">wikipedia</a>
       </p>
       <div style={{ textAlign: "center" }}>
-	<MakeMath tex={"r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot cos(\\theta)}"} />
+	<MakeMath tex={"r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot \\cos(\\theta)}"} />
       </div>
       Where
       <br />
@@ -154,7 +145,7 @@ function Project2Body({title}: {title: string}) {
       <br />
       <MakeMath
         tex={
-          "\\vec{o} = \\vec{e}cos(\\theta) + (\\vec{m} \\times \\vec{e})sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - cos(\\theta))"
+          "\\vec{o} = \\vec{e}\\cos(\\theta) + (\\vec{m} \\times \\vec{e})\\sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - \\cos(\\theta))"
         }
       />
       <br />
@@ -175,7 +166,7 @@ function Project2Body({title}: {title: string}) {
       <div style={{ textAlign: "center" }}>
         <MakeMath
           tex={
-            "{a^2 \\over \\mu}{1 \\over 1+ecos(\\theta)}{\\vec{o} \\over ||\\vec{o}||}"
+            "{a^2 \\over \\mu}{1 \\over 1+e \\cos(\\theta)}{\\vec{o} \\over ||\\vec{o}||}"
           }
         />
       </div>
@@ -201,7 +192,7 @@ function Project2Body({title}: {title: string}) {
       <br />
       <MakeMath
         tex={
-          "\\vec{o} = \\vec{e}cos(\\theta) + (\\vec{m} \\times \\vec{e})sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - cos(\\theta))"
+          "\\vec{o} = \\vec{e}\\cos(\\theta) + (\\vec{m} \\times \\vec{e})\\sin(\\theta) + \\vec{m}(\\vec{m} \\cdot \\vec{e})(1 - \\cos(\\theta))"
         }
       />
       <hr />

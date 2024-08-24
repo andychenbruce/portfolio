@@ -3,18 +3,10 @@ import Wrapper from "../../wrapper.js";
 
 function MotorPWM({title}: {title: string}) {
   let new_heads = (
-    <>
-      <link
-        rel="stylesheet"
+    <link
+      rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-        integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-        crossOrigin="anonymous"
-      />
-    </>
+    />
   );
 
   return (
