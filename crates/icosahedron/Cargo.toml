@@ -10,6 +10,7 @@ crate-type = ["cdylib"]
 [dependencies]
 andy_webgl_utils = { workspace = true }
 wasm-bindgen = { workspace = true }
+orbit_camera = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 js-sys = { workspace = true }
 console_error_panic_hook = { workspace = true }

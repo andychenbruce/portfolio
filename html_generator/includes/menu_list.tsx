@@ -19,16 +19,30 @@ import PulseWidthModulation from "../pages/projects/pulse_width_modulation.js";
 import SeedlingSegmentation from "../pages/projects/seedling_segmentation.js";
 import SeedlingTensorflow from "../pages/projects/seedlings_tensorflow.js";
 import SphereReflectionTexture from "../pages/projects/sphere_reflection_texture.js";
-import SphereShadows from "../pages/projects/sphere_shadows.js";
 import WaterMarbles from "../pages/projects/water_marbles.js";
 import Schrödinger from "../pages/projects/schrödinger.js";
 
 
 export const ProjectsList = [
   {
-    react: Capstone,
-    path: "capstone",
-    title: "Capstone: A Robot for Sustainable Agriculture"
+    react: Schrödinger,
+    path: "schrödinger",
+    title: "Simulating Schrödinger Equation in 1 Dimension"
+  },
+  {
+    react: Boltzman,
+    path: "boltzman_distribution",
+    title: "Ideal Gas Simulation and Boltzmann's Law"
+  },
+  {
+    react: NavierStokes,
+    path: "fluid_sim_navier_stokes",
+    title: "Fluid Flow Simulation with the Navier-Stokes Equation"
+  },
+  {
+    react: InterMolecularForce,
+    path: "inter_molecular_forces",
+    title: "Intermolecular forces condensation simulation"
   },
   {
     react: PulseWidthModulation,
@@ -56,6 +70,11 @@ export const ProjectsList = [
     title: "Controlling a Delta-X Robot Arm with G-Code"
   },
   {
+    react: Capstone,
+    path: "capstone",
+    title: "Capstone: A Robot for Sustainable Agriculture"
+  },
+  {
     react: SeedlingSegmentation,
     path: "seedling_segmentation",
     title: "Isolating and Segmenting Images of Seedlings"
@@ -71,19 +90,14 @@ export const ProjectsList = [
     title: "Deep Learning with TensorFlow and Keras to Classify Seedlings"
   },
   {
+    react: Icosahedron,
+    path: "icosahedron",
+    title: "Drawing and Lighting a Sphere by Recursive Segmentation of an Icosahedron"
+  },
+  {
     react: Mandelbrot,
     path: "mandelbrot",
     title: "Using a GPU to Draw the Mandelbrot Set"
-  },
-  {
-    react: Icosahedron,
-    path: "icosahedron",
-    title: "Drawing a Sphere by Recursive Segmentation of an Icosahedron"
-  },
-  {
-    react: SphereShadows,
-    path: "sphere_shadows",
-    title: "Lighting and Shadows in a 3D Scene"
   },
   {
     react: SphereReflectionTexture,
@@ -106,35 +120,16 @@ export const ProjectsList = [
     title: "Simulating Jello with Hooke's Law"
   },
   {
-    react: Boltzman,
-    path: "boltzman_distribution",
-    title: "Ideal Gas Simulation and Boltzmann's Law"
-  },
-  {
     react: WaterMarbles,
     path: "water_marbles",
     title: "Liquid Simulation using Particles"
-  },
-  {
-    react: NavierStokes,
-    path: "fluid_sim_navier_stokes",
-    title: "Fluid Flow Simulation with the Navier-Stokes Equation"
   },
   {
     react: Project2Body,
     path: "2body",
     title: "Closed Form Solution to the Two Body Problem"
   },
-  {
-    react: InterMolecularForce,
-    path: "inter_molecular_forces",
-    title: "Intermolecular forces condensation simulation"
-  },
-    {
-    react: Schrödinger,
-    path: "schrödinger",
-    title: "Simulating Schrödinger Equation in 1 Dimension"
-  },
+  
 ];
 
 function MenuList() {

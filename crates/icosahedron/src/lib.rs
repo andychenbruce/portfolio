@@ -1,4 +1,5 @@
 use andy_webgl_utils::matrix_to_vec;
+use orbit_camera::MouseState;
 use wasm_bindgen::prelude::*;
 
 use cgmath::{InnerSpace, SquareMatrix};
@@ -22,12 +23,6 @@ enum FragEnum {
     RedReflective = 8,
     RedSpectral = 9,
     BeachBall = 10,
-}
-
-struct MouseState {
-    mouse_down: bool,
-    mouse_drag_pos_prev: Option<(i32, i32)>,
-    mouse_drag_pos: Option<(i32, i32)>,
 }
 
 #[derive(Copy, Clone)]
@@ -59,6 +54,12 @@ struct Globals {
     mouse: std::sync::Arc<std::sync::Mutex<MouseState>>,
     camera_rotate_matrix: std::sync::Arc<std::sync::Mutex<cgmath::Matrix4<f32>>>,
     camera_offset_matrix: cgmath::Matrix4<f32>,
+}
+
+impl orbit_camera::MouseStateGlobals for Globals {
+    fn get_mouse_state(&self) -> std::sync::Arc<std::sync::Mutex<MouseState>> {
+        self.mouse.clone()
+    }
 }
 
 fn make_globals(
@@ -204,32 +205,20 @@ fn set_canvas(
         vec![
             (
                 "mousedown",
-                andy_mousedown_callback as fn(Globals, web_sys::Event),
+                orbit_camera::andy_mousedown_callback as fn(Globals, web_sys::Event),
             ),
-            ("mouseup", andy_mouseup_callback),
-            ("mousemove", andy_mousemove_callback),
+            (
+                "mouseup",
+                orbit_camera::andy_mouseup_callback as fn(Globals, web_sys::Event),
+            ),
+            (
+                "mousemove",
+                orbit_camera::andy_mousemove_callback as fn(Globals, web_sys::Event),
+            ),
         ],
         make_globals,
         [0.2, 0.3, 0.5, 1.0],
     );
-}
-
-fn andy_mousedown_callback(globals: Globals, _e: web_sys::Event) {
-    let mut mouse = globals.mouse.lock().unwrap();
-    mouse.mouse_drag_pos_prev = None;
-    mouse.mouse_drag_pos = None;
-    mouse.mouse_down = true;
-}
-fn andy_mouseup_callback(globals: Globals, _e: web_sys::Event) {
-    globals.mouse.lock().unwrap().mouse_down = false;
-}
-fn andy_mousemove_callback(globals: Globals, e: web_sys::Event) {
-    let mouse_event: web_sys::MouseEvent = e.dyn_into().unwrap();
-    let mut mouse_state = globals.mouse.lock().unwrap();
-    if mouse_state.mouse_down {
-        mouse_state.mouse_drag_pos_prev = mouse_state.mouse_drag_pos;
-        mouse_state.mouse_drag_pos = Some((mouse_event.x(), mouse_event.y()));
-    }
 }
 
 fn draw(globals: Globals, config: DrawConfig) {

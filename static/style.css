@@ -150,6 +150,11 @@ button {
     align-items: center;
 }
 
+.centeredDiv {
+    display: flex;
+    justify-content: center;
+}
+
 .contentDiv {
     max-width: 60rem;
     margin-left: auto;

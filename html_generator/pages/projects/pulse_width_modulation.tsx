@@ -46,7 +46,7 @@ function PulseWidthModulation({title}: {title: string}) {
         <img src="LED-Timer.gif" alt="LED PWM Circuit" height="470" />
         <img
           src="PWM-Circuit.png"
-          className="lowerRight"
+          // className="lowerRight"
           alt="LED PWM Circuit"
           height="170"
         />
