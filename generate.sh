@@ -14,7 +14,7 @@ ps2pdf resume/resume.ps dist/Andy-Bruce-Resume.pdf
 
 echo "COMPILING RUST STUFF"
 
-declare -a NAMES=("icosahedron" "mandelbrot" "boltzman_distribution" "schrödinger" "inter_molecular_forces")
+declare -a NAMES=("icosahedron" "mandelbrot" "maxwell_boltzman_distribution" "schrödinger" "inter_molecular_forces")
 
 for NAME in "${NAMES[@]}"
 do

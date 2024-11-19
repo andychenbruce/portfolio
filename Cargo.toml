@@ -6,13 +6,14 @@ members = [
   "crates/generate_sphere_util",
   "crates/icosahedron",
   "crates/mandelbrot",
-  "crates/boltzman",
+  "crates/maxwell_boltzman",
   "crates/schrödinger",
-  "crates/inter_molecular_forces"
+  "crates/inter_molecular_forces",
+  "crates/navier_stokes"
 ]
 
 [workspace.dependencies]
-wasm-bindgen = "0.2.92"
+wasm-bindgen = "0.2.95"
 andy_webgl_utils = { path = "crates/andy_webgl_utils" }
 orbit_camera = { path = "crates/orbit_camera" }
 generate_sphere_util = { path = "crates/generate_sphere_util" }

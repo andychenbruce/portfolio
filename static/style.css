@@ -5,6 +5,10 @@
 	background-color: black;
 	color: white
     }
+    a {
+	color: lightblue;
+	
+    }
 }
 
 body,code,div,h1,li,p,pre,ul {

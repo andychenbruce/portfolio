@@ -1,7 +1,8 @@
 import React from "react";
 
 import Project2Body from "../pages/projects/2body.js";
-import Boltzman from "../pages/projects/boltzman_distribution.js";
+import MaxwellBoltzman from "../pages/projects/maxwell_boltzman_distribution.js";
+import BoltzmanDerivation from "../pages/projects/boltzman_derivation.js";
 import Capstone from "../pages/projects/capstone.js";
 import DeltaGcode from "../pages/projects/delta_gcode.js";
 import DepthPerception from "../pages/projects/depth_perception.js";
@@ -22,7 +23,6 @@ import SphereReflectionTexture from "../pages/projects/sphere_reflection_texture
 import WaterMarbles from "../pages/projects/water_marbles.js";
 import Schrödinger from "../pages/projects/schrödinger.js";
 
-
 export const ProjectsList = [
   {
     react: Schrödinger,
@@ -30,8 +30,8 @@ export const ProjectsList = [
     title: "Simulating Schrödinger Equation in 1 Dimension"
   },
   {
-    react: Boltzman,
-    path: "boltzman_distribution",
+    react: MaxwellBoltzman,
+    path: "maxwell_boltzman_distribution",
     title: "Ideal Gas Simulation and Boltzmann's Law"
   },
   {
@@ -68,6 +68,11 @@ export const ProjectsList = [
     react: DeltaGcode,
     path: "delta_gcode",
     title: "Controlling a Delta-X Robot Arm with G-Code"
+  },
+  {
+    react: BoltzmanDerivation,
+    path: "boltzman_derivation",
+    title: "Derivation of the Boltzman Equation By Maximizing Entropy"
   },
   {
     react: Capstone,
