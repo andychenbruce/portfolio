@@ -9,7 +9,6 @@ members = [
   "crates/maxwell_boltzman",
   "crates/schrödinger",
   "crates/inter_molecular_forces",
-  "crates/navier_stokes"
 ]
 
 [workspace.dependencies]

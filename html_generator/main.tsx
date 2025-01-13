@@ -37,7 +37,7 @@ buildPage(
   ReactDOMServer.renderToStaticMarkup(
     <Wrapper title="Contact" >
       <address>
-	<a href="mailto:chengong456@qq.com">chengong456@qq.com</a>
+	<a href="mailto:andy@andycbruce.com">andy@andycbruce.com</a>
 	<br/>
 	<a href="tel:+14082073992">+1(408)207-3992</a>
 	<br/>

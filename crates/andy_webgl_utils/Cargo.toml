@@ -2,7 +2,7 @@
 name = "andy_webgl_utils"
 version = "0.1.0"
 edition = "2021"
-authors = ["陈功 <chengong456@qq.com>"]
+authors = ["陈功 <andy@andycbruce.com>"]
 
 [lib]
 crate-type = ["lib"]

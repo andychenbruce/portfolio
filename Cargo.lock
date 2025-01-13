@@ -198,21 +198,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "navier_stokes"
-version = "0.1.0"
-dependencies = [
- "andy_webgl_utils",
- "cgmath",
- "console_error_panic_hook",
- "generate_sphere_util",
- "js-sys",
- "orbit_camera",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
-]
-
-[[package]]
 name = "num-bigint"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
