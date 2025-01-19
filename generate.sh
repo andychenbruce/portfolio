@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-rm -fr ts_output
-rm -fr dist
-mkdir dist
-
-npx tsc
-node ts_output/main.js
-
-cp -r --interactive static/. dist
-
-ps2pdf resume/resume.ps dist/Andy-Bruce-Resume.pdf
-
 echo "COMPILING RUST STUFF"
 
 declare -a NAMES=("icosahedron" "mandelbrot" "maxwell_boltzman_distribution" "schrödinger" "inter_molecular_forces")

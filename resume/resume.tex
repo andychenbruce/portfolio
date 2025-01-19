@@ -1,0 +1,176 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{hyphenat}
+\usepackage{fontawesome}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeEducationHeading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeOrganizationHeading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textit{\small #2} \\
+      \textit{\small#3}
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Andrew Bruce} \\ \vspace{3pt}
+    \small
+    \faMobile \hspace{.5pt} \href{tel:14082073992}{+1(408)207-3992}
+    $|$
+    \faAt \hspace{.5pt} \href{mailto:andy@andycbruce.com}{andy@andycbruce.com}
+    $|$
+    \faLinkedinSquare \hspace{.5pt} \href{https://www.linkedin.com/in/andy-bruce-7154b920b/}{LinkedIn}
+    $|$
+    \faGithub \hspace{.5pt} \href{https://github.com/andychenbruce}{GitHub}
+    $|$
+    \faGlobe \hspace{.5pt} \href{https://andycbruce.com}{Portfolio}
+\end{center}
+
+\section{Experience}
+  \vspace{3pt}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {University of California}{Santa Cruz, CA}
+      {Graduate Researcher, Teaching Assistant}{Dec 2023 \textbf{--} Present}
+        \resumeItemListStart
+            \resumeItem{Ported OpenMM, a molecular dynamics simulation library used by thousands of scientists, to run with 16-bit floating point precision CUDA increasing simulation speed.}
+            \resumeItem{Designed and trained graph neural networks for predicting the energy surface of coarse-grained proteins, massively speeding up the simulation of protein interactions.}
+            \resumeItem{Implemented sharding algorithms for running simulations over hundreds of A100 GPUs in multiple compute clusters}
+        \resumeItemListEnd
+
+    \resumeSubheading
+      {Suzhou Benqio Technology Ltd.}{Suzhou, China}
+      {Machine Learning Engineer}{July 2023 \textbf{--} March 2024}
+        \resumeItemListStart
+            \resumeItem{Designed and wrote a machine learning data pipeline for automatically filtering insurance contracts for MSIG insurance.}
+            \resumeItem{Saved hundreds of employees' time to find the most viable contracts.}
+            \resumeItem{Implemented the entire pipeline locally to prevent sensitive client data from leaking.}
+            \resumeItem{Saved thousands of dollars in deployment by quantizing LLama to lower precision floating point for more efficient inference, reducing memory usage 4x and allowing inference of a 33 billion parameter LLM to run with under 24GB of VRAM in just a single GPU.}
+            \resumeItem{Very efficiently fine-tuned LLMs to small custom datasets using LoRA training.}
+            \resumeItem{Designed and wrote a custom HTTP server implementing REST APIs handling internal company requests.}
+            \resumeItem{Used sentence embeddings and Qdrant as a vector database to index and recall relevant parts of documents for use by LLMs.}
+        \resumeItemListEnd
+
+    \resumeSubheading
+      {Pinpoint AVL}{Santa Cruz, California}
+      {Software Engineer}{October 2022 \textbf{--} June 2023}
+        \resumeItemListStart
+             \resumeItem{I made GPS tracking for TAPS and Santa Cruz Metro, which tens of thousands of students use for transportation to class.}
+             \resumeItem{I integrated Google Maps to track individual metro bus routes' real-time location and capacity, allowing students and faculty to plan their trips more efficiently.}
+             \resumeItem{Designed and built a device mounted on buses for tracking location and capacity.}
+             \resumeItem{Created data processing pipelines for GTFS feeds and GPS data to optimize transportation routes and detect bottlenecks.}
+             \resumeItem{I used Raspberry Pi Picos, Arduinos, and a custom bus driver dashboard connected to the bus power supply with inter-device communication using I2C and UART.}
+             \resumeItem{Utilized custom multi-core scheduling in the Raspberry Pi to balance workload between logging to disk, LTE communication, and I2C.}
+             \resumeItem{I wrote embedded AArch64 applications and implemented the backend REST API.}
+        \resumeItemListEnd
+  
+    \resumeSubheading
+      {AbiTalk, Inc.}{San Jose, California}
+      {Software Engineer}{July 2019 \textbf{--} June 2022}
+        \resumeItemListStart
+            \resumeItem{Developed educational mobile games for kids learning English and speech impediments used by hundreds of school districts.}
+            \resumeItem{Implemented GUI, sound design, and statistics gathering for data-driven teaching.}
+            \resumeItem{I worked with the Apple ecosystem, Swift programming, music licensing, and publishing for the Apple App Store.}
+        \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\section{Skills}
+  \vspace{2pt}
+  \resumeSubHeadingListStart
+    \small{\item{
+        \textbf{Languages:}{ C/C++, Python, CUDA, Javascript/Typescript, Rust, Go, SQL, React, RISC-V Assembly, Haskell, Agda, \LaTeX, Postscript, GLSL} \\ \vspace{3pt}
+        \textbf{Technologies:}{ PyTorch, OpenCV, SQLite, PostgreSQL, Webassembly, WebGL, Git, Linux Kernel Modules } \\ \vspace{3pt}
+    }}
+  \resumeSubHeadingListEnd
+
+
+\section{Education}
+  \vspace{3pt}
+  \resumeSubHeadingListStart
+    \resumeEducationHeading
+      {University of California, Santa Cruz}{Santa Cruz, California}
+      {B.S    \textbf{GPA: 3.97/4.00}}{Sep 2022 \textbf{--} Jun 2024}
+  \resumeSubHeadingListEnd
+
+\end{document}
