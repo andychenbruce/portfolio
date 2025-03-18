@@ -1,5 +1,5 @@
 import React from "react";
-import {MakeMath, MakeMathCenter} from "../../render_math.js";
+import {MakeMath, MakeMathDisplay} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
 
@@ -177,7 +177,7 @@ function NavierStokes({title}: {title: string}) {
       </div>
       onto <MakeMath tex={`{\\partial \\mathbf{u}_x \\over \\partial t}`} /> makes:
       <div style={{ textAlign: "center" }}>
-	<MakeMathCenter tex={`
+	<MakeMathDisplay tex={`
 \\begin{split}
 \\frac{\\mathbf{u}_x(x, y, t + \\Delta t) - \\mathbf{u}_x(x, y, t)}{\\Delta t} = 
 &-\\mathbf{u}_x(x, y, t) \\frac{\\mathbf{u}_x(x + \\epsilon, y, t) - \\mathbf{u}_x(x - \\epsilon, y, t)}{2 \\epsilon} \\\\
@@ -186,7 +186,7 @@ function NavierStokes({title}: {title: string}) {
 \\end{split}`} />
       </div>
       <p>Then isolate <MakeMath tex={`\\mathbf{u}_x(x, y, t + \\Delta t)`} />:</p>
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
 \\mathbf{u}_x(x, y, t + \\Delta t) = &\\mathbf{u}_x(x, y, t)\\\\
 &-\\Delta t \\mathbf{u}_x(x, y, t) \\frac{\\mathbf{u}_x(x + \\epsilon, y, t) - \\mathbf{u}_x(x - \\epsilon, y, t)}{2 \\epsilon} \\\\
@@ -195,7 +195,7 @@ function NavierStokes({title}: {title: string}) {
 \\end{split}`} />
       <br />
       The first 3 terms are just the advected velocity, because its equal to <MakeMath tex={`\\mathbf{u}_x - \\Delta t \\mathbf{u} \\cdotp \\nabla\\mathbf{u}_x`} />. Make a new variable <MakeMath tex={`a(x, y, t)`} /> for the first 3 terms, the advected velocity.
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
 \\mathbf{u}_x(x, y, t + \\Delta t) = &a_x(x, y, t)\\\\
 &-\\Delta t \\frac{1}{\\rho} \\frac{p(x + \\epsilon, y, t) - p(x - \\epsilon, y, t)}{2 \\epsilon}
@@ -224,14 +224,14 @@ function NavierStokes({title}: {title: string}) {
 	<MakeMath tex={"{\\partial \\mathbf{u}_x \\over \\partial x} + {\\partial \\mathbf{u}_y \\over \\partial y} = 0"} />
       </div>
       Then also apply the finite difference method
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
 0 = &{\\mathbf{u}_x(x + \\epsilon, y, t + \\Delta t) - \\mathbf{u}_x(x - \\epsilon, y, t + \\Delta t) \\over 2 \\epsilon} \\\\
     &{\\mathbf{u}_y(x, y + \\epsilon, t + \\Delta t) - \\mathbf{u}_y(x, y - \\epsilon, t + \\Delta t) \\over 2 \\epsilon}
 \\end{split}`} />
       We can substitute the previous equation for the 2 derivatives.
       <br/>
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
 0 = \\frac{1}{2\\epsilon}\\Bigg( & \\bigg( a_x(x + \\epsilon, y, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x + 2\\epsilon, y, t) - p(x, y, t)}{2 \\epsilon} \\bigg) \\\\
                                - & \\bigg( a_x(x - \\epsilon, y, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x - 2\\epsilon, y, t)}{2 \\epsilon} \\bigg) \\\\
@@ -239,7 +239,7 @@ function NavierStokes({title}: {title: string}) {
                                - & \\bigg( a_y(x, y - \\epsilon, t) - \\Delta t \\frac{1}{\\rho} \\frac{p(x, y, t) - p(x, y - 2\\epsilon, t)}{2 \\epsilon} \\bigg) \\Bigg)
 \\end{split}`} />
       Then move the knows and unknowns to the left and right sides.
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
   & a_x(x + \\epsilon, y, t) - a_x(x - \\epsilon, y, t) \\\\
 + & a_y(x, y + \\epsilon, t) - a_y(x, y - \\epsilon, t)
@@ -252,7 +252,7 @@ function NavierStokes({title}: {title: string}) {
 \\end{split}`}
 	/>
       Then simplify
-      <MakeMathCenter tex={`
+      <MakeMathDisplay tex={`
 \\begin{split}
   & a_x(x + \\epsilon, y, t) - a_x(x - \\epsilon, y, t) \\\\
 + & a_y(x, y + \\epsilon, t) - a_y(x, y - \\epsilon, t)

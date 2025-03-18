@@ -22,12 +22,18 @@ import SeedlingTensorflow from "../pages/projects/seedlings_tensorflow.js";
 import SphereReflectionTexture from "../pages/projects/sphere_reflection_texture.js";
 import WaterMarbles from "../pages/projects/water_marbles.js";
 import Schrödinger from "../pages/projects/schrödinger.js";
+import DiracSpinors from "../pages/projects/dirac_spinor.js";
 
 export const ProjectsList = [
   {
     react: Schrödinger,
     path: "schrödinger",
     title: "Simulating Schrödinger Equation in 1 Dimension"
+  },
+  {
+    react: DiracSpinors,
+    path: "dirac_spinors",
+    title: "Derivation of Dirac Spinors as the Minimal Left Ideal of a Clifford Algebra"
   },
   {
     react: MaxwellBoltzman,

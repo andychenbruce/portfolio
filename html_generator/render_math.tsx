@@ -12,6 +12,16 @@ export function MakeMath({tex}: {tex: string}) {
 }
 
 export function MakeMathCenter({tex}: {tex: string}) {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <MakeMath
+        tex={tex}
+      />
+    </div>
+  )
+}
+
+export function MakeMathDisplay({tex}: {tex: string}) {
   let tex_flat = tex.replace(/\n/g, "").trim();
   return (
     <span

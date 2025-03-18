@@ -12,7 +12,7 @@ RUN rustup default stable
 RUN rustup target add wasm32-unknown-unknown
 #RUN rustup component add rust-analyzer
 
-RUN cargo install wasm-bindgen-cli --version 0.2.95 #version should match the one in TOML
+RUN cargo install wasm-bindgen-cli --version 0.2.100 #version should match the one in TOML
 
 RUN mkdir --parents /app/dist
 WORKDIR /app
