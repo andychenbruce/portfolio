@@ -2,6 +2,7 @@ import React from "react";
 
 import Project2Body from "../pages/projects/2body.js";
 import MaxwellBoltzman from "../pages/projects/maxwell_boltzman_distribution.js";
+import FreeEnergyGradient from "../pages/projects/free_energy_gradient.js";
 import BoltzmanDerivation from "../pages/projects/boltzman_derivation.js";
 import Capstone from "../pages/projects/capstone.js";
 import DeltaGcode from "../pages/projects/delta_gcode.js";
@@ -74,6 +75,11 @@ export const ProjectsList = [
     react: DeltaGcode,
     path: "delta_gcode",
     title: "Controlling a Delta-X Robot Arm with G-Code"
+  },
+  {
+    react: FreeEnergyGradient,
+    path: "free_energy_gradient",
+    title: "Derivation of the Average Force in the Cannonical Ensemble"
   },
   {
     react: BoltzmanDerivation,
