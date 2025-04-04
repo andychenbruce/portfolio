@@ -1,9 +1,9 @@
-import katex from "katex";
+import temml from "temml";
 import React from "react";
 
 function tex_to_mathml(tex: string, display_mode: boolean): string{
   let tex_flat = tex.replace(/\n/g, "").trim();
-  return katex.renderToString(tex_flat, {output: "mathml", displayMode: display_mode});
+  return temml.renderToString(tex_flat, {displayMode: display_mode});
 }
 
 export function MakeMath({tex}: {tex: string}) {
