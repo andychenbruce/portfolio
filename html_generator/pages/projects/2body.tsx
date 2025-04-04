@@ -1,7 +1,7 @@
 import React from "react";
 
 import Wrapper from "../../wrapper.js";
-import {MakeMath} from "../../render_math.js";
+import {MakeMath, MakeMathDisplay} from "../../render_math.js";
 
 function Project2Body({title}: {title: string}) {
   return (
@@ -22,10 +22,8 @@ function Project2Body({title}: {title: string}) {
         Orbital equation where one body's mass is negligible{" "}
         <a href="https://en.wikipedia.org/wiki/Orbit_equation">wikipedia</a>
       </p>
-      <div style={{ textAlign: "center" }}>
-	<MakeMath tex={"r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot \\cos(\\theta)}"} />
-      </div>
-      Where
+      <MakeMathDisplay tex={"r = {l^2 \\over m^2\\mu}{1 \\over 1+e \\cdot \\cos(\\theta)}"} />
+      <p>Where</p>
       <br />
       <MakeMath tex={"l"} /> = angular momentum
       <br />
@@ -163,15 +161,13 @@ function Project2Body({title}: {title: string}) {
       which is equal to
       <br />
       <br />
-      <div style={{ textAlign: "center" }}>
-        <MakeMath
+      <MakeMathDisplay
           tex={
             "{a^2 \\over \\mu}{1 \\over 1+e \\cos(\\theta)}{\\vec{o} \\over ||\\vec{o}||}"
           }
         />
-      </div>
       <br />
-      where
+      <p>where</p>
       <br />
       <MakeMath tex={"a = ||\\vec{p} \\times \\vec{v}||"} />
       <br />

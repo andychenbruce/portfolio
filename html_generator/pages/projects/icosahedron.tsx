@@ -1,7 +1,7 @@
 import React from "react";
 
 import Wrapper from "../../wrapper.js";
-import {MakeMathCenter, MakeMath} from "../../render_math.js";
+import {MakeMathDisplay, MakeMath} from "../../render_math.js";
 import { AndyCodeBlock } from "../../include_code.js";
 
 function Icosahedron({title}: {title: string}) {
@@ -56,13 +56,13 @@ function Icosahedron({title}: {title: string}) {
           </div>
 	  <br/>
 	  And the ratio can be solved by:
-	  <MakeMathCenter tex={"\\dfrac{A_1}{B_1} = \\dfrac{A_2}{B_2}, B_1 = A_2, A_1 = A_2 + B_2"} />
-	  <MakeMathCenter tex={"\\dfrac{A_2 + B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
-	  <MakeMathCenter tex={"1 + \\dfrac{B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
-	  <MakeMathCenter tex={"\\dfrac{A_2^2}{B_2^2} - \\dfrac{A_2}{B_2} - 1 = 0"} />
-	  <MakeMathCenter tex={"x^2 - x - 1 = 0"} />
+	  <MakeMathDisplay tex={"\\dfrac{A_1}{B_1} = \\dfrac{A_2}{B_2}, B_1 = A_2, A_1 = A_2 + B_2"} />
+	  <MakeMathDisplay tex={"\\dfrac{A_2 + B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
+	  <MakeMathDisplay tex={"1 + \\dfrac{B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
+	  <MakeMathDisplay tex={"\\dfrac{A_2^2}{B_2^2} - \\dfrac{A_2}{B_2} - 1 = 0"} />
+	  <MakeMathDisplay tex={"x^2 - x - 1 = 0"} />
 	  Then use the quadratic equation
-	  <MakeMathCenter tex={"x = \\dfrac{1 + \\sqrt{5}}{2}"} />
+	  <MakeMathDisplay tex={"x = \\dfrac{1 + \\sqrt{5}}{2}"} />
           Then arrange them like this:
         </p>
 	<div  className="centeredDiv">
@@ -151,9 +151,9 @@ function Icosahedron({title}: {title: string}) {
 	  For any point on the sphere <MakeMath tex={"p"} /> with normal vector <MakeMath tex={"\\vec{v}"} />, and any point light source at position <MakeMath tex={"l"} /> the new color can be calculated from the base color by:
 	</p>
 	<br/>
-	<MakeMathCenter tex={"\\cos(\\theta) = \\frac{(p-l) \\cdot \\vec{v}}{|p-l| |\\vec{v}|}"} />
+	<MakeMathDisplay tex={"\\cos(\\theta) = \\frac{(p-l) \\cdot \\vec{v}}{|p-l| |\\vec{v}|}"} />
 	<br/>
-	<MakeMathCenter tex={"\\langle r', g', b' \\rangle = \\langle r, g, b \\rangle \\times \\text{lerp} (A, B, \\cos(\\text{clamp}(\\theta, 0, 1)))"} />
+	<MakeMathDisplay tex={"\\langle r', g', b' \\rangle = \\langle r, g, b \\rangle \\times \\text{lerp} (A, B, \\cos(\\text{clamp}(\\theta, 0, 1)))"} />
 	<br/>
 	<p>
 	  Where <MakeMath tex={"A"} /> is the ambient brightness, and <MakeMath tex={"B"} /> is the brightness of the light. <MakeMath tex={"\\text{lerp}"} /> just means linear interpolation, and <MakeMath tex={"\\text{clamp}"} /> will just keep the value of the cosine from going negative.
@@ -213,19 +213,19 @@ function Icosahedron({title}: {title: string}) {
 	<p>Given the point <MakeMath tex={"p"} />, the light source position <MakeMath tex={"l"} />, the camera position <MakeMath tex={"c"} />, and the normal vector <MakeMath tex={"\\vec{v}"} /> the intensity of a spectral effect can be calculated:</p>
 	<p>First reflect the incoming light vector <MakeMath tex={"l-p"} /> across the normal vector:</p>
 	<br/>
-	<MakeMathCenter tex={"\\vec{k} = \\dfrac{2 \\vec{v} \\cdot (l-p)}{|(l-p)|}(l-p)"} />
+	<MakeMathDisplay tex={"\\vec{k} = \\dfrac{2 \\vec{v} \\cdot (l-p)}{|(l-p)|}(l-p)"} />
 	<br/>
 	<p>Then find the cosine between the incoming light and the camera direction</p>
 	<br/>
-	<MakeMathCenter tex={"\\cos(\\theta) = \\dfrac{\\vec{k} \\cdot (p-c)}{|\\vec{k}||(p-c)|}"} />
+	<MakeMathDisplay tex={"\\cos(\\theta) = \\dfrac{\\vec{k} \\cdot (p-c)}{|\\vec{k}||(p-c)|}"} />
 	<br/>
 	<p>Then the spectral factor can be calculated by exponentiating the cosine</p>
 	<br/>
-	<MakeMathCenter tex={"t(\\theta) = \\cos(\\theta)^{\\text{shinyness}}"} />
+	<MakeMathDisplay tex={"t(\\theta) = \\cos(\\theta)^{\\text{shinyness}}"} />
 	<br/>
 	<p>Then the final color can be calculated by interpolating between the balls diffuse color and the lights color</p>
 	<br/>
-	<MakeMathCenter tex={"\\langle r'', g'', b'' \\rangle = \\text{lerp}(\\langle r', g', b' \\rangle, \\langle l_r, l_g, l_b \\rangle, t(\\theta))"} />
+	<MakeMathDisplay tex={"\\langle r'', g'', b'' \\rangle = \\text{lerp}(\\langle r', g', b' \\rangle, \\langle l_r, l_g, l_b \\rangle, t(\\theta))"} />
 	<br/>
 	<div className="centeredDiv">
           <canvas width="400" height="400" id="small_canvas8"></canvas>

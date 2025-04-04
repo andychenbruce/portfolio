@@ -1,5 +1,5 @@
 import React from "react";
-import {MakeMath} from "../../render_math.js";
+import {MakeMath, MakeMathDisplay} from "../../render_math.js";
 
 import Wrapper from "../../wrapper.js";
 
@@ -32,13 +32,10 @@ function InterMolecularForce({title}: {title: string}) {
         Each sphere is basically one atom or molecule and it's potential energy
         is the sum of its Lennards-Jones potential relative to every other atom
       </p>
-      <div style={{ textAlign: "center" }}>
-        <MakeMath
-          tex={
-            "E(r) = 4\\epsilon [\\left(\\dfrac{\\sigma}{r}\\right)^{12} - \\left(\\dfrac{\\sigma}{r}\\right)^{6}]"
-          }
-        />
-      </div>
+      <MakeMathDisplay
+        tex={
+          "E(r) = 4\\epsilon [\\left(\\dfrac{\\sigma}{r}\\right)^{12} - \\left(\\dfrac{\\sigma}{r}\\right)^{6}]"
+        } />
       <br />
       where
       <MakeMath tex={"E(r)"} /> is the potential energy for that distance
@@ -126,13 +123,11 @@ function InterMolecularForce({title}: {title: string}) {
       <br />
       So finally an easily implementable numeric solution
       <br />
-      <div style={{ textAlign: "center" }}>
-        acceleration = <MakeMath
-          tex={
-            "4\\epsilon [-12\\dfrac{(\\dfrac{\\sigma}{r})^{13}}{\\sigma} + 6\\dfrac{(\\dfrac{\\sigma}{r})^{7}}{\\sigma}]"
-          }
-        />
-      </div>
+      <MakeMathDisplay
+        tex={
+          "\\text{acceleration} = 4\\epsilon [-12\\dfrac{(\\dfrac{\\sigma}{r})^{13}}{\\sigma} + 6\\dfrac{(\\dfrac{\\sigma}{r})^{7}}{\\sigma}]"
+        }
+      />
       <br />
       where the accelation is directly towards the other atom
       <br />

@@ -1,5 +1,5 @@
 import React from "react";
-import {MakeMath} from "../../render_math.js";
+import {MakeMath, MakeMathDisplay} from "../../render_math.js";
 
 
 import Wrapper from "../../wrapper.js";
@@ -55,13 +55,11 @@ function Boltzman({title}: {title: string}) {
         </a>{" "}
         for the maxwell boltzman distribution is
       </p>
-      <div style={{ textAlign: "center" }}>
-        <MakeMath
-          tex={
-            "f(v) = {({m \\over 2\\pi kT})^{3/2}}4\\pi v^2e^{-{{mv^2} \\over {2kT}}}"
-          }
-        />
-      </div>
+      <MakeMathDisplay
+        tex={
+          "f(v) = {({m \\over 2\\pi kT})^{3/2}}4\\pi v^2e^{-{{mv^2} \\over {2kT}}}"
+        }
+      />
       <br />
       where
       <br />

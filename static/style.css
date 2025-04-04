@@ -203,6 +203,6 @@ canvas {
 
 #imgCanvas { display: none; }
 
-math {
-    math-style: normal;
+.displayCenterMath {
+    text-align: center
 }
