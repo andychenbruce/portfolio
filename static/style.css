@@ -202,3 +202,7 @@ canvas {
 #dvLargeButtons { width: 256px; background-color: red; }
 
 #imgCanvas { display: none; }
+
+math {
+    math-style: normal;
+}
