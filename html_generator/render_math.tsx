@@ -14,14 +14,6 @@ export function MakeMath({tex}: {tex: string}) {
   )
 }
 
-// export function MakeMathDisplay({tex}: {tex: string}) {
-//   return (
-//     <div className="displayCenterMath"
-//       dangerouslySetInnerHTML={{ __html: tex_to_mathml(tex, false) }}>
-//     </div>
-//   )
-// }
-
 export function MakeMathDisplay({tex}: {tex: string}) {
   return (
     <div className="displayCenterMath"

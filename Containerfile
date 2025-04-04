@@ -3,14 +3,16 @@ FROM nixos/nix:2.25.4
 RUN echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 RUN nix-channel --update
 
+RUN nix profile install nixpkgs#gnused
+RUN nix profile install nixpkgs#python3
 RUN nix profile install nixpkgs#nodejs nixpkgs#texlive.combined.scheme-full
 RUN nix profile install nixpkgs#rustup
 RUN nix profile install nixpkgs#clang
+RUN nix profile install nixpkgs#validator-nu
 
 RUN rustup install stable
 RUN rustup default stable
 RUN rustup target add wasm32-unknown-unknown
-#RUN rustup component add rust-analyzer
 
 RUN cargo install wasm-bindgen-cli --version 0.2.100 #version should match the one in TOML
 
@@ -43,9 +45,10 @@ WORKDIR /app
 #static
 COPY ./static/. /app/dist
 
-#Server
-RUN nix profile install nixpkgs#python3
-EXPOSE 8000
+#validate
+RUN vnu --skip-non-html /app/dist
+RUN vnu --skip-non-css /app/dist
 
-RUN nix profile install nixpkgs#gnused
+#Server
+EXPOSE 8000
 CMD python3 -m http.server --directory /app/dist

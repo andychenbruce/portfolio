@@ -1,3 +1,15 @@
+.imageContainer {
+    border: 1px solid black;
+    margin: 5px;
+    float: left;
+    display: inline;
+}
+
+.imageCaption {
+    text-align: center;
+    font-style: italic;
+    border-top: 1px solid black;
+}
 
 /* Use browsers color scheme */
 @media (prefers-color-scheme: dark) {
@@ -5,9 +17,15 @@
 	background-color: black;
 	color: white
     }
+
     a {
 	color: lightblue;
-	
+    }
+    .imageContainer {
+	border: 1px solid white;
+    }
+    .imageCaption{
+	border-top: 1px solid white;
     }
 }
 
@@ -31,10 +49,6 @@ p {
     background-color: #c0c0c0;
 }
 
-.imageCaption {
-    text-align: center;
-    font-style: italic;
-}
 
 .wrapperDiv {
     font-family: serif;
@@ -79,13 +93,7 @@ p {
     margin: 5px;
 }
 
-.imageContainer {
-    border: 1px solid black;
-    margin: 5px;
-    float: left;
-    display: inline;
-    background-color: white;
-}
+
 
 p {
     margin: 5px;

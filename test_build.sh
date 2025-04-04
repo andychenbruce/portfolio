@@ -10,4 +10,5 @@ export PATH="$PATH:/root/.cargo/bin"
 npx tsc
 node ts_output/main.js
 
-
+vnu --skip-non-html dist/
+vnu --skip-non-css dist/

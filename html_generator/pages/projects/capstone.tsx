@@ -7,11 +7,11 @@ function Capstone({title}: {title: string}) {
     <Wrapper title={title}>
       <div className="imageContainer floatLeft">
         <video className="floatLeft" width="640" controls>
-          <source src="Farmbot-ParkingLot-001-720.mp4" type="video/mp4" /> Your
-          browser does not support the video tab.{" "}
+          <source src="Farmbot-ParkingLot-001-720.mp4" type="video/mp4" />
         </video>
-        <div className="imageCaption" style={{ width: "640px" }}>
-          FarmBot controlled with a cell phone.
+
+	<div className="imageCaption">
+					FarmBot controlled with a cell phone.
         </div>
       </div>
 
@@ -42,19 +42,16 @@ function Capstone({title}: {title: string}) {
         .
       </p>
 
-      <p>
+      <div>
         <div className="imageContainer floatLeft">
-          <img src="hydrogel.jpg" width="427" height="240" />
-          <div className="imageCaption" style={{ width: "427px" }}>
-            Hydrogel gives water and nutrients to crops but not weeds
+          <img src="hydrogel.jpg" width="427" height="240" alt="Hydrogel applied to plant root"/>
+          <div className="imageCaption">
+					  Hydrogel gives water and nutrients to crops but not weeds
           </div>
         </div>
-        My robot can plant crops by dispensing the seeds suspended in hydro-gel
-        into the ground. The gel forms a mini-reservoir of water and nutrients
-        around the seeds, speeding germination while depriving weeds of
-        moisture. Water consumption is greatly reduced, and growth is
-        accelerated.
-      </p>
+	<p>My robot can plant crops by dispensing the seeds suspended in hydro-gel into the ground. The gel forms a mini-reservoir of water and nutrients around the seeds, speeding germination while depriving weeds of moisture. Water consumption is greatly reduced, and growth is accelerated.
+	</p>
+      </div>
 
       <p>
         Conventional farms apply fertilizer to entire fields. My robot injects
@@ -76,37 +73,28 @@ function Capstone({title}: {title: string}) {
         distinguish crops from weeds and only spray the weeds.
       </p>
       <hr className="clearLeft" />
-      <p>
+      <div>
         <div className="imageContainer floatLeft">
-          <img src="mono-vs-poly.jpg" width="417" height="250" />
-          <div className="imageCaption" style={{ width: "417 px" }}>
+          <img src="mono-vs-poly.jpg" width="417" height="250" alt="Lend equivlent ratio between monocultire and polyculture"/>
+          <div className="imageCaption">
             Monoculture vs polyculture
           </div>
         </div>
-        Conventional mechanized farming depends on monoculture, increasing the
-        risk of diseases and insect infestation. Robotics and AI allow
-        polyculture. Different crops can be planted together, or the plantings
-        can be staggered so that one crop can sprout and grow in the shade of a
-        more mature crop for an additional harvest each year.
-      </p>
+	<p>
+	     Conventional mechanized farming depends on monoculture, increasing the risk of diseases and insect infestation. Robotics and AI allow polyculture. Different crops can be planted together, or the plantings can be staggered so that one crop can sprout and grow in the shade of a more mature crop for an additional harvest each year.
+	</p>
+      </div>
 
       <hr className="clearLeft" />
-      <p>
+      <div>
         <div className="imageContainer floatLeft">
-          <img src="RaspberryPi-4B.jpg" width="500" height="322" />
-          <div className="imageCaption" style={{ width: "500px" }}>
-            Raspberry Pi 4B
+          <img src="RaspberryPi-4B.jpg" width="500" height="322" alt="Raspberry Pi 4B board" />
+          <div className="imageCaption">
+	  Raspberry Pi 4B
           </div>
         </div>
-        My robot is a{" "}
-        <a href="https://en.wikipedia.org/wiki/Differential_wheeled_robot">
-          differential wheeled robot
-        </a>{" "}
-        with two pivot wheels and two independently motorized wheels used to
-        both steer and propel the robot. The robot's computer is a{" "}
-        <a href="https://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi 4B</a>{" "}
-        running Linux, and the vision system is a stereoscopic Arducam.
-      </p>
+	<p>My robot is a <a href="https://en.wikipedia.org/wiki/Differential_wheeled_robot">differential wheeled robot</a> with two pivot wheels and two independently motorized wheels used to both steer and propel the robot. The robot's computer is a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi 4B</a> running Linux, and the vision system is a stereoscopic Arducam.</p>
+      </div>
 
       <p>
         My robot uses a{" "}

@@ -34,21 +34,16 @@ function SeedlingSegmentation({title}: {title: string}) {
 
       <hr className="clearLeft" />
       <h2>The original image</h2>
-      <img height="486" src="mungBeans-001-Photo.jpg" />
+      <img height="486" src="mungBeans-001-Photo.jpg" alt="Sterioscopic view of pottend mung bean seedlings"/>
       <p>
         The original image is taken from a stereoscopic camera, basically a
         fancy name for two cameras a fixed distance apart. For testing, the
         camera is screwed into a wood frame instead of mounted on the robot. It
         is read from a Raspberry Pi.
       </p>
-      <img height="186" src="dual-camera.jpg" />
+      <img height="186" src="dual-camera.jpg" alt="Sterioscopic camera"/>
       <p>
-        The camera is an{" "}
-        <a href="https://www.uctronics.com/arducam-synchronized-stereo-camera-bundle-kit-5mp-for-raspberry-pi-2254.html">
-          Arducam 5MP Steroscopic Camera
-        </a>
-        . I bought it from <a href="https://uctronics.com">Uctronics.com</a> for
-        $89.
+           The camera is an <a href="https://www.uctronics.com/arducam-synchronized-stereo-camera-bundle-kit-5mp-for-raspberry-pi-2254.html">Arducam 5MP Steroscopic Camera</a>. I bought it from <a href="https://uctronics.com">Uctronics.com</a> for $89.
       </p>
       <hr className="clearLeft" />
       <h2>Thresholding</h2>
@@ -68,13 +63,9 @@ function SeedlingSegmentation({title}: {title: string}) {
         where 0 is black and 255 is bright.
       </p>
       <p>
-        Converting RBG to HSV is simple, I just copied the{" "}
-        <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB">
-          algorithm from Wikipedia
-        </a>
-        .
+        Converting RBG to HSV is simple, I just copied the <a href="https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB">algorithm from Wikipedia</a>.
       </p>
-      <img height="186" src="hsv.png" />
+      <img height="186" src="hsv.png" alt="HSV spectrum"/>
       <p>
         Then all the program needs to do is look at the Hue to determine if it
         is green, aka if H is around 120 out of 360, and make sure the value and
@@ -87,8 +78,7 @@ function SeedlingSegmentation({title}: {title: string}) {
         out the edges and fills in any small holes
       </p>
       <p>The final result of thresholding the above image is:</p>
-      <img height="486" src="mungBeans-001-Threshold.png" />
-
+      <img height="486" src="mungBeans-001-Threshold.png" alt="Sterioscopic view of mung beans with non-green areas removed."/>
       <hr className="clearLeft" />
       <h2>Segmenting</h2>
       <p>
@@ -112,7 +102,7 @@ function SeedlingSegmentation({title}: {title: string}) {
         pixels or with wierd shapes that probably aren't plants.
       </p>
       <p>The final result from segmenting is:</p>
-      <img height="486" src="mungBeans-001-Segment.png" />
+      <img height="486" src="mungBeans-001-Segment.png" alt="Thresholded image with connected areas segmented"/>
       <p>
         Each "box" of colored pixels is separated and isolated, and used as a
         mask to select pixels from the original photo to be used as a training

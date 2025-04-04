@@ -89,7 +89,7 @@ export const ProjectsList = [
   {
     react: Capstone,
     path: "capstone",
-    title: "Capstone: A Robot for Sustainable Agriculture"
+    title: "High School Capstone: A Robot for Sustainable Agriculture"
   },
   {
     react: SeedlingSegmentation,
@@ -151,18 +151,18 @@ export const ProjectsList = [
 
 function MenuList() {
   return (
-    <h3>
-      <ol>{
-	ProjectsList.map((project, index) => 
-          <li key={index}>
+    <ol>{
+      ProjectsList.map((project, index) => 
+        <li key={index}>
+	  <h3>
             <a href={`/projects/${project.path}`}>
               {project.title}
             </a>
-            <hr />
-          </li>
-	)
-      }</ol>
-    </h3>
+	  </h3>
+          <hr />
+        </li>
+      )
+    }</ol>
   );
 }
 

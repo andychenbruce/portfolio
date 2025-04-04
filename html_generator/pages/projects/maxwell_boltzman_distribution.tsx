@@ -26,9 +26,7 @@ function Boltzman({title}: {title: string}) {
       <hr className="clearLeft" />
       <h2>Thermodynamics simulation from AP chem</h2>
       <p>
-        {" "}
-               When atoms or molecules bounce they are basically exchange velocity
-               equivelent to an elastic collision{" "}
+           When atoms or molecules bounce they are basically exchange velocity equivelent to an elastic collision.
       </p>
       <br />
       <p>
@@ -40,15 +38,15 @@ function Boltzman({title}: {title: string}) {
       </p>
       <MakeMathDisplay
         tex={
-          "f(v) = {({m \\over 2\\pi kT})^{3/2}}4\\pi v^2e^{-{{mv^2} \\over {2kT}}}"
+          "f(\\vec{v}) = (\\frac{m}{2\\pi kT})^{3/2}4\\pi v^2e^{-\\frac{m \\vec{v} \\cdot \\vec{v}}{2kT}}"
         }
       />
       <br />
       <p>where</p>
       <br />
-      <MakeMath tex={"f(v)"} /> is the probability
+      <MakeMath tex={"f(\\vec{v})"} /> is the probability
       <br />
-      <MakeMath tex={"v"} /> is the velocity
+      <MakeMath tex={"\\vec{v}"} /> is the velocity
       <br />
       <MakeMath tex={"m"} /> is the mass
       <br />

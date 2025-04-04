@@ -22,7 +22,6 @@ function Wrapper({ title, head, children }:
           <div className="headerDiv">
             <h1>{title}</h1>
           </div>
-
           <div className="contentDiv">{children}</div>
         </div>
       </body>

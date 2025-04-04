@@ -14,8 +14,8 @@ function DeltaGcode({title}: {title: string}) {
   return (
     <Wrapper head={new_heads} title={title}>
       <div className="imageContainer floatLeft">
-        <img src="Delta-X.jpg" width="487" height="479" />
-        <div className="imageCaption" style={{ width: "487px" }}>
+        <img src="Delta-X.jpg" width="487" height="479" alt="Physical delta robot" />
+        <div className="imageCaption">
           Delta-X Robot
         </div>
       </div>
@@ -41,8 +41,8 @@ function DeltaGcode({title}: {title: string}) {
       <hr className="clearLeft" />
 
       <div className="imageContainer floatLeft">
-        <img src="DeltaAnimation.gif" width="437" height="367" />
-        <div className="imageCaption" style={{ width: "437 px" }}>
+        <img src="DeltaAnimation.gif" width="437" height="367" alt="Kinematics movements of Delta robot" />
+        <div className="imageCaption">
           Delta robot kinematics, © Wikimedia
         </div>
       </div>

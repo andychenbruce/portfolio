@@ -23,46 +23,51 @@ function Icosahedron({title}: {title: string}) {
       </div>
       <hr />
       <div>
-        <p >
-          First, we draw three orthogonal golden rectangles centered on the origin. A golden rectangle has the ratio of its edge lengths equal to the golden ratio.
-	  <br />
-	  <div className="centeredDiv">
-            <svg width="580" height="350" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100%" height="100%" fill="white"/>
-              <rect width="485.4101961" height="300" x="0" y="50" style={{
-	        fill: "rgb(255,255,127)",
- 	      }}/>
-              <line x1="185.4101961" y1="50" x2="185.4101961" y2="350" style={{
-		stroke: "black",
-		strokeWidth: 2
-	      }} />
-              <text x="240" y="40" style={{
-		fill: "black",
-		fontSize: "200%"
-	      }}>A1</text>
-              <text x="500" y="200" style={{
-		fill: "black",
-		fontSize: "200%"
-	      }}>B1</text>
-              <text x="130" y="210" style={{
-		fill: "black",
-		fontSize: "150%"
-	      }}>A2</text>
-              <text x="70" y="330" style={{
-		fill: "black",
-		fontSize: "150%"
-	      }}>B2</text>
-            </svg>
-          </div>
-	  <br/>
-	  And the ratio can be solved by:
-	  <MakeMathDisplay tex={"\\dfrac{A_1}{B_1} = \\dfrac{A_2}{B_2}, B_1 = A_2, A_1 = A_2 + B_2"} />
-	  <MakeMathDisplay tex={"\\dfrac{A_2 + B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
-	  <MakeMathDisplay tex={"1 + \\dfrac{B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
-	  <MakeMathDisplay tex={"\\dfrac{A_2^2}{B_2^2} - \\dfrac{A_2}{B_2} - 1 = 0"} />
-	  <MakeMathDisplay tex={"x^2 - x - 1 = 0"} />
-	  Then use the quadratic equation
-	  <MakeMathDisplay tex={"x = \\dfrac{1 + \\sqrt{5}}{2}"} />
+        <p>
+             First, we draw three orthogonal golden rectangles centered on the origin. A golden rectangle has the ratio of its edge lengths equal to the golden ratio.
+	</p>
+	<div className="centeredDiv">
+          <svg width="580" height="350" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="white"/>
+            <rect width="485.4101961" height="300" x="0" y="50" style={{
+	      fill: "rgb(255,255,127)",
+ 	    }}/>
+            <line x1="185.4101961" y1="50" x2="185.4101961" y2="350" style={{
+	      stroke: "black",
+	      strokeWidth: 2
+	    }} />
+            <text x="240" y="40" style={{
+	      fill: "black",
+	      fontSize: "200%"
+	    }}>A1</text>
+            <text x="500" y="200" style={{
+	      fill: "black",
+	      fontSize: "200%"
+	    }}>B1</text>
+            <text x="130" y="210" style={{
+	      fill: "black",
+	      fontSize: "150%"
+	    }}>A2</text>
+            <text x="70" y="330" style={{
+	      fill: "black",
+	      fontSize: "150%"
+	    }}>B2</text>
+          </svg>
+        </div>
+	<br/>
+	<p>
+	     And the ratio can be solved by:
+	</p>
+	<MakeMathDisplay tex={"\\dfrac{A_1}{B_1} = \\dfrac{A_2}{B_2}, B_1 = A_2, A_1 = A_2 + B_2"} />
+	<MakeMathDisplay tex={"\\dfrac{A_2 + B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
+	<MakeMathDisplay tex={"1 + \\dfrac{B_2}{A_2} = \\dfrac{A_2}{B_2}"} />
+	<MakeMathDisplay tex={"\\dfrac{A_2^2}{B_2^2} - \\dfrac{A_2}{B_2} - 1 = 0"} />
+	<MakeMathDisplay tex={"x^2 - x - 1 = 0"} />
+	<p>
+	     Then use the quadratic equation
+	</p>
+	<MakeMathDisplay tex={"x = \\dfrac{1 + \\sqrt{5}}{2}"} />
+	<p>
           Then arrange them like this:
         </p>
 	<div  className="centeredDiv">

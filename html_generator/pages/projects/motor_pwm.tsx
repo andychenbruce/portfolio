@@ -13,9 +13,9 @@ function MotorPWM({title}: {title: string}) {
     <Wrapper head={new_heads} title={title}>
       <hr className="clearLeft" />
       <div className="imageContainer floatLeft">
-        <img src="L298-H-Bridge.jpg" width="353" height="393" />
-        <div className="imageCaption" style={{ width: "353 px" }}>
-          L298 H-Bridge
+        <img src="L298-H-Bridge.jpg" width="353" height="393" alt="L298 H-Bridge"/>
+        <div className="imageCaption">
+	  <p>L298 H-Bridge</p>
         </div>
       </div>
       <p>
@@ -25,25 +25,21 @@ function MotorPWM({title}: {title: string}) {
         control a stronger current. Motors need much more power than LEDs.
       </p>
       <p>
-        For the H-Bridge, I used an L298 Dual H-Bridge. I bought{" "}
-        <a href="https://www.amazon.com/gp/product/B07WS89781/">
-          a pack of four on Amazon
-        </a>{" "}
-        for $11.
+        For the H-Bridge, I used an L298 Dual H-Bridge. I bought <a href="https://www.amazon.com/gp/product/B07WS89781/">a pack of four on Amazon</a> for $11.
       </p>
       <div className="imageContainer floatLeft">
-        <img src="L298-Labels.jpg" width="500" height="333" />
-        <div className="imageCaption" style={{ width: "500 px" }}>
-          L298 with I/O Labels
+        <img src="L298-Labels.jpg" width="500" height="333" alt="L298 with I/O Labels"/>
+        <div className="imageCaption">
+	  <p>L298 with I/O Labels</p>
         </div>
       </div>
 
       <hr className="clearLeft" />
 
       <div className="imageContainer floatLeft">
-        <img src="L298-Schematic.png" width="437" height="433" />
-        <div className="imageCaption" style={{ width: "437 px" }}>
-          L298 to RPi interface
+        <img src="L298-Schematic.png" width="437" height="433" alt="L298 to RPi interface"/>
+        <div className="imageCaption">
+	  <p>L298 to RPi interface</p>
         </div>
       </div>
       <p>
@@ -55,9 +51,9 @@ function MotorPWM({title}: {title: string}) {
       <hr className="clearLeft" />
 
       <div className="imageContainer floatLeft">
-        <img src="Buck-Converter.jpg" width="210" height="223" />
-        <div className="imageCaption" style={{ width: "210 px" }}>
-          12v to 5v Buck Converter
+        <img src="Buck-Converter.jpg" width="210" height="223" alt="12v to 5v Buck Converter" />
+        <div className="imageCaption">
+	  <p>12v to 5v Buck Converter</p>
         </div>
       </div>
 
@@ -83,7 +79,7 @@ function MotorPWM({title}: {title: string}) {
           <source src="wiringControlBoard-720.mp4" type="video/mp4" />
           Your browser does not support the video tab.
         </video>
-        <div className="imageCaption" style={{ width: "640px" }}>
+        <div className="imageCaption">
           Wiring the control board. My arms were sunburned when I made this
           video.
         </div>
@@ -103,7 +99,7 @@ function MotorPWM({title}: {title: string}) {
           <source src="motorPwm-480.mp4" type="video/mp4" />
           Your browser does not support the video tab.
         </video>
-        <div className="imageCaption" style={{ width: "640px" }}>
+        <div className="imageCaption">
           640
         </div>
       </div>
@@ -118,9 +114,9 @@ function MotorPWM({title}: {title: string}) {
       <hr className="clearLeft" />
 
       <div className="imageContainer floatLeft">
-        <img src="burnt-wires.jpg" width="564" height="772" />
-        <div className="imageCaption" style={{ width: "564 px" }}>
-          Burnt wires from an accidental short.
+        <img src="burnt-wires.jpg" width="564" height="772" alt="Burnt wires from an accidental short."/>
+        <div className="imageCaption">
+	  <p>Burnt wires from an accidental short.</p>
         </div>
       </div>
       <p>

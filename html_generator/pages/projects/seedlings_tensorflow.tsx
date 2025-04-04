@@ -53,7 +53,7 @@ function SeedlingTensorflor({title}: {title: string}) {
       </p>
 
       <br />
-      <img width="700" height="478" src="seedlings_examples.jpg" />
+      <img width="700" height="478" src="seedlings_examples.jpg" alt="Grid of top down picrtures of seedlings"/>
       <br />
       <p>
         The really cool part about the image data generator is that it can
