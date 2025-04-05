@@ -11,6 +11,14 @@
     border-top: 1px solid black;
 }
 
+.mathSubDiv{
+    border: 1px solid black;
+    display: block;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Use browsers color scheme */
 @media (prefers-color-scheme: dark) {
     body {
@@ -27,6 +35,10 @@
     .imageCaption{
 	border-top: 1px solid white;
     }
+    .mathSubDiv{
+	border: 1px solid white;
+    }
+
 }
 
 body,code,div,h1,li,p,pre,ul {
@@ -210,6 +222,8 @@ canvas {
 #dvLargeButtons { width: 256px; background-color: red; }
 
 #imgCanvas { display: none; }
+
+
 
 .displayCenterMath {
     text-align: center
