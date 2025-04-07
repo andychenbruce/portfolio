@@ -79,7 +79,7 @@ export const ProjectsList = [
   {
     react: FreeEnergyGradient,
     path: "free_energy_gradient",
-    title: "Derivation of the Average Force in the Cannonical Ensemble"
+    title: "Derivation of the Average Force in the Cannonical and Isothermal-Isobaric Ensemble"
   },
   {
     react: BoltzmanDerivation,
