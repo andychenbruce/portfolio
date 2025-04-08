@@ -1,9 +1,9 @@
 import React from "react";
 
 import Project2Body from "../pages/projects/2body.js";
-import MaxwellBoltzman from "../pages/projects/maxwell_boltzman_distribution.js";
+import MaxwellBoltzmann from "../pages/projects/maxwell_boltzmann_distribution.js";
 import FreeEnergyGradient from "../pages/projects/free_energy_gradient.js";
-import BoltzmanDerivation from "../pages/projects/boltzman_derivation.js";
+import BoltzmannDerivation from "../pages/projects/boltzmann_derivation.js";
 import Capstone from "../pages/projects/capstone.js";
 import DeltaGcode from "../pages/projects/delta_gcode.js";
 import DepthPerception from "../pages/projects/depth_perception.js";
@@ -37,9 +37,9 @@ export const ProjectsList = [
     title: "Derivation of Dirac Spinors as the Minimal Left Ideal of a Clifford Algebra"
   },
   {
-    react: MaxwellBoltzman,
-    path: "maxwell_boltzman_distribution",
-    title: "Ideal Gas Simulation and Boltzmann's Law"
+    react: MaxwellBoltzmann,
+    path: "maxwell_boltzmann_distribution",
+    title: "Ideal Gas Simulation and the Maxwell–Boltzmann Distribution"
   },
   {
     react: NavierStokes,
@@ -82,9 +82,9 @@ export const ProjectsList = [
     title: "Derivation of the Average Force in the Cannonical and Isothermal-Isobaric Ensemble"
   },
   {
-    react: BoltzmanDerivation,
+    react: BoltzmannDerivation,
     path: "boltzman_derivation",
-    title: "Derivation of the Boltzman Equation By Maximizing Entropy"
+    title: "Derivation of the Boltzmann Distribution By Maximizing Entropy"
   },
   {
     react: Capstone,
