@@ -5,14 +5,8 @@ import {MakeMath, MakeMathDisplay} from "../../render_math.js";
 import Wrapper from "../../wrapper.js";
 
 function DiracSpinors({title}: {title: string}) {
-  let new_head = (
-    <>
-      <script type="module" src="./main.js"></script>
-    </>
-  );
-
   return (
-    <Wrapper head={new_head} title={title}>
+    <Wrapper title={title}>
       <hr className="clearLeft" />
       <p>The energy mass shell equation is</p>
       <MakeMathDisplay
@@ -744,9 +738,37 @@ E
 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
 \\end{bmatrix}
 `}/>
-      <p>If we then change the vector representation in <MakeMath tex={"\\mathbb{R}^8"}/> to <MakeMath tex={"\\mathbb{C}^4"}/></p>
+      <p>Now we have some choices for how <MakeMath tex={"i^2 = -1"} /> can be represented in the Clifford algebra. The value <MakeMath tex={"i"}/> can of be <MakeMath tex={"\\gamma_x \\gamma_y, \\gamma_x \\gamma_z, \\gamma_y \\gamma_z"} /> as all 3 of those bivectors square to <MakeMath tex={"-1"} />. If we arbitrarily choose <MakeMath tex={"i = \\gamma_y \\gamma_z"} />, and be careful to consider that <MakeMath tex={"i"} /> isn't commutative with everything, we can find its action on the spinor.</p>
       <MakeMathDisplay
-        tex={`\\psi(t, x, y, z) \\mapsto \\begin{bmatrix}
+        tex={
+	  "i(A(1 + \\gamma_t)"}/>
+      <MakeMathDisplay
+        tex={
+	  "B(\\gamma_x - \\gamma_t\\gamma_x) + C(\\gamma_y - \\gamma_t\\gamma_y) + D(\\gamma_z - \\gamma_t\\gamma_z)"}/>
+      <MakeMathDisplay
+        tex={
+	  "E(\\gamma_x\\gamma_y + \\gamma_t\\gamma_x\\gamma_y) + F(\\gamma_x\\gamma_z + \\gamma_t\\gamma_x\\gamma_z) + G(\\gamma_y\\gamma_z + \\gamma_t\\gamma_y\\gamma_z)"}/>
+      <MakeMathDisplay
+        tex={
+	  "H(\\gamma_x\\gamma_y\\gamma_z - \\gamma_t\\gamma_x\\gamma_y\\gamma_z))"}/>
+      <MakeMathDisplay
+        tex={
+	  "="}/>
+      <MakeMathDisplay
+        tex={
+	  "A(\\gamma_y\\gamma_z + \\gamma_t\\gamma_y\\gamma_z)"}/>
+      <MakeMathDisplay
+        tex={
+	  "B(\\gamma_x\\gamma_y\\gamma_z - \\gamma_t\\gamma_x\\gamma_y\\gamma_z) + C(\\gamma_z - \\gamma_t\\gamma_z) + D(-\\gamma_y + \\gamma_t\\gamma_y)"}/>
+      <MakeMathDisplay
+        tex={
+	  "E(\\gamma_x\\gamma_z + \\gamma_t\\gamma_x\\gamma_z) + F(-\\gamma_x\\gamma_y - \\gamma_t) + G(-1 - \\gamma_t)"}/>
+      <MakeMathDisplay
+        tex={
+	  "H(-\\gamma_x + \\gamma_t\\gamma_x)"}/>
+      <p>So the mapping is</p>
+      <MakeMathDisplay
+        tex={`i \\begin{bmatrix}
 A \\\\
 B \\\\
 C \\\\
@@ -756,12 +778,31 @@ F \\\\
 G \\\\
 H
 \\end{bmatrix}
-\\mapsto
+=
 \\begin{bmatrix}
-A + iG \\\\
-F + iE \\\\
-B + iH \\\\
-D + iC
+-G \\\\
+-H \\\\
+-D \\\\
+C \\\\
+-F \\\\
+E \\\\
+A \\\\
+B\\end{bmatrix}
+`} />
+      <p>And if we change the vector representation in <MakeMath tex={"\\mathbb{R}^8"}/> to <MakeMath tex={"\\mathbb{C}^4"}/> the mapping still holds, and left multiplication with <MakeMath tex={"i"} /> acts as the complex numbers do.</p>
+      <MakeMathDisplay
+        tex={`i \\begin{bmatrix}
+A+iG \\\\
+E-iF \\\\
+-C+iD \\\\
+B+iH
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+-G+iA \\\\
+F+iE \\\\
+-D-iC \\\\
+-H+iB
 \\end{bmatrix}
 `} />
       <p>the corresponding matricies map to</p>
@@ -775,25 +816,26 @@ D + iC
 \\end{bmatrix},
 \\gamma_x \\mapsto
 \\begin{bmatrix}
-0 & 0 & -1 & 0 \\\\
-0 & 0 & 0 & 1 \\\\
-1 & 0 & 0 & 0 \\\\
-0 & -1 & 0 & 0
-\\end{bmatrix},
-\\gamma_y \\mapsto
-\\begin{bmatrix}
-0 & 0 & 0 & i \\\\
-0 & 0 & -i & 0 \\\\
-0 & -i & 0 & 0 \\\\
-i & 0 & 0 & 0
-\\end{bmatrix},
-\\gamma_z \\mapsto
-\\begin{bmatrix}
 0 & 0 & 0 & -1 \\\\
 0 & 0 & -1 & 0 \\\\
 0 & 1 & 0 & 0 \\\\
 1 & 0 & 0 & 0
+\\end{bmatrix},
+\\gamma_y \\mapsto
+\\begin{bmatrix}
+0 & 0 & 1 & 0 \\\\
+0 & 0 & 0 & -1 \\\\
+-1 & 0 & 0 & 0 \\\\
+0 & 1 & 0 & 0
+\\end{bmatrix},
+\\gamma_z \\mapsto
+\\begin{bmatrix}
+0 & 0 & i & 0 \\\\
+0 & 0 & 0 & i \\\\
+i & 0 & 0 & 0 \\\\
+0 & i & 0 & 0
 \\end{bmatrix}
+
 `}/>
       <p>and these just so happen to be the Dirac matricies, showing their derivation.</p>
     </Wrapper>
