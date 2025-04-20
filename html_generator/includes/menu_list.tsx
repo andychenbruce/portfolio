@@ -84,7 +84,7 @@ export const ProjectsList = [
   {
     react: BoltzmannDerivation,
     path: "boltzman_derivation",
-    title: "Derivation of the Boltzmann Distribution By Maximizing Entropy"
+    title: "Derivations of the Boltzmann Distribution"
   },
   {
     react: Capstone,
