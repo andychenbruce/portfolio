@@ -738,10 +738,10 @@ E
 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
 \\end{bmatrix}
 `}/>
-      <p>Now we have some choices for how <MakeMath tex={"i^2 = -1"} /> can be represented in the Clifford algebra. The value <MakeMath tex={"i"}/> can of be <MakeMath tex={"\\gamma_x \\gamma_y, \\gamma_x \\gamma_z, \\gamma_y \\gamma_z"} /> as all 3 of those bivectors square to <MakeMath tex={"-1"} />. If we arbitrarily choose <MakeMath tex={"i = \\gamma_y \\gamma_z"} />, and be careful to consider that <MakeMath tex={"i"} /> isn't commutative with everything, we can find its action on the spinor.</p>
+      <p>Now we have some choices for how <MakeMath tex={"i^2 = -1"} /> can be represented in the Clifford algebra. The value <MakeMath tex={"i"}/> can of be <MakeMath tex={"\\gamma_x \\gamma_y, \\gamma_x \\gamma_z, \\gamma_y \\gamma_z"} /> as all 3 of those bivectors square to <MakeMath tex={"-1"} />. If we arbitrarily choose <MakeMath tex={"i = \\gamma_y\\gamma_x"} />, and be careful to consider that <MakeMath tex={"i"} /> isn't commutative with everything, we can find its action on the spinor.</p>
       <MakeMathDisplay
         tex={
-	  "i(A(1 + \\gamma_t)"}/>
+	  "(A(1 + \\gamma_t)"}/>
       <MakeMathDisplay
         tex={
 	  "B(\\gamma_x - \\gamma_t\\gamma_x) + C(\\gamma_y - \\gamma_t\\gamma_y) + D(\\gamma_z - \\gamma_t\\gamma_z)"}/>
@@ -750,22 +750,22 @@ E
 	  "E(\\gamma_x\\gamma_y + \\gamma_t\\gamma_x\\gamma_y) + F(\\gamma_x\\gamma_z + \\gamma_t\\gamma_x\\gamma_z) + G(\\gamma_y\\gamma_z + \\gamma_t\\gamma_y\\gamma_z)"}/>
       <MakeMathDisplay
         tex={
-	  "H(\\gamma_x\\gamma_y\\gamma_z - \\gamma_t\\gamma_x\\gamma_y\\gamma_z))"}/>
+	  "H(\\gamma_x\\gamma_y\\gamma_z - \\gamma_t\\gamma_x\\gamma_y\\gamma_z))i"}/>
       <MakeMathDisplay
         tex={
 	  "="}/>
       <MakeMathDisplay
         tex={
-	  "A(\\gamma_y\\gamma_z + \\gamma_t\\gamma_y\\gamma_z)"}/>
+	  "A(-\\gamma_x\\gamma_y - \\gamma_t\\gamma_x\\gamma_y)"}/>
       <MakeMathDisplay
         tex={
-	  "B(\\gamma_x\\gamma_y\\gamma_z - \\gamma_t\\gamma_x\\gamma_y\\gamma_z) + C(\\gamma_z - \\gamma_t\\gamma_z) + D(-\\gamma_y + \\gamma_t\\gamma_y)"}/>
+	  "B(\\gamma_y - \\gamma_t\\gamma_y) + C(-\\gamma_x + \\gamma_t\\gamma_x) + D(-\\gamma_x\\gamma_y\\gamma_z + \\gamma_t\\gamma_x\\gamma_y\\gamma_z)"}/>
       <MakeMathDisplay
         tex={
-	  "E(\\gamma_x\\gamma_z + \\gamma_t\\gamma_x\\gamma_z) + F(-\\gamma_x\\gamma_y - \\gamma_t) + G(-1 - \\gamma_t)"}/>
+	  "E(1 + \\gamma_t) + F(\\gamma_y\\gamma_z + \\gamma_t\\gamma_y\\gamma_z) + G(-\\gamma_x\\gamma_z - \\gamma_t\\gamma_x\\gamma_z)"}/>
       <MakeMathDisplay
         tex={
-	  "H(-\\gamma_x + \\gamma_t\\gamma_x)"}/>
+	  "H(\\gamma_z + \\gamma_t\\gamma_z)"}/>
       <p>So the mapping is</p>
       <MakeMathDisplay
         tex={`i \\begin{bmatrix}
@@ -780,29 +780,29 @@ H
 \\end{bmatrix}
 =
 \\begin{bmatrix}
--G \\\\
--H \\\\
--D \\\\
-C \\\\
--F \\\\
 E \\\\
-A \\\\
-B\\end{bmatrix}
+-C \\\\
+B \\\\
+H \\\\
+-A \\\\
+-G \\\\
+F \\\\
+-D\\end{bmatrix}
 `} />
       <p>And if we change the vector representation in <MakeMath tex={"\\mathbb{R}^8"}/> to <MakeMath tex={"\\mathbb{C}^4"}/> the mapping still holds, and left multiplication with <MakeMath tex={"i"} /> acts as the complex numbers do.</p>
       <MakeMathDisplay
         tex={`i \\begin{bmatrix}
-A+iG \\\\
-E-iF \\\\
--C+iD \\\\
-B+iH
+E+iA \\\\
+F+iG \\\\
+H+iD \\\\
+B+iC 
 \\end{bmatrix}
 =
 \\begin{bmatrix}
--G+iA \\\\
-F+iE \\\\
--D-iC \\\\
--H+iB
+-A+iE \\\\
+-C+iB \\\\
+-D-iH \\\\
+-G+iF
 \\end{bmatrix}
 `} />
       <p>the corresponding matricies map to</p>
@@ -816,28 +816,34 @@ F+iE \\\\
 \\end{bmatrix},
 \\gamma_x \\mapsto
 \\begin{bmatrix}
-0 & 0 & 0 & -1 \\\\
-0 & 0 & -1 & 0 \\\\
-0 & 1 & 0 & 0 \\\\
-1 & 0 & 0 & 0
+0 & 0 & 0 & -i \\\\
+0 & 0 & -i & 0 \\\\
+0 & -i & 0 & 0 \\\\
+-i & 0 & 0 & 0
 \\end{bmatrix},
 \\gamma_y \\mapsto
 \\begin{bmatrix}
-0 & 0 & 1 & 0 \\\\
 0 & 0 & 0 & -1 \\\\
--1 & 0 & 0 & 0 \\\\
-0 & 1 & 0 & 0
+0 & 0 & 1 & 0 \\\\
+0 & -1 & 0 & 0 \\\\
+1 & 0 & 0 & 0
 \\end{bmatrix},
 \\gamma_z \\mapsto
 \\begin{bmatrix}
-0 & 0 & i & 0 \\\\
-0 & 0 & 0 & i \\\\
-i & 0 & 0 & 0 \\\\
-0 & i & 0 & 0
+0 & 0 & -1 & 0 \\\\
+0 & 0 & 0 & -1 \\\\
+1 & 0 & 0 & 0 \\\\
+0 & 1 & 0 & 0
 \\end{bmatrix}
 
 `}/>
-      <p>and these just so happen to be the Dirac matricies, showing their derivation.</p>
+      <p>and these just so happen to be a basis for the Dirac matricies, showing their derivation.</p>
+      <hr/>
+      <footer>
+	<cite>
+	  <a href="https://davidhestenes.net/geocalc/pdf/RealSpinorFields.pdf">Real spinor fields by David Hestenes</a>
+	</cite>
+      </footer>
     </Wrapper>
   );
   
