@@ -158,12 +158,18 @@ fn make_next_wave(curr_wave: &AndyVector) -> AndyVector {
     let mut mat = AndyMatrix::zeros(NUM_BUCKETS, NUM_BUCKETS);
 
     for i in 0..NUM_BUCKETS {
-        if i != 0 {
+        let on_left = i == 0;
+        let on_right = i == NUM_BUCKETS - 1;
+        if !on_left {
             *mat.index_mut((i, i - 1)) = Complex::new(1.0, 0.0);
         }
-        *mat.index_mut((i, i)) = Complex::new(-2.0, 0.0);
-        if i != NUM_BUCKETS - 1 {
+        if !on_right {
             *mat.index_mut((i, i + 1)) = Complex::new(1.0, 0.0);
+        }
+        if !(on_right || on_left){
+            *mat.index_mut((i, i)) = Complex::new(-2.0, 0.0);
+        }else{
+            *mat.index_mut((i, i)) = Complex::new(-1.0, 0.0);
         }
     }
 

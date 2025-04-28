@@ -48,7 +48,7 @@ function DeltaGcode({title}: {title: string}) {
       <MakeMathDisplay tex={"\\sum_{i=1}^{N} \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} E_i = U"} />
       <hr/>
       <p>Look at the equation for the maximum entropy:</p>
-      <MakeMathDisplay tex={"S_{\\text{max}} = S(P_{\\text{max}}) =  -k_B\\sum_{i=1}^{N} p_i \\ln(p_i) = -\\sum_{i=1}^N \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} \\ln \\Big(\\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}}} \\Big)"} />
+      <MakeMathDisplay tex={"S_{\\text{max}}(U) = \\max_{P \\in P_U} S(P) =  -k_B\\sum_{i=1}^{N} p_i \\ln(p_i) = -\\sum_{i=1}^N \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} \\ln \\Big(\\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}}} \\Big)"} />
       <p>Then simplify</p>
       <MakeMathDisplay tex={"S_{\\text{max}} =  -k_B\\sum_{i=1}^N \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} \\ln \\Big(\\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}}} \\Big)"} />
       <p>Split the logarithm</p>
@@ -63,10 +63,24 @@ function DeltaGcode({title}: {title: string}) {
       <MakeMathDisplay tex={"S_{\\text{max}} =  k_B\\ln\\Big( \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} \\Big) - k_B\\sum_{i=1}^N \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} \\Big(\\frac{\\lambda_2 E_i}{k_B} \\Big)"} />
       <p>Move the <MakeMath tex={"\\lambda_2"} /> out of the summation.</p>
       <MakeMathDisplay tex={"S_{\\text{max}} =  k_B\\ln\\Big( \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} \\Big) - k_B\\frac{\\lambda_2}{k_B} \\sum_{i=1}^N \\frac{e^{\\frac{\\lambda_2 E_i}{k_B}}}{ \\sum_{j=1}^{N} e^{\\frac{\\lambda_2 E_j}{k_B}}} E_i"} />
-      <p>Then the summation is just equal to <MakeMath tex={"U"} /></p>
-      <MakeMathDisplay tex={"S_{\\text{max}} =  k_B\\ln\\Big( \\sum_{k=1}^{N} e^{\\lambda_2 E_k} \\Big) - \\lambda_2 U"} />
-      <p>Then <MakeMath tex={"\\lambda_2"} /> is equal to the derivative which is ends up being the definition of temperature.</p>
+      <p>Then the summation is just equal to <MakeMath tex={"U"} />.</p>
+      <MakeMathDisplay tex={"S_{\\text{max}} =  k_B\\ln\\Big( \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} \\Big) - \\lambda_2 U"} />
+      <p>Differentiate with respect to the internal energy.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  k_B\\frac{\\partial \\ln\\Big( \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} \\Big)}{\\partial U} - \\frac{\\partial (U\\lambda_2)}{\\partial U}"} />
+      <p>Chain rule on the left and product rule on the right.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  k_B\\Big( \\frac{1}{\\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}}} \\frac{\\partial \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} }{\\partial U} \\Big) - \\lambda_2 - U\\frac{\\partial \\lambda_2}{\\partial U}"} />
+      <p>The derivative operator distributes over addition.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  k_B\\Big( \\frac{1}{\\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}}} \\sum_{k=1}^{N} \\frac{\\partial e^{\\frac{\\lambda_2 E_k}{k_B}} }{\\partial U} \\Big) - \\lambda_2 - U\\frac{\\partial \\lambda_2}{\\partial U}"} />
+      <p>Chain rule again.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  k_B\\Big( \\frac{1}{\\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} } \\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} \\frac{E_k}{k_B} \\frac{\\partial \\lambda_2}{\\partial U} \\Big) - \\lambda_2 - U\\frac{\\partial \\lambda_2}{\\partial U}"} />
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  \\frac{\\partial \\lambda_2}{\\partial U} \\frac{\\sum_{k=1}^{N} E_k e^{\\frac{\\lambda_2 E_k}{k_B}}}{\\sum_{k=1}^{N} e^{\\frac{\\lambda_2 E_k}{k_B}} } - \\lambda_2 - U\\frac{\\partial \\lambda_2}{\\partial U}"} />
+      <p>And the expression is just internal energy again.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} =  \\frac{\\partial \\lambda_2}{\\partial U} U - \\lambda_2 - U\\frac{\\partial \\lambda_2}{\\partial U}"} />
+      <p>Those cancel out.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial S_{\\text{max}}}{\\partial U} = \\lambda_2"} />
+      <p>So we have this expression which is the thermodynamic temperature.</p>
       <MakeMathDisplay tex={"\\lambda_2  = \\dfrac{\\partial S_{\\text{max}}}{\\partial U} = \\frac{1}{T}"} />
+      <p>I'm not sure if this part is valid because you define <MakeMath tex={"S_\\text{max}"} /> with <MakeMath tex={"\\lambda_2"} /> but then define <MakeMath tex={"\\lambda_2"} /> as the derivative of <MakeMath tex={"S_\\text{max}"} /> which I think creates a circular definition.</p>
       <hr/>
       <p>Substituting, the full equation becomes</p>
       <MakeMathDisplay tex={"p_i = \\frac{e^{\\frac{1}{k_B T} E_i}}{ \\sum_{i=1}^{N} e^{\\frac{1}{k_B T} E_i}}"} />

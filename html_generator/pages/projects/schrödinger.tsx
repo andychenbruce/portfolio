@@ -77,11 +77,11 @@ function Schrödinger({title}: {title: string}) {
       <p>And for each position of <MakeMath tex={"-\\dfrac{\\hbar^2}{2m} \\dfrac{\\partial ^2}{\\partial x ^2}"} /> we can make a matrix like:</p>
       <MakeMathDisplay tex={`-\\dfrac{\\hbar^2}{2m}\\dfrac{1}{\\Delta x^2}
 \\begin{bmatrix}
--2 &  1 &    &    & \\\\
+-1 &  1 &    &    & \\\\
 1  & -2 &  1 &    & \\\\
 &    & \\ddots &   & \\\\
 &   &   1 & -2 & 1 \\\\
-&   &     & 1 & -2
+&   &     & 1 & -1
 \\end{bmatrix}
 	    `} />
       <p>Then for the <MakeMath tex={"V(x)"}/> part, it is just a value at each point:</p>
@@ -97,11 +97,11 @@ V(0)&    &         &      & \\\\
       <p>So <MakeMath tex={"\\hat{H}"}/> is just the sum of those two matricies</p>
       <MakeMathDisplay tex={`\\hat{H} = -\\dfrac{\\hbar^2}{2m}\\dfrac{1}{\\Delta x^2}
 \\begin{bmatrix}
--2 &  1 &    &    & \\\\
+-1 &  1 &    &    & \\\\
 1  & -2 &  1 &    & \\\\
 &    & \\ddots &   & \\\\
 &   &   1 & -2 & 1 \\\\
-&   &     & 1 & -2
+&   &     & 1 & -1
 \\end{bmatrix} + 
 \\begin{bmatrix}
 V(0)&    &         &      & \\\\
