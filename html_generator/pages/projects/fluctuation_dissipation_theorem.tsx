@@ -34,7 +34,7 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
       <MakeMathDisplay tex={"\\hat{A}_I(t) = e^{\\frac{i}{\\hbar} \\hat{H}_0 (t - t_0)} \\hat{A}_S(t) e^{-\\frac{i}{\\hbar} \\hat{H}_0 (t - t_0)}"} />
       <table className="border_table">
 	<caption>
-	  Quantum mechanics pictures
+		   Quantum mechanics pictures
 	</caption>
 	<thead>
 	  <tr>
@@ -119,6 +119,7 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
       <MakeMathDisplay tex={"U_I(t, t_0) = 1 + \\lim_{N \\rightarrow \\infty} \\sum_{n=1}^{N} \\Big( -\\frac{i}{\\hbar} \\Big)^n \\int_{t_0}^{t} \\cdots \\int_{t^{n-2}}^{t^{n-1}} \\hat{H}_{1, I}(t') \\cdots \\hat{H}_{1, I}(t^n)dt^n \\cdots dt"} />
       <p>Which is equal to the matrix exponentiation with the time ordering operator from before</p>
       <MakeMathDisplay tex={"U_I(t, t_0) = \\mathcal{T}e^{-\\frac{i}{\\hbar} \\int_{t_0}^t \\hat{H}_I(t') dt'}"} />
+      
       <h2>Evolution of the density matrix.</h2>
       <p>In an ensemble the density matrix is defined by a probability of being multiple states</p>
       
@@ -137,37 +138,52 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
       <p>Remember since the Hamiltonian is self-adjoint that <MakeMath tex={"\\hat{H} = \\hat{H}^\\dagger"} />.</p>
       <MakeMathDisplay tex={"= \\rho(t_0) - \\frac{i}{\\hbar}\\int_{t_0}^t \\hat{H}(t') \\rho(t_0) dt' + \\rho(t_0)\\frac{i}{\\hbar}\\int_{t_0}^t \\hat{H}(t')  dt' + \\mathcal{O}\\Big(\\hat{H}^2\\Big)"} />
       <MakeMathDisplay tex={"= \\rho(t_0) - \\frac{i}{\\hbar}\\int_{t_0}^t \\hat{H}(t') \\rho(t_0) -  \\rho(t_0) \\hat{H}(t') dt' + \\mathcal{O}\\Big(\\hat{H}^2\\Big)"} />
-      <h3>Linear response theory</h3>
-      <p>In the canonical ensemble at equilibrium, with a constant Hamiltonian operator, the Von Neuman entropy is maximized with the density matrix</p>
-      <MakeMathDisplay tex={"\\rho_0 = \\dfrac{e^{-\\frac{\\hat{H}_0}{k_B T}}}{\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\bigg)} = \\dfrac{e^{-\\frac{\\hat{H}_0}{k_B T}}}{Z} = \\dfrac{e^{-\\beta \\hat{H}_S}}{Z}"} />
-      <p>Next, starting at time <MakeMath tex={"t_F"} /> we add a linear force field on one of the observables. This modifies the Hamiltonian to</p>
-      <MakeMathDisplay tex={"\\hat{H}_S(t) = \\hat{H}_0 + A(t)F(t)"} />
+      <h2>Deriving the linear response function</h2>
+      <p>We only focus on the first order of the evolution operator</p>
+      <MakeMathDisplay tex={"U_I(t, t_0) = 1 - \\frac{i}{\\hbar} \\int_{t_0}^{t} \\hat{H}_{1, I}(t') \\cdots dt' + \\mathcal{O}\\Big(\\hat{H}_{1, I}^2\\Big)"} />
+      <p>Then</p>
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] = \\text{Tr}(\\rho(t)\\hat{A}) - \\text{Tr}(\\rho(t_0)\\hat{A}) = \\text{Tr}(\\rho(t)\\hat{A} - \\rho(t_0)\\hat{A})"} />
+      <p>subsittute</p>
+      <MakeMathDisplay tex={"= \\text{Tr}(\\rho(t_0)\\hat{A} - \\frac{i}{\\hbar}\\int_{t_0}^t \\Big(\\hat{H}(t') \\rho(t_0) -  \\rho(t_0) \\hat{H}(t')\\Big) \\hat{A} dt' + \\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A} - \\rho(t_0)\\hat{A})"} />
+      <MakeMathDisplay tex={"= \\text{Tr} \\Big( - \\frac{i}{\\hbar}\\int_{t_0}^t \\Big(\\hat{H}(t') \\rho(t_0) -  \\rho(t_0) \\hat{H}(t')\\Big) \\hat{A} dt' \\Big) + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <MakeMathDisplay tex={"=  - \\frac{i}{\\hbar}\\int_{t_0}^t \\text{Tr} \\bigg(\\Big(\\hat{H}(t') \\rho(t_0) -  \\rho(t_0) \\hat{H}(t')\\Big) \\hat{A} \\Bigg) dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <MakeMathDisplay tex={"=  - \\frac{i}{\\hbar}\\int_{t_0}^t \\text{Tr} \\Big(\\hat{H}(t') \\rho(t_0) \\hat{A} \\Big) -  \\text{Tr} \\Big( \\rho(t_0) \\hat{H}(t') \\hat{A} \\Big) dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <p>And traces are have the circular property, so <MakeMath tex={"\\text{Tr}(ABC) = \\text{Tr}(BCA) = \\text{Tr}(CAB)"} />.</p>
+      <MakeMathDisplay tex={"=  - \\frac{i}{\\hbar}\\int_{t_0}^t \\text{Tr} \\Big(\\rho(t_0) \\hat{A} \\hat{H}(t') \\Big) -  \\text{Tr} \\Big( \\rho(t_0) \\hat{H}(t') \\hat{A} \\Big) dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <MakeMathDisplay tex={"=  - \\frac{i}{\\hbar}\\int_{t_0}^t \\text{Tr} \\bigg(\\rho(t_0) \\Big( \\hat{A} \\hat{H}(t') - \\hat{H}(t') \\hat{A} \\Big) \\bigg) dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <p>So a final expression of </p>
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] =  - \\frac{i}{\\hbar}\\int_{t_0}^t \\mathbb{E}_0\\Big[ \\hat{A} \\hat{H}(t') - \\hat{H}(t') \\hat{A}\\Big] dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <p>Condider a linear force applied to the the Hamiltonian across one of the directions of an observable starting at time <MakeMath tex={"t_0"} />, so</p>
+      <MakeMathDisplay tex={"\\hat{H}_S(t) = \\hat{H}_0 - F(t)\\hat{B}(t)"} />
+      <p>then</p>
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] = - \\frac{i}{\\hbar}\\int_{t_0}^t \\mathbb{E}_0\\Big[ \\hat{A} (F(t')B(t') - F(t')B(t') \\hat{A}\\Big] dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] = - \\frac{i}{\\hbar}\\int_{t_0}^t F(t') \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{H}^2\\Big)\\hat{A}\\Big)"} />
+      <p>We define this term to be the "linear response function" of <MakeMath tex={"A"} /> to a perturbation along <MakeMath tex={"B"} /></p>
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] = - \\frac{i}{\\hbar}\\int_{t_0}^t F(t') \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{B}^2\\Big)\\hat{A}\\Big)"} />
+      <MakeMathDisplay tex={"\\mathbb{E}[A(t)] - \\mathbb{E}[A(t_0)] = - \\frac{i}{\\hbar}\\int_{t_0}^t F(t') \\chi_{AB}(t - t') dt' + \\text{Tr}\\Big(\\mathcal{O}\\Big(\\hat{B}^2\\Big)\\hat{A}\\Big)"} />
       <p>where</p>
-      <MakeMathDisplay tex={"F(t) = 0 \\text{ if } t \\le t_F"} />
-      <p>then</p>
-      <MakeMathDisplay tex={"= \\rho_I(t_0) - \\frac{i}{\\hbar}\\int_{t_0}^t \\hat{H}_{1, I}(t') \\rho_I(t_0) -  \\rho_I(t_0) \\hat{H}_{1, I}(t') dt' + \\mathcal{O}\\Big(\\hat{H}_{1, I}^2\\Big)"} />
-      <p>At <MakeMath tex={"t_0 = t_F"} /> the system is still in equilibrium so </p>
-      <MakeMathDisplay tex={"= \\rho_I(t_0) - \\frac{i}{\\hbar}\\int_{t_F}^t \\hat{H}_{1, I}(t') \\rho_I(t_F) -  \\rho_I(t_F) \\hat{H}_{1, I}(t') dt' + \\mathcal{O}\\Big(\\hat{H}_{1, I}^2\\Big)"} />
-      <MakeMathDisplay tex={"= \\rho_I(t_0) - \\frac{i}{\\hbar}\\int_{t_F}^t \\hat{H}_{1, I}(t') \\dfrac{e^{-\\beta \\hat{H}_S}}{Z} - \\dfrac{e^{-\\beta\\hat{H}_S}}{Z} \\hat{H}_{1, I}(t') dt' + \\mathcal{O}\\Big(\\hat{H}_{1, I}^2\\Big)"} />
-      <MakeMathDisplay tex={"= \\rho_I(t_0) - \\frac{1}{Z}\\frac{i}{\\hbar}\\int_{t_F}^t \\hat{H}_{1, I}(t') e^{-\\beta\\hat{H}_S} - e^{-\\beta\\hat{H}_S} \\hat{H}_{1, I}(t') dt' + \\mathcal{O}\\Big(\\hat{H}_{1, I}^2\\Big)"} />
-      <h4>Stuff</h4>
-      <p>From the fundamental theorem of calculus as long as the derivative exists then</p>
-      <MakeMathDisplay tex={"\\int_a^b \\dfrac{\\partial f(x)}{\\partial x} dx = f(a)-f(b)"} />
-      <p>If we let <MakeMath tex={"f(\\lambda) = \\frac{1}{Z} \\Big( e^{-(\\beta - \\lambda) \\hat{H}_S)}\\hat{H}_{1, I}(t') e^{-\\lambda\\hat{H}_S} \\Big)"} /> </p>
-      <p>then</p>
-      <MakeMathDisplay tex={"\\frac{1}{Z} \\int_0^\\beta \\dfrac{\\partial}{\\partial \\lambda} \\Big( e^{-(\\beta - \\lambda) \\hat{H}_S}\\hat{H}_{1, I}(t') e^{-\\lambda\\hat{H}_S} \\Big)d\\lambda = \\frac{1}{Z} \\hat{H}_{1, I}(t') e^{-\\beta\\hat{H}_S} - e^{-\\beta\\hat{H}_S} \\hat{H}_{1, I}(t')"} />
-      <p>Then apply the product rule</p>
-      <MakeMathDisplay tex={"= \\frac{1}{Z} \\int_0^\\beta e^{-(\\beta - \\lambda) \\hat{H}_S}\\hat{H}_S\\hat{H}_{1, I}(t') e^{-\\lambda\\hat{H}_S} -  e^{-(\\beta - \\lambda) \\hat{H}_S} \\hat{H}_{1, I}(t') \\hat{H}_S e^{-\\lambda\\hat{H}_S} d\\lambda "} />
-      <p>factor out some stuff</p>
-      <MakeMathDisplay tex={"= \\frac{e^{-\\beta \\hat{H}_S}}{Z} \\int_0^\\beta e^{\\lambda\\hat{H}_S}\\hat{H}_S\\hat{H}_{1, I}(t') e^{-\\lambda\\hat{H}_S} -  e^{-(\\beta - \\lambda) \\hat{H}_S} \\hat{H}_{1, I}(t') \\hat{H}_S e^{-\\lambda\\hat{H}_S} d\\lambda "} />
-      <MakeMathDisplay tex={"= \\rho_S \\int_0^\\beta e^{\\lambda\\hat{H}_S} \\Bigg(\\hat{H}_S\\hat{H}_{1, I}(t') - \\hat{H}_{1, I}(t') \\hat{H}_S \\Bigg) e^{-\\lambda\\hat{H}_S} d\\lambda "} />
-      <h3>TODO prove the heisenbert picture observable evolution</h3>
-      <MakeMathDisplay tex={"\\frac{d}{dt} A_H(t) = \\frac{i}{\\hbar} (H_H(t)A_H(t) - A_H(t)H_H(t)) + \\Big(\\frac{\\partial A}{\\partial t}\\Big)_H"} />
-      <p>With no direct dependence on time then</p>
-      <MakeMathDisplay tex={"-i\\hbar\\frac{d}{dt} A_H(t) = H_H(t)A_H(t) - A_H(t)H_H(t)"} />
-      <MakeMathDisplay tex={"= \\rho_S \\int_0^\\beta e^{\\lambda\\hat{H}_S} \\frac{d}{dt} H_{1, I} e^{-\\lambda\\hat{H}_S} d\\lambda "} />
-      <h4>imaginary time or something?</h4>
-      <MakeMathDisplay tex={"= \\rho_S \\int_0^\\beta \\frac{d}{dt} H_{1, I}(t + i\\lambda) d\\lambda "} />
+      <MakeMathDisplay tex={"\\chi(t - t') = - \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]"} />
+      <p>We can take the fourier transform of it</p>
+      <MakeMathDisplay tex={"\\chi(\\omega) = \\int_{-\\infty}^\\infty e^{i\\omega t} \\chi(t) dt = \\frac{i}{\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] dt"} />
+      <p>To find the imaginary part of any value we can do</p>
+      <MakeMathDisplay tex={"\\text{Im}[f] = \\frac{f - f^*}{2i}"} />
+      <MakeMathDisplay tex={"\\text{Im}[\\chi(\\omega)] = \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]^* dt"} />
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{B}^\\dagger(t')\\hat{A}^\\dagger - \\hat{A}^\\dagger \\hat{B}^\\dagger(t') \\Big] dt"} />
+      <p>And once agan observables are by definition their own hermetion conjugate</p>
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{B}\\hat{A} - \\hat{A} \\hat{B} \\Big] dt"} />
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{A}\\hat{B} - \\hat{B}\\hat{A} \\Big] dt"} />
+      <MakeMathDisplay tex={"= \\frac{1}{\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]dt"} />
+      <h2>Quantum cannonical ensemble</h2>
+      <p>At equilibrium the cannonical ensemble should maximize the Von Neumann entropy. This is given by the quantum Boltzmann distribution, if it has a constant Harmiltonian. Assume that the Hamilitoian is constnat before time <MakeMath tex={"t_0"} /></p>
+      <MakeMathDisplay tex={"\\rho(t_0) = \\frac{e^{-\\beta \\hat{H}_0}}{\\text{Tr}(e^{-\\beta \\hat{H}_0})} = \\frac{e^{-\\beta \\hat{H}_0}}{Z}"} />
+      <p>So with a constant Hamiltonian at equilibrium we can write</p>
+      <MakeMathDisplay tex={"\\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] = \\text{Tr}\\bigg(\\rho(t_0)\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg) = \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}e^{-\\beta \\hat{H}_0}e^{\\beta \\hat{H}_0}\\hat{B}(t') - \\hat{B}(t') e^{-\\beta \\hat{H}_0}e^{\\beta \\hat{H}_0} \\hat{A} \\Big) \\bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\Big( \\hat{A}(t' - i \\hbar \\beta)e^{\\beta \\hat{H}_0}\\hat{B}(t') - \\hat{B}(t' - i \\hbar \\beta)\\hat{B}) e^{\\beta \\hat{H}_0} \\hat{A}(t') \\Big)"} />
+      <p>Then cycle the trace again</p>
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\Big( e^{\\beta \\hat{H}_0}\\hat{B}(t')\\hat{A}(t' - i \\hbar \\beta) -  e^{\\beta \\hat{H}_0} \\hat{A}(t') \\hat{B}(t' - i \\hbar \\beta) \\Big) "} />
+      <MakeMathDisplay tex={"= \\mathbb{E}_0\\Big[\\hat{B}(t')\\hat{A}(t' - i \\hbar \\beta) -   \\hat{A}(t') \\hat{B}(t' - i \\hbar \\beta) \\Big] "} />
     </Wrapper>
   );
 }
