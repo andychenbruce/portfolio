@@ -165,25 +165,43 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
       <MakeMathDisplay tex={"\\chi(t - t') = - \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]"} />
       <p>We can take the fourier transform of it</p>
       <MakeMathDisplay tex={"\\chi(\\omega) = \\int_{-\\infty}^\\infty e^{i\\omega t} \\chi(t) dt = \\frac{i}{\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] dt"} />
+      <p>And the linear response function must be zero at negative times so the future can't affect the past so the integral can start at zero.</p>
+      <MakeMathDisplay tex={"= \\frac{i}{\\hbar} \\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] dt"} />
       <p>To find the imaginary part of any value we can do</p>
       <MakeMathDisplay tex={"\\text{Im}[f] = \\frac{f - f^*}{2i}"} />
-      <MakeMathDisplay tex={"\\text{Im}[\\chi(\\omega)] = \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]^* dt"} />
-      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{B}^\\dagger(t')\\hat{A}^\\dagger - \\hat{A}^\\dagger \\hat{B}^\\dagger(t') \\Big] dt"} />
+      <MakeMathDisplay tex={"\\text{Im}[\\chi(\\omega)] = \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{B}(t') - \\hat{B}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{A}(t_0)\\hat{B}(t') - \\hat{B}(t') \\hat{A}(t_0)\\Big]^* dt \\Bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{B}(t') - \\hat{B}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{B}^\\dagger(t')\\hat{A}^\\dagger(t_0) - \\hat{A}^\\dagger(t_0)\\hat{B}^\\dagger(t')\\Big] dt \\Bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{B}(t') - \\hat{B}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{B}^\\dagger(t')\\hat{A}^\\dagger(t_0) - \\hat{A}^\\dagger(t_0)\\hat{B}^\\dagger(t')\\Big] dt \\Bigg)"} />
       <p>And once agan observables are by definition their own hermetion conjugate</p>
-      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{B}\\hat{A} - \\hat{A} \\hat{B} \\Big] dt"} />
-      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] - \\mathbb{E}\\Big[ \\hat{A}\\hat{B} - \\hat{B}\\hat{A} \\Big] dt"} />
-      <MakeMathDisplay tex={"= \\frac{1}{\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\frac{i}{\\hbar} \\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big]dt"} />
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{B}(t') - \\hat{B}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{B}(t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{B}(t')\\Big] dt \\Bigg)"} />
+      <p>And if we make <MakeMath tex={"A = B"} /></p>
+      <MakeMathDisplay tex={"= \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{A}(t') - \\hat{A}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{A}(t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{A}(t')\\Big] dt \\Bigg)"} />
+      <p>And since in the average the Hamiltonian is constant then </p>
+      <MakeMathDisplay tex={"\\Big[ \\hat{A}(t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{A}(t')\\Big] = \\Big[ \\hat{A}(t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{A}(-t')\\Big]"} />
+      <MakeMathDisplay tex={"\\text{Im}[\\chi(\\omega)] = \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{A}(t') - \\hat{A}(t') \\hat{A}(t_0)\\Big]dt - \\int_{0}^\\infty e^{-i\\omega t} \\mathbb{E}\\Big[ \\hat{A}(-t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{A}(-t')\\Big] dt \\Bigg)"} />
+      <MakeMathDisplay tex={" = \\frac{1}{2\\hbar} \\Bigg(\\int_{0}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{A}(t') - \\hat{A}(t') \\hat{A}(t_0)\\Big]dt - \\int_{-\\infty}^0 e^{i\\omega t} \\mathbb{E}\\Big[ \\hat{A}(t')\\hat{A}(t_0) - \\hat{A}(t_0)\\hat{A}(t')\\Big] dt \\Bigg)"} />
+      <MakeMathDisplay tex={" = \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{A}(t') - \\hat{A}(t') \\hat{A}(t_0)\\Big]dt"} />
+      
       <h2>Quantum cannonical ensemble</h2>
       <p>At equilibrium the cannonical ensemble should maximize the Von Neumann entropy. This is given by the quantum Boltzmann distribution, if it has a constant Harmiltonian. Assume that the Hamilitoian is constnat before time <MakeMath tex={"t_0"} /></p>
       <MakeMathDisplay tex={"\\rho(t_0) = \\frac{e^{-\\beta \\hat{H}_0}}{\\text{Tr}(e^{-\\beta \\hat{H}_0})} = \\frac{e^{-\\beta \\hat{H}_0}}{Z}"} />
       <p>So with a constant Hamiltonian at equilibrium we can write</p>
-      <MakeMathDisplay tex={"\\mathbb{E}_0\\Big[ \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A}\\Big] = \\text{Tr}\\bigg(\\rho(t_0)\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg) = \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg)"} />
-      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}\\hat{B}(t') - \\hat{B}(t') \\hat{A} \\Big) \\bigg)"} />
-      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}e^{-\\beta \\hat{H}_0}e^{\\beta \\hat{H}_0}\\hat{B}(t') - \\hat{B}(t') e^{-\\beta \\hat{H}_0}e^{\\beta \\hat{H}_0} \\hat{A} \\Big) \\bigg)"} />
-      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\Big( \\hat{A}(t' - i \\hbar \\beta)e^{\\beta \\hat{H}_0}\\hat{B}(t') - \\hat{B}(t' - i \\hbar \\beta)\\hat{B}) e^{\\beta \\hat{H}_0} \\hat{A}(t') \\Big)"} />
-      <p>Then cycle the trace again</p>
-      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\Big( e^{\\beta \\hat{H}_0}\\hat{B}(t')\\hat{A}(t' - i \\hbar \\beta) -  e^{\\beta \\hat{H}_0} \\hat{A}(t') \\hat{B}(t' - i \\hbar \\beta) \\Big) "} />
-      <MakeMathDisplay tex={"= \\mathbb{E}_0\\Big[\\hat{B}(t')\\hat{A}(t' - i \\hbar \\beta) -   \\hat{A}(t') \\hat{B}(t' - i \\hbar \\beta) \\Big] "} />
+      <MakeMathDisplay tex={"\\mathbb{E}_0\\Big[ \\hat{A}(t_0)\\hat{A}(t')\\Big] = \\text{Tr}\\bigg(\\rho(t_0)\\Big( \\hat{A}(t_0)\\hat{A}(t') \\Big) \\bigg) = \\frac{1}{Z}\\text{Tr}\\bigg(e^{-\\beta \\hat{H}_0}\\Big( \\hat{A}(t_0)\\hat{A}(t') \\Big) \\bigg)"} />
+      <p>cycle the trace</p>
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(\\Big(\\hat{A}(t')e^{-\\beta \\hat{H}_0} \\hat{A}(t_0) \\Big) \\bigg)"} />
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(\\Big(e^{-\\beta \\hat{H}_0}e^{\\beta \\hat{H}_0}\\hat{A}(t')e^{-\\beta \\hat{H}_0} \\hat{A}(t_0) \\Big) \\bigg)"} />
+      <h3>Imaginary time</h3>
+      <p>This is equivelent to moving in imaginary time</p>
+      <MakeMathDisplay tex={"= \\frac{1}{Z}\\text{Tr}\\bigg(\\Big(e^{-\\beta \\hat{H}_0}\\hat{A}(t' - i \\hbar \\beta) \\hat{A}(t_0) \\Big) \\bigg)"} />
+      <MakeMathDisplay tex={"= \\mathbb{E}_0\\Big[\\hat{A}(t' - i \\hbar \\beta)\\hat{A}(t_0)\\Big]"} />
+      <p>Taking the fourier transform</p>
+      <MakeMathDisplay tex={"\\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[\\hat{A}(t' - i \\hbar \\beta) \\hat{A}(t_0)\\Big]dt = \\int_{-\\infty}^\\infty e^{i\\omega t} e^{- i \\hbar \\beta} \\mathbb{E}_0\\Big[\\hat{A}(t')\\hat{A}(t_0) \\Big]dt"} />
+      <p>then substitute</p>
+      <MakeMathDisplay tex={" = \\frac{1}{2\\hbar} \\int_{-\\infty}^\\infty e^{i\\omega t} (1 + e^{-i \\beta \\omega})\\mathbb{E}_0\\Big[ \\hat{A}(t')\\hat{A}(t_0)\\Big]dt"} />
+      <p>We end with an expression of</p>
+      <MakeMathDisplay tex={"\\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t')\\hat{A}(t_0)\\Big]dt = \\frac{2\\hbar}{1 + e^{-i \\beta \\omega}}\\text{Im}[\\chi]"} />
+      <p>for large temepratrues</p>
+      <MakeMathDisplay tex={"\\int_{-\\infty}^\\infty e^{i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t')\\hat{A}(t_0)\\Big]dt \\approx \\frac{2k_B T}{\\omega}\\text{Im}[\\chi]"} />
     </Wrapper>
   );
 }
