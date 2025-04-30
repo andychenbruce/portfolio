@@ -5,6 +5,7 @@ import MaxwellBoltzmann from "../pages/projects/maxwell_boltzmann_distribution.j
 import FreeEnergyGradient from "../pages/projects/free_energy_gradient.js";
 import BoltzmannDerivation from "../pages/projects/boltzmann_derivation.js";
 import Capstone from "../pages/projects/capstone.js";
+import FluctuationDissipationTheorem from "../pages/projects/fluctuation_dissipation_theorem.js";
 import DeltaGcode from "../pages/projects/delta_gcode.js";
 import DepthPerception from "../pages/projects/depth_perception.js";
 import Fire from "../pages/projects/fire.js";
@@ -80,6 +81,11 @@ export const ProjectsList = [
     react: FreeEnergyGradient,
     path: "free_energy_gradient",
     title: "Derivation of the Average Force in the Cannonical and Isothermal-Isobaric Ensemble"
+  },
+  {
+    react: FluctuationDissipationTheorem,
+    path: "fluctuation_dissipation_theorem",
+    title: "Derivation of the Fluctuation Dissipation Theorem"
   },
   {
     react: BoltzmannDerivation,
