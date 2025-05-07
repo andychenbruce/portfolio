@@ -1,19 +1,23 @@
 use andy_webgl_utils::matrix_to_vec;
 use cgmath::{InnerSpace, MetricSpace, SquareMatrix};
 use orbit_camera::MouseState;
+use probability::prelude::Sample;
 use wasm_bindgen::prelude::*;
 const TRIANGLE_FRAGS: bool = true;
 
 const ITERS: u32 = 2;
+const TEMPERATURE: f64 = 0.1; // kelvin
+const MASS: f64 = 1.66e-16; 
+const K_B: f64 = 1.380649e-23;
+const DELTA_T: f64 = 1.0;
 const NUM_SPHERE_TRIANGLES: i32 = 20 * (4_i32.pow(ITERS));
 const BALL_RADIUS: f32 = 0.03;
 const NUM_BALLS: usize = 600;
+const DAMPING_FACTOR: f64 = 0.002;
 
 const POTENTIAL_ZERO: f32 = 2.5 * BALL_RADIUS;
-const EPSILON: f32 = 0.0001;
+const EPSILON: f32 = 0.000001;
 
-const NUM_BUCKETS: usize = 40;
-const BUCKET_PER_VELOCITY: f32 = 0.15;
 
 #[repr(u32)]
 #[derive(Copy, Clone)]
@@ -236,6 +240,7 @@ pub fn andy_main() {
 }
 
 fn tick(balls: &mut [Ball]) {
+    let mut forces = vec![cgmath::Vector3::new(0.0, 0.0, 0.0); balls.len()];
     for ball1 in 0..NUM_BALLS {
         for ball2 in (ball1 + 1)..NUM_BALLS {
             let pos_diff = balls[ball2].pos - balls[ball1].pos;
@@ -249,14 +254,36 @@ fn tick(balls: &mut [Ball]) {
                     * (-12.0 * ((POTENTIAL_ZERO / dist).powi(13) / POTENTIAL_ZERO)
                         + 6.0 * ((POTENTIAL_ZERO / dist).powi(7) / POTENTIAL_ZERO));
 
-                balls[ball1].vel += acceleration * dir.normalize();
-                balls[ball2].vel -= acceleration * dir.normalize();
+                forces[ball1] += (MASS as f32) * acceleration * dir.normalize();
+                forces[ball2] -= (MASS as f32) * acceleration * dir.normalize();
             }
         }
     }
 
-    for ball in balls.iter_mut() {
-        ball.vel *= 0.995; //idk "friction"
+    let rand_1 = (js_sys::Math::random() * (u64::MAX as f64)) as u64;
+    let rand_2 = (js_sys::Math::random() * (u64::MAX as f64)) as u64;
+    let mut random_state = probability::source::Default::new([rand_1, rand_2]);
+
+    for (i, ball) in balls.iter().enumerate() {
+        forces[i] -= (MASS as f32) * (DAMPING_FACTOR as f32) * ball.vel;
+        
+        let stuff = probability::distribution::Gaussian::new(
+            0.0,
+            1.0
+        );
+        let delta = cgmath::Vector3::new(
+            stuff.sample(&mut random_state) as f32,
+            stuff.sample(&mut random_state) as f32,
+            stuff.sample(&mut random_state) as f32,
+        ) * (2.0 * MASS * K_B * TEMPERATURE * DAMPING_FACTOR)
+            .sqrt() as f32;
+        forces[i] += delta;
+    }
+
+    for (i, ball) in balls.iter_mut().enumerate() {
+        
+        ball.vel += (forces[i] * (DELTA_T as f32)) / (MASS as f32);
+        
     }
 
     for i in 0..NUM_BALLS {
@@ -291,7 +318,7 @@ fn tick(balls: &mut [Ball]) {
     }
 
     for ball in balls.iter_mut() {
-        ball.pos += 0.01 * ball.vel;
+        ball.pos += (DELTA_T as f32) * ball.vel;
     }
 }
 
@@ -386,17 +413,6 @@ fn draw(globals: Globals) {
         );
     }
 
-    let mut buckets: [usize; NUM_BUCKETS] = [0; NUM_BUCKETS];
-
-    for ball in balls.iter() {
-        let velocity = ball.vel.magnitude();
-
-        let bucket_num: usize = (velocity / BUCKET_PER_VELOCITY).floor() as usize;
-
-        if bucket_num < buckets.len() {
-            buckets[bucket_num] += 1;
-        }
-    }
 }
 
 fn length(vec: cgmath::Vector3<f32>) -> f32 {

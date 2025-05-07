@@ -16,6 +16,7 @@ console_error_panic_hook = { workspace = true }
 cgmath = { workspace = true }
 generate_sphere_util = { workspace = true }
 orbit_camera = { workspace = true }
+probability = {version = "0.20.3"}
 
 [dependencies.web-sys]
 workspace = true
