@@ -1,9 +1,13 @@
 use andy_webgl_utils::matrix_to_vec;
+use cgmath::Zero;
 use cgmath::{InnerSpace, MetricSpace, SquareMatrix};
 use orbit_camera::MouseState;
+use std::mem;
 use wasm_bindgen::prelude::*;
 const TRIANGLE_FRAGS: bool = true;
 
+const MASS: f64 =  1.66e-21; // 1000000x mass of hydrogen in kg
+const K_B: f64 = 1.380649e-23;
 const ITERS: u32 = 2;
 const NUM_SPHERE_TRIANGLES: i32 = 20 * (4_i32.pow(ITERS));
 const BALL_RADIUS: f32 = 0.05;
@@ -12,6 +16,8 @@ const HEIGHT_PER_BALL: f64 = 5.0;
 
 const NUM_BUCKETS: usize = 40;
 const BUCKET_PER_VELOCITY: f32 = 0.15;
+
+const REALLY_SMALL: f64 = 0.00001;
 
 #[repr(u32)]
 #[derive(Copy, Clone)]
@@ -48,6 +54,8 @@ struct Globals {
     balls: std::sync::Arc<std::sync::Mutex<[Ball; NUM_BALLS]>>,
     graph_canvas_context: web_sys::CanvasRenderingContext2d,
     graph_canvas: web_sys::HtmlCanvasElement,
+    temp_text: web_sys::HtmlParagraphElement,
+    energy_real_text: web_sys::HtmlParagraphElement,
 }
 
 impl orbit_camera::MouseStateGlobals for Globals {
@@ -102,6 +110,23 @@ fn make_globals(
         mouse_drag_pos: Some((0, 0)),
     }));
 
+    let temp_text = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .get_element_by_id("temperature_indicator")
+        .unwrap()
+        .dyn_into::<web_sys::HtmlParagraphElement>()
+        .unwrap();
+    let energy_real_text = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .get_element_by_id("energy_indicator")
+        .unwrap()
+        .dyn_into::<web_sys::HtmlParagraphElement>()
+        .unwrap();
+
     Globals {
         context,
         last_tick_time: std::sync::Arc::new(std::sync::Mutex::new(0)),
@@ -120,6 +145,8 @@ fn make_globals(
         balls,
         graph_canvas_context,
         graph_canvas,
+        temp_text,
+        energy_real_text,
     }
 }
 
@@ -251,20 +278,97 @@ pub fn andy_main() {
         [0.7, 0.85, 1.0, 1.0],
     );
 
-    let poo = Closure::wrap(Box::new(move || {
+    let energy_slider = std::sync::Arc::new(std::sync::Mutex::new(
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .get_element_by_id("energySlider")
+            .unwrap()
+            .dyn_into::<web_sys::HtmlInputElement>()
+            .unwrap(),
+    ));
+    let energy_target_text = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .get_element_by_id("energy_indicator_target")
+        .unwrap()
+        .dyn_into::<web_sys::HtmlParagraphElement>()
+        .unwrap();
+
+    let for_closure = energy_slider.clone();
+    let for_closure_balls = balls.clone();
+    let change_energy_callback = Closure::wrap(Box::new(move |_: web_sys::Event| {
+        let value_str = for_closure.lock().unwrap().value();
+        let energy = value_str.parse::<f64>().unwrap() * 10e-21;
+        energy_target_text.set_inner_text(&format!("slider energy: {:?}", energy));
+        let mut balls = for_closure_balls.lock().unwrap();
+        let total_energy: f64 = balls
+            .iter()
+            .map(|ball| 0.5 * MASS * (ball.vel.magnitude2() as f64))
+            .sum();
+
+        let energy_to_add = energy - total_energy;
+        if energy_to_add > 0.0 {
+            let ball_0_magnitude2 = balls[0].vel.magnitude2() as f64;
+            //E = mv^2
+            //dE = mv'^2 - mv^2
+            //dE + mv^2 = mv'^2
+            //(dE/m) + vn^2 = v'^2
+            //sqrt((dE/m) + v^2) = v'
+            let new_magnitude = ((energy_to_add / MASS) + ball_0_magnitude2).sqrt();
+            if ball_0_magnitude2 > REALLY_SMALL {
+                balls[0].vel = balls[0].vel.normalize() * (new_magnitude as f32);
+            } else {
+                balls[0].vel = cgmath::Vector3 {
+                    x: ((3.0 as f32).sqrt()) * (new_magnitude as f32),
+                    y: ((3.0 as f32).sqrt()) * (new_magnitude as f32),
+                    z: ((3.0 as f32).sqrt()) * (new_magnitude as f32),
+                };
+            }
+        } else {
+            let mut energy_left_to_remove = -energy_to_add;
+            for ball in balls.iter_mut() {
+                let ball_energy = 0.5 * MASS * (ball.vel.magnitude2() as f64);
+                if ball_energy < energy_left_to_remove {
+                    ball.vel = cgmath::Vector3::<f32>::zero();
+                    energy_left_to_remove -= ball_energy;
+                } else {
+                    //E = mv^2
+                    //dE = mv^2 - mv'^2
+                    //mv'^2 = mv^2 - dE
+                    //v'^2 = v^2 - (dE/m)
+                    //v' = sqrt(v^2 - (dE/m))
+                    let new_mag =
+                        ((ball.vel.magnitude2() as f64) - (energy_left_to_remove / MASS)).sqrt();
+                    ball.vel = ball.vel.normalize() * (new_mag as f32);
+
+                    break;
+                }
+            }
+        }
+    }) as Box<dyn FnMut(_)>);
+
+    energy_slider
+        .lock()
+        .unwrap()
+        .set_oninput(Some(change_energy_callback.as_ref().dyn_ref().unwrap()));
+    mem::forget(change_energy_callback); //mem leak
+
+    let tick_closure = Closure::wrap(Box::new(move || {
         let mut thing = balls.lock().unwrap();
         tick(thing.as_mut());
     }) as Box<dyn FnMut()>);
-
     web_sys::window()
         .unwrap()
         .set_interval_with_callback_and_timeout_and_arguments_0(
-            poo.as_ref().dyn_ref().unwrap(),
+            tick_closure.as_ref().dyn_ref().unwrap(),
             1000 / 60,
         )
         .unwrap();
 
-    std::mem::forget(poo); //mem leak
+    std::mem::forget(tick_closure); //mem leak
 }
 
 fn tick(balls: &mut [Ball]) {
@@ -414,14 +518,18 @@ fn draw(globals: Globals) {
         globals.graph_canvas.height().into(),
     );
 
-    let mass: f64 = 1.0;
-    
     let total_energy: f64 = balls
         .iter()
-        .map(|ball| 0.5 * mass * (ball.vel.magnitude2() as f64))
+        .map(|ball| 0.5 * MASS * (ball.vel.magnitude2() as f64))
         .sum();
 
-    let k_b_temp = total_energy / ((((3 * NUM_BALLS) as f64)/2.0) - 1.0);
+    let k_b_temp = total_energy / ((((3 * NUM_BALLS) as f64) / 2.0) - 1.0);
+    globals
+        .temp_text
+        .set_text_content(Some(&format!("{}", k_b_temp / K_B)));
+    globals
+        .energy_real_text
+        .set_text_content(Some(&format!("real energy{:?}", total_energy)));
 
     let canvas_height: f64 = globals.graph_canvas.height().into();
 
@@ -439,13 +547,11 @@ fn draw(globals: Globals) {
     globals.graph_canvas_context.move_to(0.0, 0.0);
     for i in 0..buckets.len() {
         let s = (i as f64) * (BUCKET_PER_VELOCITY as f64);
-        let pdf = (mass / k_b_temp)
-            .powi(3)
-            .sqrt()
+        let pdf = (MASS / k_b_temp).powi(3).sqrt()
             * 2.0
             * (1.0 / std::f64::consts::TAU.sqrt())
             * s.powi(2)
-            * ((-mass * s * s) / (2.0 * k_b_temp)).exp()
+            * ((-MASS * s * s) / (2.0 * k_b_temp)).exp()
             * (BUCKET_PER_VELOCITY as f64);
         globals.graph_canvas_context.line_to(
             width * (i as f64),

@@ -23,6 +23,15 @@ function Boltzman({title}: {title: string}) {
           height="800"
         ></canvas>
       </div>
+      <div>
+	<p>Kinetic Energy (Joules)</p>
+	<input type="range" min="0" max="1000" defaultValue="300" id="energySlider" />
+	<p id="energy_indicator_target">idk</p>
+	<br />
+	<p id="energy_indicator">idk</p>
+	<p>Temperature (Kelvin)</p>
+	<p id="temperature_indicator">idk</p>
+      </div>
       <hr className="clearLeft" />
       <h2>Maxwell-Boltzmann Distribution for a microcanonical ensemble with no potential energy</h2>
       <br />
