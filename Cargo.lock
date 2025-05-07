@@ -156,7 +156,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "maxwell_boltzman_distribution"
+name = "maxwell_boltzmann_distribution"
 version = "0.1.0"
 dependencies = [
  "andy_webgl_utils",

@@ -6,7 +6,7 @@ members = [
   "crates/generate_sphere_util",
   "crates/icosahedron",
   "crates/mandelbrot",
-  "crates/maxwell_boltzman",
+  "crates/maxwell_boltzmann",
   "crates/schrödinger",
   "crates/inter_molecular_forces",
 ]

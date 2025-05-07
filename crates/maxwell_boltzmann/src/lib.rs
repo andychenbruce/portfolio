@@ -414,6 +414,15 @@ fn draw(globals: Globals) {
         globals.graph_canvas.height().into(),
     );
 
+    let mass: f64 = 1.0;
+    
+    let total_energy: f64 = balls
+        .iter()
+        .map(|ball| 0.5 * mass * (ball.vel.magnitude2() as f64))
+        .sum();
+
+    let k_b_temp = total_energy / ((((3 * NUM_BALLS) as f64)/2.0) - 1.0);
+
     let canvas_height: f64 = globals.graph_canvas.height().into();
 
     let width: f64 = (globals.graph_canvas.width() as f64) / (NUM_BUCKETS as f64);
@@ -426,24 +435,21 @@ fn draw(globals: Globals) {
         );
     }
 
-    let temp: f64 = 1.0;
-    let boltzman_const: f64 = 1.0;
-    let mass: f64 = 1.0;
     globals.graph_canvas_context.begin_path();
     globals.graph_canvas_context.move_to(0.0, 0.0);
     for i in 0..buckets.len() {
-        let v = (i as f64) * (BUCKET_PER_VELOCITY as f64);
-        let prob = (mass / (std::f64::consts::TAU * boltzman_const * temp))
+        let s = (i as f64) * (BUCKET_PER_VELOCITY as f64);
+        let pdf = (mass / k_b_temp)
             .powi(3)
             .sqrt()
             * 2.0
-            * std::f64::consts::TAU
-            * v.powi(2)
-            * ((-mass * v * v) / (2.0 * boltzman_const * temp)).exp()
+            * (1.0 / std::f64::consts::TAU.sqrt())
+            * s.powi(2)
+            * ((-mass * s * s) / (2.0 * k_b_temp)).exp()
             * (BUCKET_PER_VELOCITY as f64);
         globals.graph_canvas_context.line_to(
             width * (i as f64),
-            canvas_height - (prob * (NUM_BALLS as f64) * HEIGHT_PER_BALL),
+            canvas_height - (pdf * (NUM_BALLS as f64) * HEIGHT_PER_BALL),
         );
     }
     globals.graph_canvas_context.stroke();
