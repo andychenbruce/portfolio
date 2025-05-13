@@ -228,11 +228,11 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
       <p>And thats just the formula for hyperbolic cotangent</p>
       <MakeMathDisplay tex={"= \\hbar \\coth(\\frac{\\beta \\hbar \\omega}{2}) \\text{Im}[\\chi(\\omega)]"} />
       <p>for large temepratrues</p>
-      <MakeMathDisplay tex={"\\lim_{\\beta \\rightarrow 0} \\coth(\\frac{\\beta \\hbar \\omega}{2}) = \\frac{2}{\\beta \\hbar \\omega}"} />
+      <MakeMathDisplay tex={"\\lim_{\\hbar \\rightarrow 0} \\hbar \\coth(\\frac{\\beta \\hbar \\omega}{2}) = \\frac{2}{\\beta \\omega}"} />
       <p>so</p>
-      <MakeMathDisplay tex={"\\frac{S(\\omega) + S(-\\omega)}{2} \\approx \\frac{2}{\\beta\\omega} \\text{Im}[\\chi(\\omega)]"} />
-      <p>And this recovers the classical version when temperatures are large</p>
-      <MakeMathDisplay tex={"\\frac{S(\\omega) + S(-\\omega)}{2} \\approx \\frac{2k_B T}{\\omega} \\text{Im}[\\chi(\\omega)]"} />
+      <MakeMathDisplay tex={"\\lim_{\\hbar \\rightarrow 0} \\frac{S(\\omega) + S(-\\omega)}{2} = \\frac{2}{\\beta\\omega} \\text{Im}[\\chi(\\omega)]"} />
+      <p>And this recovers the classical version in the classical limit</p>
+      <MakeMathDisplay tex={"\\lim_{\\hbar \\rightarrow 0} \\frac{S(\\omega) + S(-\\omega)}{2} = \\frac{2k_B T}{\\omega} \\text{Im}[\\chi(\\omega)]"} />
     </Wrapper>
   );
 }
