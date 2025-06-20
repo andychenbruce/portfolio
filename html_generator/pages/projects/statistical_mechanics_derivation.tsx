@@ -87,6 +87,47 @@ function DeltaGcode({title}: {title: string}) {
       <MakeMathDisplay tex={"p(r_\\text{sys})= \\frac{e^{-\\frac{\\mathcal{H}_\\text{sys}(r_\\text{sys})}{k_B T_\\text{bath}}}}{\\Big(\\frac{h^M\\Omega_\\text{total}(E_\\text{total})}{\\Omega_{\\text{bath}}(E_{\\text{bath}})} \\Big)}"} />
       <p>And the denominator is just a normalizing factor so the final expression is below.</p>
       <MakeMathDisplay tex={"p(r_\\text{sys}) = \\frac{e^{-\\frac{\\mathcal{H}_\\text{sys}(r_\\text{sys})}{k_B T_\\text{bath}}}} {\\displaystyle \\int_V e^{-\\frac{\\mathcal{H}_\\text{sys}(r\'_\\text{sys})}{k_B T_\\text{bath}}} dr\'_\\text{sys} }"} />
+
+      <h2>Quantum Microcanonical Ensemble</h2>
+      <p>We assume a time evolution of a system of the Schrodinger equation for some Hamiltonian operator.</p>
+      <MakeMathDisplay tex={"\\frac{\\partial \\Psi(\\vec{x}, t)}{\\partial t} = -\\frac{i}{\\hbar}\\hat{H}\\Psi(\\vec{x}, t)"} />
+      <p>To measure an observable when the stat is known is</p>
+      <MakeMathDisplay tex={"A = \\langle \\Psi | \\hat{A} | \\Psi \\rangle "} />
+      <p>but if there is a probability distrubition over some states then it is below.</p>
+      <MakeMathDisplay tex={"= \\langle A \\rangle = \\sum_i p_i \\langle \\Psi_i | \\hat{A} | \\Psi_i \\rangle "} />
+      <p>If we have an orthanormal basis <MakeMath tex={"n"} /> so that <MakeMath tex={"\\sum_k | n_k \\rangle \\langle n_k | = I"}/> we can insert it into the equation.</p>
+      <MakeMathDisplay tex={"= \\sum_i p_i \\langle \\Psi_i | \\hat{A} \\bigg( \\sum_k | n_k \\rangle \\langle n_k | \\bigg) | \\Psi_i \\rangle "} />
+      <MakeMathDisplay tex={"= \\sum_k \\sum_i p_i \\langle \\Psi_i | \\hat{A} | n_k \\rangle \\langle n_k | \\Psi_i \\rangle "} />
+      <MakeMathDisplay tex={"= \\sum_k \\sum_i p_i \\langle n_k | \\Psi_i \\rangle \\langle \\Psi_i | \\hat{A} | n_k \\rangle "} />
+      <MakeMathDisplay tex={"= \\sum_k  \\langle n_k | \\bigg( \\sum_i p_i | \\Psi_i \\rangle \\langle \\Psi_i | \\hat{A} \\bigg) | n_k \\rangle "} />
+      <MakeMathDisplay tex={"= \\text{Tr}\\bigg( \\sum_i p_i | \\Psi_i \\rangle \\langle \\Psi_i | \\hat{A} \\bigg) "} />
+      <p>If we define an operator</p>
+      <MakeMathDisplay tex={"\\rho = \\sum_i p_i | \\Psi_i \\rangle \\langle \\Psi_i |"} />
+      <p>then the expected value of any observable is</p>
+      <MakeMathDisplay tex={"\\langle A \\rangle = \\text{Tr}\\big( \\rho \\hat{A} \\big) "} />
+      <p>Next we find the time evolution of <MakeMath tex={"\\rho"} />.</p>
+      <MakeMathDisplay tex={"\\frac{d \\rho}{dt} = \\sum_i p_i \\frac{d \\Big(| \\Psi_i \\rangle \\langle \\Psi_i |\\Big)}{dt} = \\sum_i p_i \\bigg( \\frac{d| \\Psi_i \\rangle}{dt} \\langle \\Psi_i | + | \\Psi_i \\rangle \\frac{d \\langle \\Psi_i |}{dt} \\bigg)"} />
+      <p>Then substitute the Schrodinger equation</p>
+      <MakeMathDisplay tex={" = \\sum_i p_i \\bigg( -\\frac{i}{\\hbar}\\hat{H}| \\Psi_i \\rangle \\langle \\Psi_i | + | \\Psi_i \\rangle \\langle \\Psi_i | \\frac{i}{\\hbar}\\hat{H} \\bigg)"} />
+      <MakeMathDisplay tex={" = - \\frac{i}{\\hbar} \\sum_i p_i \\bigg(\\hat{H}| \\Psi_i \\rangle \\langle \\Psi_i | - | \\Psi_i \\rangle \\langle \\Psi_i |\\hat{H} \\bigg)"} />
+      <MakeMathDisplay tex={" = - \\frac{i}{\\hbar} \\bigg(\\hat{H} \\rho - \\rho \\hat{H} \\bigg)"} />
+      <p>So it must be that for equilibrium they commute</p>
+      <MakeMathDisplay tex={"\\hat{H} \\rho = \\rho \\hat{H}"} />
+      <p>Similar to the classical case, if we have the <MakeMath tex={"p_i"} /> be only a function of the energy for each eigenvector of the Hamiltonian, the system will be in equilibrium. Since observables are Hermetian, an orthogonal eigenbases must exist. Each operator will be defined in the eigenbasis.</p>
+      <MakeMathDisplay tex={"\\hat{H} = \\sum_a E_a | n_a \\rangle \\langle n_a|"} />
+      <MakeMathDisplay tex={"\\rho = \\sum_a p(E_a) | n_a \\rangle \\langle n_a|"} />
+      <p>We can show they commute</p>
+      <MakeMathDisplay tex={"\\hat{H}\\rho = \\sum_a E_a | n_a \\rangle \\langle n_a| \\sum_b p(E_b) | n_b \\rangle \\langle n_b|"} />
+      <MakeMathDisplay tex={"= \\sum_a \\sum_b E_a p(E_b) | n_a \\rangle \\langle n_a| | n_b \\rangle \\langle n_b|"} />
+      <MakeMathDisplay tex={"= \\sum_a \\sum_b  p(E_b) | n_a \\rangle \\langle n_a| E_a | n_b \\rangle \\langle n_b|"} />
+      <MakeMathDisplay tex={"= \\sum_a p(E_a) | n_a \\rangle \\langle n_a| \\sum_b E_b | n_b \\rangle \\langle n_b|"} />
+      <MakeMathDisplay tex={"\\rho\\hat{H}"} />
+      <p>So the quantum microcanonical ensemble must have a density matrix of the form</p>
+      <MakeMathDisplay tex={"\\rho = \\sum_a p(E_a) | n_a \\rangle \\langle n_a|"} />
+      <p>where the <MakeMath tex={"n"} />'s are eigenvectors of the Hamiltonian. Since the energy is known, it must be a uniform distribution over all eigenstates with that energy</p>
+      <MakeMathDisplay tex={"\\rho = \\sum_a | n_a \\rangle \\langle n_a|"} />
+      <h2>Quantum Cannonical Ensemble</h2>
+      <p>TODO</p>
     </Wrapper>
   );
 }
