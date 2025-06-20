@@ -3,7 +3,7 @@ import React from "react";
 import Project2Body from "../pages/projects/2body.js";
 import MaxwellBoltzmann from "../pages/projects/maxwell_boltzmann_distribution.js";
 import FreeEnergyGradient from "../pages/projects/free_energy_gradient.js";
-import BoltzmannDerivation from "../pages/projects/boltzmann_derivation.js";
+import StatisticalMechanicsDerivation from "../pages/projects/statistical_mechanics_derivation.js";
 import Capstone from "../pages/projects/capstone.js";
 import FluctuationDissipationTheorem from "../pages/projects/fluctuation_dissipation_theorem.js";
 import DeltaGcode from "../pages/projects/delta_gcode.js";
@@ -88,9 +88,9 @@ export const ProjectsList = [
     title: "Derivation of the Fluctuation Dissipation Theorem"
   },
   {
-    react: BoltzmannDerivation,
-    path: "boltzman_derivation",
-    title: "Derivations of the Boltzmann Distribution"
+    react: StatisticalMechanicsDerivation,
+    path: "statistical_mechanics_derivation",
+    title: "Derivation of Statistical Mechanics"
   },
   {
     react: Capstone,
