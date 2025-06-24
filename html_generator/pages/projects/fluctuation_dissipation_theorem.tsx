@@ -6,6 +6,104 @@ import Wrapper from "../../wrapper.js";
 function FluctuationDissipationTheorem({title}: {title: string}) {
   return (
     <Wrapper title={title}>
+      <h1>Classical Version</h1>
+      <p>Starting with Hamiltonian dynamics we see that a probability distribution over the phase space with a Hamiltonian <MakeMath tex={"H(t)"} /> evolves like</p>
+      <MakeMathDisplay tex={"\\frac{\\partial \\rho(p, q, t)}{\\partial t} = \\sum_i \\frac{\\partial H}{\\partial q_i}\\frac{\\partial \\rho}{\\partial x_i} - \\frac{\\partial \\rho}{\\partial q_i}\\frac{\\partial H}{\\partial x_i}"} />
+      <p>Call this the time evolution operator of the probability distribution</p>
+      <MakeMathDisplay tex={"G\\rho = \\sum_i \\frac{\\partial H}{\\partial q_i}\\frac{\\partial \\rho}{\\partial x_i} - \\frac{\\partial \\rho}{\\partial q_i}\\frac{\\partial H}{\\partial x_i}"} />
+      <p>So that we have</p>
+      <MakeMathDisplay tex={"\\frac{\\partial \\rho}{\\partial t} = \\hat{G} \\rho"} />
+      <p>This yields the solution using operator exponentiation</p>
+      <MakeMathDisplay tex={"\\rho(t_b) = e^{\\int_{t_a}^{t_b}\\hat{G}(t)} \\rho(t_a)"} />
+      <p>Then make this into a new operator</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = e^{\\int_{t_a}^{t_b}\\hat{G}(t)}"} />
+      <p>So that</p>
+      <MakeMathDisplay tex={"\\rho(t_b) = \\hat{M}(t_a, t_b)\\rho(t_a)"} />
+      <p>And if we substitute back into the time evolution of the probability distribution</p>
+      <MakeMathDisplay tex={"\\frac{\\partial }{\\partial t} \\Big( \\hat{M}(t_a, t) \\rho(t_a) \\Big) = \\hat{G}(t) \\hat{M}(t_a, t) \\rho(t_a)"} />
+      <p>Integrating both sides get</p>
+      <MakeMathDisplay tex={" (\\hat{M}(t_a, t_b) \\rho(t_a) - \\hat{M}(t_a, t_a) \\rho(t_a) = \\int_{t_a}^{t_b}\\hat{G}(t) \\hat{M}(t_a, t) \\rho(t_a) dt"} />
+      <p>And <MakeMath tex={"\\hat{M}(t_a, t_a) = 1"} /> so</p>
+      <MakeMathDisplay tex={" (\\hat{M}(t_a, t_b) - 1 ) \\rho(t_a) = \\int_{t_a}^{t_b}\\hat{G}(t) \\hat{M}(t_a, t) \\rho(t_a) dt"} />
+      <p>And since it should be valid for every posible probablility distribution the operators should be equal</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) =  1+ \\int_{t_a}^{t_b}\\hat{G}(t) \\hat{M}(t_a, t) dt"} />
+      <p>This can be expanded into a Volterra series. Start with</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = 1"} />
+      <p>Then substitute it back</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = 1 + \\int_{t_a}^{t_b}\\hat{G}(t) dt"} />
+      <p>Then again</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = 1 + \\int_{t_a}^{t_b}\\hat{G}(t) dt + \\int_{t_a}^{t_b}\\int_{t_a}^{t_b}\\hat{G}(t) \\hat{G}(t) dt_0 dt_1"} />
+      <p>And the convergence goes to</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = 1 + \\lim_{N \\rightarrow \\infty} \\sum_{n=1}^N \\int_{t_a}^{t_b}\\cdots \\int_{t_a}^{t_b}\\hat{G}(t_1) \\dots \\hat{G}(t_n) dt_1 \\dots dt_n"} />
+      <p>And for now just explicitly keep track of the first order terms</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = 1 + \\int_{t_a}^{t_b}\\hat{G}(t) dt + \\mathcal{O}(\\hat{G}^2)"} />
+      <h2>Interaction picture</h2>
+      <p>Assume the system is in equilibrium with Hamiltonian <MakeMath tex={"H_0"} /> but then a time dependent perturbation is added</p>
+      <MakeMathDisplay tex={"H(t, \\vec{p}, \\vec{q}) = H_0(\\vec{p}, \\vec{q}) + H_1(\\vec{p}, \\vec{q}, t)"} />
+      <p>Then the new time evolution becomes</p>
+      <MakeMathDisplay tex={"\\frac{\\partial \\rho}{\\partial t} = \\hat{G}_0 \\rho + \\hat{G}_1 \\rho = (\\hat{G}_0 + \\hat{G}_1) \\rho"} />
+      <p>And the new time evolution operator is</p>
+      <MakeMathDisplay tex={"\\hat{M}(t_a, t_b) = e^{\\int_{t_a}^{t_b} \\hat{G}_0 + \\hat{G}_1(t) dt}"} />
+      <p>Lets define an interaction picture version of the probability distribution and its time evolution</p>
+      <MakeMathDisplay tex={"\\rho_I(t) = e^{-\\hat{G}_0 (t - t_a)} \\rho(t)"} />
+
+      <p>to find the time evolution operator</p>
+      <MakeMathDisplay tex={"\\frac{\\partial}{\\partial t} \\rho_I(t) = \\frac{\\partial}{\\partial t} \\Big( e^{-\\hat{G}_0 (t - t_a)} \\rho(t) \\Big)"} />
+      <p>chain rule</p>
+      <MakeMathDisplay tex={"= -e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_0 \\rho(t) + e^{-\\hat{G}_0 (t - t_a)} \\frac{\\partial}{\\partial t} \\rho(t)"} />
+      
+      <MakeMathDisplay tex={"= -e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_0 \\rho(t) + e^{-\\hat{G}_0 (t - t_a)} (\\hat{G}_0 + \\hat{G}_1(t)) \\rho(t)"} />
+      <MakeMathDisplay tex={"= e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_1(t) \\rho(t)"} />
+      <p>insert the identity</p>
+      <MakeMathDisplay tex={"= e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_1(t) e^{\\hat{G}_0 (t - t_a)} e^{-\\hat{G}_0 (t - t_a)} \\rho(t)"} />
+      <MakeMathDisplay tex={"= e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_1(t) e^{\\hat{G}_0 (t - t_a)} \\rho_I(t)"} />
+      <p>So we can make a interaction picture operator</p>
+      <MakeMathDisplay tex={"\\hat{G}_{I, 1}= e^{-\\hat{G}_0 (t - t_a)} \\hat{G}_1(t) e^{\\hat{G}_0 (t - t_a)}"} />
+      <p>and then</p>
+      <MakeMathDisplay tex={"\\frac{\\partial}{\\partial t} \\rho_I(t) = \\hat{G}_{I, 1} \\rho_I(t))"} />
+      <MakeMathDisplay tex={"\\hat{M}_I(t_a, t_b) = e^{\\int_{t_a}^{t_b} \\hat{G}_1(t) dt}"} />
+      <p>that acts on the interaction picture probability distrubion</p>
+      <MakeMathDisplay tex={"\\rho_I(t) = M_I(t_a, t) \\rho_I(t_a)"} />
+      <p>And using the same thing with the Volterra series expansion</p>
+      <MakeMathDisplay tex={"\\hat{M}_I(t_a, t_b) = 1 + \\int_{t_a}^{t_b}\\hat{G}_I(t) dt + \\mathcal{O}(\\hat{G_I}^2)"} />
+      <h2>Linear response</h2>
+      <p>Consider a closed system where the Hamiltonian is time independent, and is perturbed by a force along some observable</p>
+      <MakeMathDisplay tex={"H(t) = H_0 - h(t)B(\\vec{p}, \\vec{q})"} />
+      <p>Here <MakeMathDisplay tex={"H_1(t) = - h(t)B(\\vec{p}, \\vec{q})"} /> so</p>
+      <MakeMathDisplay tex={"\\hat{M}_I(t_a, t_b) = 1 + \\int_{t_a}^{t_b}\\hat{G}_I(t) dt + \\mathcal{O}(\\hat{G_I}^2)"} />
+      <p>then</p>
+      <MakeMathDisplay tex={"\\rho_I(t_b) = \\hat{M}_I(t_a, t_b)\\rho_I(t_a) = \\rho_I(t_a) + \\int_{t_a}^{t_b}\\hat{G}_I(t) \\rho_I(t_a) dt + \\mathcal{O}(\\hat{G_I}^2)"} />
+      <p>and finding <MakeMath tex={"\\hat{G}_I"} /> gives</p>
+      
+      <MakeMathDisplay tex={"\\rho_I(t_b) = \\hat{M}_I(t_a, t_b)\\rho_I(t_a) = \\rho_I(t_a) + \\int_{t_a}^{t_b}h(t)\\hat{G}_{I, B}(t) \\rho_I(t_a) dt + \\mathcal{O}(h^2)"} />
+      <p>where</p>
+      <MakeMathDisplay tex={"G_{I, B} \\rho_I = \\sum_i \\frac{\\partial B}{\\partial q_i}\\frac{\\partial \\rho_I}{\\partial x_i} - \\frac{\\partial \\rho_I}{\\partial q_i}\\frac{\\partial B}{\\partial x_i}"} />
+      <p>Next find the change in an observable between times</p>
+      <MakeMathDisplay tex={"\\langle A_I(t) \\rangle = \\int_{V^N} p(\\vec{x}, \\vec{p}) A(\\vec{x}, \\vec{p}) d\\vec{x} d \\vec{p}"} />
+      <p>So then</p>
+      <MakeMathDisplay tex={"\\langle A_I(t_b) \\rangle - \\langle A_I(t_a) \\rangle = \\int_{t_a}^{t_b}h(t) \\int_{V^N} \\bigg( \\hat{G}_{I, B}(t) \\rho_I(t_a) \\bigg)(\\vec{p}, \\vec{q}) A_I(\\vec{p}, \\vec{q}) d\\vec{p} d\\vec{q} dt + \\mathcal{O}(h^2)"} />
+      <p>Call this part the linear reponse function for the observable's <MakeMath tex={"A, B"} />.</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\int_{V^N} \\bigg( \\hat{G}_{I, B}(t) \\rho_I(t_a) \\bigg)(\\vec{p}, \\vec{q}) A_I(\\vec{p}, \\vec{q}) d\\vec{p} d\\vec{q}"} />
+      <p>Do some stuff</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\int_{V^N} \\bigg( \\sum_i \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial \\rho_I(t_a)}{\\partial x_i} - \\frac{\\partial \\rho_I(t_a)}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} \\bigg) A_I(\\vec{p}, \\vec{q}) d\\vec{p} d\\vec{q}"} />
+      <p>Assume <MakeMath tex={"t_a"} /> is at equilibrium so the interaction picture isn't changing (by definition of equilibrium the probability distirubion isn't changing)</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\int_{V^N} \\bigg( \\sum_i \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial \\rho_I(t_a)}{\\partial x_i} - \\frac{\\partial \\rho_I(t_a)}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} \\bigg) A(t_a) d\\vec{p} d\\vec{q}"} />
+      <p>Then do divergence theorem and assume boundary conditions are zero</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\int_{V^N} \\bigg( \\sum_i \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial A(t_a)}{\\partial x_i} - \\frac{\\partial A(t_a)}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} \\bigg) \\rho_I(t_a) d\\vec{p} d\\vec{q}"} />
+      <p>and at equilibrium is just </p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\int_{V^N} \\bigg( \\sum_i \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial A(t_a)}{\\partial x_i} - \\frac{\\partial A(t_a)}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} \\bigg) e^{-\\frac{H_0(\\vec{q}, \\vec{p})}{k_B T}} d\\vec{p} d\\vec{q}"} />
+      <p>Which is just the equilibrium distribution of the autorrelation</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = \\langle \\sum_i \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial A(t_a)}{\\partial x_i} - \\frac{\\partial A(t_a)}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} \\bigg)\\rangle_0"} />
+      <p>If we go back and integrate by parts and assume boundary conditions and stuff for each side of the minus for A we get</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = -\\frac{1}{k_B T}\\int_{V^N} A(t_a) \\bigg( \\sum_i \\frac{\\partial H_0}{\\partial q_i}\\frac{\\partial B(t)}{\\partial x_i} - \\frac{\\partial B(t)}{\\partial q_i}\\frac{\\partial H_0}{\\partial x_i} \\bigg) e^{-\\frac{H_0(\\vec{q}, \\vec{p})}{k_B T}} d\\vec{p} d\\vec{q}"} />
+      <p>and thats just time evolution of operators so</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = -\\frac{1}{k_B T} \\int_{V^N} A(t_a) \\frac{\\partial B(t)}{\\partial t} e^{-\\frac{H_0(\\vec{q}, \\vec{p})}{k_B T}} d\\vec{p} d\\vec{q}"} />
+      <p>so its like</p>
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = -\\frac{1}{k_B T} \\langle A(t_a) \\frac{\\partial B(t)}{\\partial t} \\rangle_0"} />
+      <MakeMathDisplay tex={"\\chi_{AB}(t_a, t) = -\\frac{1}{k_B T}\\frac{\\partial}{\\partial t}  \\langle A(t_a) B(t) \\rangle_0"} />
+      <p>Then if you assume the correlation is symmetric then fourier transform both sides and you get the thing</p>
+      <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = -\\frac{\\omega}{2 k_B T} C(\\omega)"} />
+      <h1>Quantum Version</h1>
       <p>Start with the Schrödinger equation for some arbitrary Hamiltonian.</p>
       <MakeMathDisplay tex={"i\\hbar \\frac{\\partial}{\\partial t} \\Psi(t) = \\hat{H}(t) \\Psi(t)"} />
       <MakeMathDisplay tex={"\\frac{\\partial}{\\partial t} \\Psi(t) = -\\frac{i}{\\hbar} \\hat{H}(t) \\Psi(t)"} />
