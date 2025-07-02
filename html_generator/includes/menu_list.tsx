@@ -25,6 +25,7 @@ import SphereReflectionTexture from "../pages/projects/sphere_reflection_texture
 import WaterMarbles from "../pages/projects/water_marbles.js";
 import Schrödinger from "../pages/projects/schrödinger.js";
 import DiracSpinors from "../pages/projects/dirac_spinor.js";
+import TimeEvolutionOperators from "../pages/projects/time_evolution.js";
 
 export const ProjectsList = [
   {
@@ -91,6 +92,11 @@ export const ProjectsList = [
     react: StatisticalMechanicsDerivation,
     path: "statistical_mechanics_derivation",
     title: "Derivation of Statistical Mechanics"
+  },
+  {
+    react: TimeEvolutionOperators,
+    path: "time_evolution",
+    title: "Time Evolution Operators In Physics"
   },
   {
     react: Capstone,
