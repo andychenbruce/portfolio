@@ -152,6 +152,8 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	</div>
 	<p>So we get</p>
 	<MakeMathDisplay tex={"\\mathcal{P}(t_a, t_b) = \\mathcal{P}_0(t_a, t_b) + \\int_{t_a}^{t_b} \\mathcal{P}_0(t, t_b) \\Big(-h(t) \\mathcal{K}_B\\Big) \\mathcal{P}_0(t_a, t) + \\mathcal{O}(h^2)"} />
+	<p>And we find that</p>
+	<MakeMathDisplay tex={"\\rho(t_b) - \\rho_0(t_b) = \\int_{t_a}^{t_b} \\mathcal{P}_0(t, t_b) \\Big(-h(t) \\mathcal{K}_B\\Big) \\mathcal{P}_0(t_a, t)\\rho(t_a) + \\mathcal{O}(h^2)"} />
 
 	<h2>Expected value of observable at equilibium</h2>
 	<p>Assume that at time <MakeMath tex={"t_a"} /> there was no perturbation and the system is in thermal equilibrium. For all <MakeMath tex={"t \\le t_a"} /> the probability distribution is at some equilibrium distribution <MakeMath tex={"\\rho(t) = \\rho_0"} /> and there was no force <MakeMath tex={"h(t) = 0"} />.</p>
@@ -161,18 +163,18 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
             <p>If we have a probability distribution <MakeMath tex={"\\rho(t, \\vec{q}, \\vec{p})"} /> over the phase space we can find the expected value of an observable by</p>
 	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\int_V A(\\vec{q}, \\vec{p})\\rho(t, \\vec{q}, \\vec{p}) d\\vec{q} d\\vec{p}"} />
 	    <p>The difference in expected values is</p>
-	    <MakeMathDisplay tex={"\\mathbb{E}[A](t_b) - \\mathbb{E}[A](t_a) = \\int_V \\rho(t_b) A d\\vec{q} d\\vec{p} - \\int_V \\rho(t_a) A d\\vec{q} d\\vec{p}"} />
-	    <MakeMathDisplay tex={" = \\int_V \\Big(\\rho(t_b) - \\rho(t_a)\\Big) A d\\vec{q} d\\vec{p}"} />
+	    <MakeMathDisplay tex={"\\mathbb{E}[A](t_b) - \\mathbb{E}_0[A](t_b) = \\int_V \\rho(t_b) A d\\vec{q} d\\vec{p} - \\int_V \\rho_0(t_b) A d\\vec{q} d\\vec{p}"} />
+	    <MakeMathDisplay tex={" = \\int_V \\Big(\\rho(t_b) - \\rho_0(t_b)\\Big) A d\\vec{q} d\\vec{p}"} />
 	    <p>Then put in the Volterra series</p>
 	    <MakeMathDisplay tex={" = \\int_V \\bigg(\\int_{t_a}^{t_b} \\mathcal{P}_0(t, t_b)\\Big(-h(t) \\mathcal{K}_B\\Big) \\mathcal{P}_0(t_a, t)\\rho(t_a)dt\\bigg) A d\\vec{q} d\\vec{p} + \\mathcal{O}(h^2)"} />
 	    <p>and move the integrals around</p>
 	    <MakeMathDisplay tex={" = \\int_{t_a}^{t_b} h(t) \\int_V -\\Bigg(\\mathcal{P}_0(t, t_b) \\mathcal{K}_B\\mathcal{P}_0(t_a, t)\\rho(t_a)\\Bigg) A d\\vec{q} d\\vec{p} dt + \\mathcal{O}(h^2)"} />
 	    <p>Call the factor with first order of <MakeMath tex={"h"}/> the linear response function</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B \\mathcal{P}_0(t_a, t)\\rho(t_a)\\Bigg) A d\\vec{q} d\\vec{p}"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t - t_b) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B \\mathcal{P}_0(t_a, t)\\rho(t_a)\\Bigg) A d\\vec{q} d\\vec{p}"} />
 	    <p>put in the equilbrium distribution <MakeMath tex={"\\rho(t_a) = \\rho_0(\\vec{q}, \\vec{p}) = \\frac{e^{-\\frac{H_0(\\vec{q}, \\vec{p})}{k_B T}}}{Z}"} /></p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B \\mathcal{P}_0(t_a, t)\\rho_0\\Bigg) A d\\vec{q} d\\vec{p}"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t - t_b) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B \\mathcal{P}_0(t_a, t)\\rho_0\\Bigg) A d\\vec{q} d\\vec{p}"} />
 	    <p>And by definition the distribution shouldn't evolve under the unberturbed Hamiltonian (you can prove this).</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B\\rho_0\\Bigg) A d\\vec{q} d\\vec{p}"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t - t_b) = -\\int_V \\Bigg(\\mathcal{P}_0(t, t_b)\\mathcal{K}_B\\rho_0\\Bigg) A d\\vec{q} d\\vec{p}"} />
 	    <p>so its like</p>
 	    <MakeMathDisplay tex={" = -\\int_V \\bigg(\\mathcal{P}_0(t, t_b) \\sum_i \\frac{\\partial B}{\\partial q_i} \\frac{\\partial \\rho_0}{\\partial p_i} - \\frac{\\partial B}{\\partial p_i} \\frac{\\partial \\rho_0)}{\\partial q_i} \\bigg) A d\\vec{p} d\\vec{q}"} />
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\int_V \\mathcal{P}_0(t, t_b) \\Bigg( \\frac{e^{-\\frac{H_0(\\vec{q}, \\vec{p})}{k_B T}}}{Z} \\bigg( \\sum_i \\frac{\\partial B}{\\partial q_i} \\frac{\\partial H_0}{\\partial p_i} - \\frac{\\partial B}{\\partial p_i} \\frac{\\partial H_0}{\\partial q_i} \\bigg) \\Bigg) A d\\vec{p} d\\vec{q}"} />
@@ -184,34 +186,42 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\int_V \\rho_0 \\Big( \\mathcal{L}_0 e^{-(t_b - t)\\mathcal{L}_0} B \\Big) A d\\vec{p} d\\vec{q}"} />
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\int_V \\rho_0 \\Big( \\dot{B}_0(t - t_b) \\Big) A d\\vec{p} d\\vec{q}"} />
 	    <p>And this is just the expected value at equilibrium</p>
-	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\mathbb{E}_0 [\\dot{B}(t)A(0)]"} />
+	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\mathbb{E}_0 [\\dot{B}(t_a + t - t_b)A(t_a)]"} />
 	    <p>So</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = \\frac{1}{k_B T} \\frac{d}{dt}\\mathbb{E}_0 [B(t) A(t_a)]"} />
-	    
+	    <MakeMathDisplay tex={"\\chi_{AB}(t - t_b) = \\frac{1}{k_B T} \\frac{d}{dt}\\mathbb{E}_0 [B(t_a + t - t_b) A(t_a)]"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t) = \\frac{1}{k_B T} \\frac{d}{dt}\\mathbb{E}_0 [B(t_a + t) A(t_a)]"} />
 	  </div>
 	  <div className="flexInner1">
             <h3>Quantum</h3>
-      	    <p>Applying it to the interaction picture</p>
-	    <MakeMathDisplay tex={"\\mathcal{U}(t_b, t_a)\\rho(t_a) = \\mathcal{U}_0(t_b, t_a)\\rho(t_a) + \\int_{t_b}^{t_a} \\mathcal{U}_0(t, t_a) \\Big(-h(t) \\mathcal{L}_B(t)\\Big) \\mathcal{U}_0(t_b, t)\\rho(t_a) + \\mathcal{O}(h^2)"} />
-	    <p>So</p>
+      	    <p>So the expected value is</p>
+	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\text{Tr}\\Big(\\rho(t)\\hat{A}\\Big)"} />
+	    <p>And the difference is</p>
 	    <MakeMathDisplay tex={"\\mathbb{E}[A](t_b) - \\mathbb{E}_0[A](t_b) = \\text{Tr}(\\rho(t_b) \\hat{A}) - \\text{Tr}(\\rho_0(t_b) \\hat{A})"} />
 	    <MakeMathDisplay tex={" = \\text{Tr}((\\rho(t_b) - \\rho_0(t_b)) \\hat{A})"} />
-	    <MakeMathDisplay tex={" = \\text{Tr}\\bigg(\\int_{t_a}^{t_b} \\bigg(e^{(t_b - t)\\mathcal{L}_0}\\Big(-h(t) \\mathcal{L}_B(t)\\Big)  \\rho_0(t) \\bigg) \\hat{A} dt \\bigg) + \\mathcal{O}(h^2)"} />
-	    <MakeMathDisplay tex={" = -\\text{Tr}\\bigg(\\int_{t_a}^{t_b} h(t) \\bigg(e^{(t_b - t)\\mathcal{L}_0}\\mathcal{L}_B(t) \\rho_0(t) \\bigg) \\hat{A} dt \\bigg) + \\mathcal{O}(h^2)"} />
-	    <MakeMathDisplay tex={" = -\\int_{t_a}^{t_b} h(t) \\text{Tr}\\bigg(\\bigg(e^{(t_b - t)\\mathcal{L}_0}\\mathcal{L}_B(t) \\rho_0(t) \\bigg) \\hat{A}\\bigg) dt  + \\mathcal{O}(h^2)"} />
-	    <p>Call the is first order term the linear response function</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\text{Tr}\\bigg(\\bigg(e^{(t_b - t)\\mathcal{L}_0}\\mathcal{L}_B(t) \\rho_0(t) \\bigg) \\hat{A} \\bigg)"} />
+	    <p>Put the volterra series in there</p>
+	    <MakeMathDisplay tex={" = \\text{Tr}\\bigg(\\int_{t_a}^{t_b} \\bigg(\\mathcal{P}_0(t, t_b)\\Big(-h(t) \\mathcal{K}_B\\Big)  \\mathcal{P}_0(t_a, t) \\rho(t_a) \\bigg) \\hat{A} dt \\bigg) + \\mathcal{O}(h^2)"} />
+	    <p>Move some stuff around</p>
+	    <MakeMathDisplay tex={" = -\\int_{t_a}^{t_b} h(t) \\text{Tr}\\bigg(\\mathcal{P}_0(t, t_b) \\mathcal{K}_B(t) \\mathcal{P}_0(t_a, t) \\rho(t_a) \\bigg) \\hat{A}\\bigg) dt  + \\mathcal{O}(h^2)"} />
+	    <p>Call this first order term the linear response function</p>
+	    <MakeMathDisplay tex={"\\chi_{AB}(t-t_b) = -\\text{Tr}\\bigg(\\bigg(\\mathcal{P}_0(t, t_b) \\mathcal{K}_B(t) \\mathcal{P}_0(t_a, t) \\rho(t_a) \\bigg) \\hat{A} \\bigg)"} />
+	    <p>Assume equilibrium at <MakeMath tex={"t_a"} /> and put in the equilbium density matrix <MakeMath tex={"\\rho_0 = \\frac{e^{-\\frac{\\hat{H}_0}{k_B T}}}{Z}"} />.</p>
+	    <MakeMathDisplay tex={" = -\\text{Tr}\\bigg(\\bigg(\\mathcal{P}_0(t, t_b) \\mathcal{K}_B(t) \\mathcal{P}_0(t_a, t) \\rho_0 \\bigg) \\hat{A} \\bigg)"} />
+	    <p>And you can check that it doesn't change in time from the equilbrium Hamiltonian</p>
+	    <MakeMathDisplay tex={" = -\\text{Tr}\\bigg(\\bigg(\\mathcal{P}_0(t, t_b) \\mathcal{K}_B(t) \\rho_0 \\bigg) \\hat{A} \\bigg)"} />
 	    <p>Then expand</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(t) = \\text{Tr}\\bigg(\\frac{i}{\\hbar}\\bigg(e^{(t_b - t)\\mathcal{L}_0}\\Big( \\rho_0(t)B(t) - B(t)\\rho_0(t)\\Big) \\bigg) \\hat{A} \\bigg)"} />
-	    <p>Assume equilibrium</p>
-	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\text{Tr}\\bigg(\\bigg(e^{(t_b - t)\\mathcal{L}_0}\\Big( e^{-\\frac{\\hat{H}_0}{k_B T}}B(t) - B(t)e^{-\\frac{\\hat{H}_0}{k_B T}}\\Big) \\bigg) \\hat{A}\\bigg)"} />
-	    <p>And remember B is really a constant so the time evolution operator doesn't affect it</p>
-	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\text{Tr}\\bigg(\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}B(t) - B(t)e^{-\\frac{\\hat{H}_0}{k_B T}}\\bigg) \\hat{A}\\bigg)"} />
+	    <MakeMathDisplay tex={"= \\text{Tr}\\bigg(\\frac{i}{\\hbar}\\bigg(\\mathcal{P}_0(t, t_b) \\Big( \\rho_0 B - B \\rho_0\\Big) \\bigg) \\hat{A} \\bigg)"} />
+	    <p>and because <MakeMath tex={"\\mathcal{K}(t) = -\\mathcal{L}(t)"} /> </p>
+	    <MakeMathDisplay tex={"= \\text{Tr}\\bigg(\\frac{i}{\\hbar}\\bigg(\\rho_0 B(t-t_b) - B(t-t_b) \\rho_0 \\bigg) \\hat{A} \\bigg)"} />
 	    <p>split</p>
-	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}B(t) \\hat{A}\\bigg) - \\text{Tr}\\bigg(B(t)e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}\\bigg) \\Bigg)"} />
+	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}B(t-t_b) \\hat{A}\\bigg) - \\text{Tr}\\bigg(B(t-t_b)e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}\\bigg) \\Bigg)"} />
 	    <p>and remember the cycle property of traces, and cycle the second one</p>
-	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}B(t) \\hat{A}\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg) \\Bigg)"} />
-	    <MakeMathDisplay tex={"= -\\frac{i}{\\hbar}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}[A, B(t)]\\bigg)"} />
+	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}B(t - t_b) \\hat{A}\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t - t_b)\\bigg) \\Bigg)"} />
+	    <MakeMathDisplay tex={"= -\\frac{i}{\\hbar}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}[A, B(t - t_b)]\\bigg)"} />
+	    <p>so</p>
+	    <MakeMathDisplay tex={"\\chi_{AB}(t-t_b) = -\\frac{i}{\\hbar}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}[A(t_a), B(t_a + t - t_b)]\\bigg)"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\frac{i}{\\hbar}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}[A(t_a), B(t_a + t)]\\bigg)"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(t) = -\\frac{i}{\\hbar}\\mathbb{E}_0\\Big[[A(t_a), B(t_a + t)]\\Big]"} />
+	    <p>This is the Kubo formula</p>
 	    <hr />
 	    <p>The time evolution operator</p>
 	    <MakeMathDisplay tex={"\\mathcal{U}(t_a, t_b)\\hat{A} = e^{(t_b-t_a)\\frac{i}{\\hbar}\\hat{H}_0} \\hat{A} e^{(t_b-t_a)\\frac{-i}{\\hbar}\\hat{H}_0}"} />
