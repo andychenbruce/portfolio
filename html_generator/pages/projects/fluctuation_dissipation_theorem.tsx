@@ -185,7 +185,7 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	    <p>And since <MakeMath tex={"\\mathcal{K}_0(t) = -\\mathcal{L}_0(t)"} />, and operators commute with their own exponent:</p>
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\int_V \\rho_0 \\Big( \\mathcal{L}_0 e^{-(t_b - t)\\mathcal{L}_0} B \\Big) A d\\vec{p} d\\vec{q}"} />
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\int_V \\rho_0 \\Big( \\dot{B}_0(t - t_b) \\Big) A d\\vec{p} d\\vec{q}"} />
-	    <p>And this is just the expected value at equilibrium</p>
+	    <p>Where <MakeMath tex={"\\dot{B}"} /> is time shifted to measure <MakeMath tex={"t - t_b"} /> in the future. And this is just the expected value at equilibrium</p>
 	    <MakeMathDisplay tex={" = \\frac{1}{k_B T}\\mathbb{E}_0 [\\dot{B}(t_a + t - t_b)A(t_a)]"} />
 	    <p>So</p>
 	    <MakeMathDisplay tex={"\\chi_{AB}(t - t_b) = \\frac{1}{k_B T} \\frac{d}{dt}\\mathbb{E}_0 [B(t_a + t - t_b) A(t_a)]"} />
@@ -231,62 +231,72 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	    <MakeMathDisplay tex={"= \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(B(t - \\frac{i\\hbar}{k_B T}) e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A}\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg) \\Bigg)"} />
 	    <p>Then cycle the trace again</p>
 	    <MakeMathDisplay tex={"\\chi_{AB}(t) = \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t - \\frac{i\\hbar}{k_B T})\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg) \\Bigg)"} />
-	    <p>fourier transform</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\int_{-\\infty}^{\\infty} e^{i\\omega t} \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t - \\frac{i\\hbar}{k_B T})\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg) \\Bigg) dt"} />
+	    <p>fourier transform (linear response must be zero for negative times so the integral can start at zero)</p>
+	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\int_0^{\\infty} e^{-i\\omega t} \\frac{i}{\\hbar}\\Bigg(\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t - \\frac{i\\hbar}{k_B T})\\bigg) - \\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg) \\Bigg) dt"} />
 
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{i}{\\hbar}\\Bigg(\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t - \\frac{i\\hbar}{k_B T})\\bigg)dt - \\int_{-\\infty}^{\\infty} e^{i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg)dt \\Bigg)"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{i}{\\hbar}\\Bigg(\\int_0^{\\infty} e^{-i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t - \\frac{i\\hbar}{k_B T})\\bigg)dt - \\int_0^{\\infty} e^{-i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg)dt \\Bigg)"} />
 	    <p>And we can remove the phase shift in the first term</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{i}{\\hbar}\\Bigg(e^{\\frac{\\hbar\\omega}{k_B T}}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t)\\bigg)dt - \\int_{-\\infty}^{\\infty} e^{i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg)dt \\Bigg)"} />
+	    <MakeMathDisplay tex={" = \\frac{i}{\\hbar}\\Bigg(e^{\\frac{\\hbar\\omega}{k_B T}}\\int_0^{\\infty} e^{-i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t)\\bigg)dt - \\int_0^{\\infty} e^{-i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}}\\hat{A}B(t)\\bigg)dt \\Bigg)"} />
 
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{i}{\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t)\\bigg)dt"} />
+	    <MakeMathDisplay tex={" = \\frac{i}{\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\int_0^{\\infty} e^{-i\\omega t}\\text{Tr}\\bigg(e^{-\\frac{\\hat{H}_0}{k_B T}} \\hat{A} B(t)\\bigg)dt"} />
 
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{i}{\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt"} />
+	    <MakeMathDisplay tex={" = \\frac{i}{\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt"} />
 
 	  </div>
 	</div>
 
-	<h3>Imaginary part</h3>
+	<h2>Imaginary part</h2>
 	<div className="flexOuter">
 	  <div className="flexInner1">
             <h4>Classical</h4>
 	    <p>Now take the fourier transform</p>
-	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = -\\frac{1}{k_B T} \\int_{\\infty}^{-\\infty} (-i\\omega) e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t) A(t_a)]dt"} />
+	    <MakeMathDisplay tex={"\\chi_{AB}(\\omega) = \\frac{1}{k_B T} \\int_{-\\infty}^{\\infty} e^{-i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t_a + t) A(t_a)]dt"} />
+	    <p>It shouldn't work for negative values so</p>
+	    <MakeMathDisplay tex={"= \\frac{1}{k_B T} \\int_0^{\\infty} e^{-i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t_a + t) A(t_a)]dt"} />
 	    <p>integrate by parts</p>
-	    <MakeMathDisplay tex={"\\Big( e^{i\\omega\\infty} \\mathbb{E}_0 [B(\\infty) A(t_a)] - e^{-i\\omega\\infty} \\mathbb{E}_0 [B(-\\infty) A(t_a)]\\Big)+\\frac{i\\omega}{k_B T} \\int_{\\infty}^{-\\infty} e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t) A(t_a)]dt"} />
-	    <p>and hope the bounradies aren't a problem idk</p>
-	    <MakeMathDisplay tex={"\\frac{i \\omega}{k_B T} \\int_{\\infty}^{-\\infty} e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t) A(t_a)]dt"} />
-	    <p>uhh</p>
-	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = \\frac{\\omega}{k_B T} \\text{Re}\\bigg[\\int_{\\infty}^{-\\infty} e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [B(t) A(t_a)]dt\\bigg]"} />
-	    <p>Then do the flip thing (wrong)</p>
-	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AA}(\\omega)] = \\frac{\\omega}{k_B T} \\bigg(\\int_{\\infty}^{-\\infty} e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [A(t) A(t_a)]dt + \\int_{\\infty}^{-\\infty} e^{-i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [A(t) A(t_a)]dt\\bigg)"} />
-	    <p>then get</p>
-	    <MakeMathDisplay tex={"\\int_{\\infty}^{-\\infty} e^{i\\omega t} \\frac{d}{dt}\\mathbb{E}_0 [A(t) A(t_a)]dt = \\frac{2 k_B T}{\\omega}\\text{Im}[\\chi_{AA}(\\omega)]"} />
+	    <MakeMathDisplay tex={"\\frac{1}{k_B T}\\Big( e^{-i\\omega\\infty} \\mathbb{E}_0 [B(t_a+\\infty) A(t_a)] - e^0 \\mathbb{E}_0 [B(t_a) A(t_a)]\\Big)+\\frac{1}{k_B T} \\int_{0}^{\\infty} \\Big(\\frac{d}{dt}e^{-i\\omega t}\\Big) \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt"} />
+	    <p>In the limit to infinity they should become uncorrelated</p>
+	    <MakeMathDisplay tex={"-\\frac{1}{k_B T}\\mathbb{E}_0 [B(t_a) A(t_a)]\\Big)+\\frac{1}{k_B T} \\int_{0}^{\\infty} \\Big(\\frac{d}{dt}e^{-i\\omega t}\\Big) \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt"} />
+	    <MakeMathDisplay tex={"-\\frac{1}{k_B T}\\mathbb{E}_0 [B(t_a) A(t_a)]\\Big)-\\frac{i\\omega}{k_B T} \\int_{0}^{\\infty} e^{-i\\omega t} \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt"} />
+	    <p>taking just the imaginary part</p>
+	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = -\\frac{\\omega}{k_B T} \\text{Re}\\bigg[\\int_0^{\\infty} e^{-i\\omega t} \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt\\bigg]"} />
+	    <p>Taking just the real part of anything is</p>
+	    <MakeMathDisplay tex={"\\text{Re}[f] = \\frac{f + f^*}{2}"} />
+	    <p>So doing that gives</p>
+	    <MakeMathDisplay tex={" = -\\frac{\\omega}{2 k_B T} \\bigg(\\int_0^{\\infty} e^{-i\\omega t} \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt + \\int_0^{\\infty} e^{i\\omega t} \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt\\bigg)"} />
+	    <MakeMathDisplay tex={" = -\\frac{\\omega}{2 k_B T} \\bigg(\\int_0^{\\infty} e^{-i\\omega t} \\mathbb{E}_0 [B(t_a + t) A(t_a)]dt + \\int_{-\\infty}^0 e^{-i\\omega t} \\mathbb{E}_0 [B(t_a - t) A(t_a)]dt\\bigg)"} />
+	    <p>And if <MakeMath tex={"A = B"} /> then</p>
+	    <MakeMathDisplay tex={" = -\\frac{\\omega}{2 k_B T} \\bigg(\\int_0^{\\infty} e^{-i\\omega t} \\mathbb{E}_0 [A(t_a + t) A(t_a)]dt + \\int_{-\\infty}^0 e^{-i\\omega t} \\mathbb{E}_0 [A(t_a-t) A(t_a)]dt\\bigg)"} />
+	    <p>And at equlibrium it's time invariant so you can shift both the offsets in the right integral by <MakeMath tex={"t"} />.</p>
+	    <MakeMathDisplay tex={" = -\\frac{\\omega}{2 k_B T} \\bigg(\\int_0^{\\infty} e^{i\\omega t} \\mathbb{E}_0 [A(t_a + t) A(t_a)]dt + \\int_{-\\infty}^0 e^{i\\omega t} \\mathbb{E}_0 [A(t_a) A(t_a+t)]dt\\bigg)"} />
+	    <MakeMathDisplay tex={" = -\\frac{\\omega}{2 k_B T} \\int_{-\\infty}^{\\infty} e^{i\\omega t} \\mathbb{E}_0 [A(t_a + t) A(t_a)]dt"} />
+	    <p>So we get a final formulat relating the spectral density to the linear respones function.</p>	    
+	    <MakeMathDisplay tex={"\\int_{-\\infty}^{\\infty} e^{i\\omega t} \\mathbb{E}_0 [A(t_a + t) A(t_a)]dt = -\\frac{2 k_B T}{\\omega}\\text{Im}[\\chi_{AA}(\\omega)]"} />
 	  </div>
 	  <div className="flexInner1">
             <h4>Quantum</h4>
 	    <p>Taking just the imaginary part of anything is</p>
 	    <MakeMathDisplay tex={"\\text{Im}[f] = \\frac{f - f^*}{2i}"} />
 	    <p>so</p>
-	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = \\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt\\bigg) - \\bigg(\\frac{-1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[B^\\dagger(t)\\hat{A}^\\dagger\\bigg]dt\\bigg)\\Bigg)"} />
+	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = \\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt\\bigg) - \\bigg(-\\int_0^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[B^\\dagger(t)\\hat{A}^\\dagger\\bigg]dt\\bigg)\\Bigg)"} />
 	    <p>And observables are Hermetian</p>
-	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = \\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt\\bigg) - \\bigg(\\frac{-1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[B(t)\\hat{A}\\bigg]dt\\bigg)\\Bigg)"} />
+	    <MakeMathDisplay tex={" = \\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} B(t)\\bigg]dt\\bigg) + \\bigg(\\int_0^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[B(t)\\hat{A}\\bigg]dt\\bigg)\\Bigg)"} />
 	    <p>Let A=B</p>
-	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AB}(\\omega)] = \\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) - \\bigg(\\frac{-1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[A(t)\\hat{A}\\bigg]dt\\bigg)\\Bigg)"} />
-	    <p>And at equilibrium shifting the time shouldn't matter <MakeMath tex={"\\mathbb{E}_0[A(t)A(t_a)] = \\mathbb{E}_0[A(t_a)A(2t_a-t)]"} /></p>
-	    <MakeMathDisplay tex={"\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) - \\bigg(\\frac{-1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[A(t_a)\\hat{A}(2t_a -t)\\bigg]dt\\bigg)\\Bigg)"} />
-	    <p>Then shift and negative the integral</p>
-	    <MakeMathDisplay tex={"\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) - \\bigg(\\frac{-1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[A(t_a)\\hat{A}(t)\\bigg]dt\\bigg)\\Bigg)"} />
-	    <MakeMathDisplay tex={"\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\frac{1}{2\\hbar}\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt"} />
+	    <MakeMathDisplay tex={"\\text{Im}[\\chi_{AA}(\\omega)] = \\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) + \\bigg(\\int_0^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[A(t)\\hat{A}\\bigg]dt\\bigg)\\Bigg)"} />
+	    <MakeMathDisplay tex={" = \\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) + \\bigg(\\int_{-\\infty}^0 e^{-i\\omega t}\\mathbb{E}_0\\bigg[A(-t)\\hat{A}\\bigg]dt\\bigg)\\Bigg)"} />
+	    <p>And at equilibrium shifting the time shouldn't matter <MakeMath tex={"\\mathbb{E}_0[A(t_a - t)A(t_a)] = \\mathbb{E}_0[A(t_a)A(t_a+t)]"} /></p>
+	    <MakeMathDisplay tex={" = \\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big) \\Bigg(\\bigg(\\int_0^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt\\bigg) + \\bigg(\\int_{-\\infty}^0 e^{-i\\omega t}\\mathbb{E}_0\\bigg[A\\hat{A}(t)\\bigg]dt\\bigg)\\Bigg)"} />
+	    <p>Then combined makes</p>
+	    <MakeMathDisplay tex={"\\frac{1}{2\\hbar}\\Big(e^{\\frac{\\hbar\\omega}{k_B T}}-1\\Big)\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt"} />
 	    <p>And we get</p>
-	    <MakeMathDisplay tex={"\\int_{-\\infty}^{\\infty} e^{i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt = \\frac{2\\hbar}{e^{\\frac{\\hbar\\omega}{k_B T}}-1} \\text{Im}[\\chi_A(\\omega)]"} />
-	    <p>The first part is called the spectral density so</p>
-	    <MakeMathDisplay tex={"S(\\omega) = \\frac{2\\hbar}{e^{\\frac{\\hbar\\omega}{k_B T}}-1} \\text{Im}[\\chi_A(\\omega)]"} />
+	    <MakeMathDisplay tex={"\\int_{-\\infty}^{\\infty} e^{-i\\omega t}\\mathbb{E}_0\\bigg[\\hat{A} A(t)\\bigg]dt = \\frac{2\\hbar}{e^{\\frac{\\hbar\\omega}{k_B T}}-1} \\text{Im}[\\chi_A(\\omega)]"} />
+	    
 	  </div>
 	</div>
 
 	<h3>Classical limit</h3>
 	<p>If we negative the frequency</p>
-	<MakeMathDisplay tex={"S'(\\omega) = S(-\\omega) = \\int_{-\\infty}^\\infty e^{-i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t')\\hat{A}(t_0)\\Big]dt = 2\\hbar\\Big(\\frac{1}{e^{-\\beta \\hbar \\omega} - 1} + 1\\Big)\\text{Im}[\\chi(-\\omega)]"} />
+	<MakeMathDisplay tex={"S'(\\omega) = S(-\\omega) = \\int_{-\\infty}^\\infty e^{-i\\omega t} \\mathbb{E}_0\\Big[ \\hat{A}(t')\\hat{A}(t_0)\\Big]dt = 2\\hbar\\Big(\\frac{1}{e^{\\beta \\hbar \\omega} - 1} + 1\\Big)\\text{Im}[\\chi(-\\omega)]"} />
 	<p>And since <MakeMath tex={"\\chi"} /> is a real function the Imaginary component is an odd function</p>
 	<MakeMathDisplay tex={"= -2\\hbar\\Big(\\frac{1}{e^{-\\beta \\hbar \\omega} - 1} + 1\\Big)\\text{Im}[\\chi(\\omega)]"} />
 	<MakeMathDisplay tex={"= 2\\hbar\\Big(\\frac{e^{\\beta \\hbar \\omega}}{e^{\\beta \\hbar \\omega} - 1} - 1\\Big)\\text{Im}[\\chi(\\omega)]"} />
