@@ -26,6 +26,7 @@ import WaterMarbles from "../pages/projects/water_marbles.js";
 import Schrödinger from "../pages/projects/schrödinger.js";
 import DiracSpinors from "../pages/projects/dirac_spinor.js";
 import TimeEvolutionOperators from "../pages/projects/time_evolution.js";
+import FokkerPlank from "../pages/projects/fokker_plank.js";
 
 export const ProjectsList = [
   {
@@ -97,6 +98,11 @@ export const ProjectsList = [
     react: TimeEvolutionOperators,
     path: "time_evolution",
     title: "Time Evolution Operators In Physics"
+  },
+  {
+    react: FokkerPlank,
+    path: "fokker_plank",
+    title: "Fokker Plank Equation"
   },
   {
     react: Capstone,
