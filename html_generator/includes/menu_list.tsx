@@ -27,6 +27,7 @@ import Schrödinger from "../pages/projects/schrödinger.js";
 import DiracSpinors from "../pages/projects/dirac_spinor.js";
 import TimeEvolutionOperators from "../pages/projects/time_evolution.js";
 import FokkerPlank from "../pages/projects/fokker_plank.js";
+import LangevinDynamics from "../pages/projects/langevin_dynamics.js";
 
 export const ProjectsList = [
   {
@@ -103,6 +104,11 @@ export const ProjectsList = [
     react: FokkerPlank,
     path: "fokker_plank",
     title: "Fokker Plank Equation"
+  },
+  {
+    react: LangevinDynamics,
+    path: "langevin_dynamics",
+    title: "Langevin Dynamics In Hamiltonian Phase Space"
   },
   {
     react: Capstone,

@@ -142,17 +142,17 @@ function FokkerPlank({title}: {title: string}) {
 	<MakeMathDisplay tex={"\\int_V \\Big(\\nabla_z a \\cdot \\vec{b}\\Big) d\\vec{z} + \\int_V \\Big( a \\nabla_z \\cdot \\vec{b} \\Big) d\\vec{z} = \\oint_{\\Omega(V)} \\Big((a\\vec{b}) \\cdot \\vec{n}\\Big) d\\vec{z}"} />
       </div>
       <p>so</p>
-      <MakeMathDisplay tex={"= \\oint_{\\Omega(V)} \\Big((p\\vec{A}f) \\cdot \\vec{n}\\Big) d\\vec{z} + \\int_V f \\nabla_z \\cdot \\Big( p \\vec{A}\\Big)d\\vec{z} "} />
+      <MakeMathDisplay tex={"= \\oint_{\\Omega(V)} \\Big((p\\vec{A}f) \\cdot \\vec{n}\\Big) d\\vec{z} - \\int_V f \\nabla_z \\cdot \\Big( p \\vec{A}\\Big)d\\vec{z} "} />
       <p>And if we assume the probability goes to zero at the edge (or in the limit to infinity) then the boundary condition dissapears</p>
-      <MakeMathDisplay tex={"= \\int_V f \\nabla_z \\cdot \\Big( p \\vec{A}\\Big)d\\vec{z} "} />
+      <MakeMathDisplay tex={"= -\\int_V f \\nabla_z \\cdot \\Big( p \\vec{A}\\Big)d\\vec{z} "} />
       <h4>second part</h4>
       <p>TODO, just the same thing but twice</p>
       
       <h3>result</h3>
       <p>So we have</p>
-      <MakeMathDisplay tex={"\\int_V \\frac{\\partial p}{\\partial t} f d\\vec{z} = \\int_V \\Bigg(\\sum_k^U\\frac{\\partial}{\\partial \\vec{z}_k} \\bigg(p \\vec{A}(t, \\vec{z}(t))_k\\bigg) + \\frac{1}{2}\\sum_k^U\\sum_l^U \\frac{\\partial^2}{\\partial \\vec{z}_k \\partial \\vec{z}_l}\\bigg(p \\mathbf{D}_{k, l}(t, \\vec{z}(t))\\bigg) \\Bigg) f(t, \\vec{z}) d\\vec{z}"} />
+      <MakeMathDisplay tex={"\\int_V \\frac{\\partial p}{\\partial t} f d\\vec{z} = \\int_V \\Bigg(-\\sum_k^U\\frac{\\partial}{\\partial \\vec{z}_k} \\bigg(p \\vec{A}(t, \\vec{z}(t))_k\\bigg) + \\frac{1}{2}\\sum_k^U\\sum_l^U \\frac{\\partial^2}{\\partial \\vec{z}_k \\partial \\vec{z}_l}\\bigg(p \\mathbf{D}_{k, l}(t, \\vec{z}(t))\\bigg) \\Bigg) f(t, \\vec{z}) d\\vec{z}"} />
       <p>and since it works for arbitrary function f it must be that</p>
-      <MakeMathDisplay tex={"\\frac{\\partial p}{\\partial t} = \\sum_k^U\\frac{\\partial}{\\partial \\vec{z}_k} \\bigg(p \\vec{A}(t, \\vec{z}(t))_k\\bigg) + \\frac{1}{2}\\sum_k^U\\sum_l^U \\frac{\\partial^2}{\\partial \\vec{z}_k \\partial \\vec{z}_l}\\bigg(p \\mathbf{D}_{k, l}(t, \\vec{z}(t))\\bigg)"} />
+      <MakeMathDisplay tex={"\\frac{\\partial p}{\\partial t} = -\\sum_k^U\\frac{\\partial}{\\partial \\vec{z}_k} \\bigg(p \\vec{A}(t, \\vec{z}(t))_k\\bigg) + \\frac{1}{2}\\sum_k^U\\sum_l^U \\frac{\\partial^2}{\\partial \\vec{z}_k \\partial \\vec{z}_l}\\bigg(p \\mathbf{D}_{k, l}(t, \\vec{z}(t))\\bigg)"} />
     </Wrapper>
   );
 }
