@@ -40,9 +40,9 @@ p_n
 0 & \\cdots & 0 & \\cdots & 0 \\\\
 \\vdots & \\vdots & \\vdots & \\vdots & \\vdots \\\\
 0 & \\cdots & 0 & \\cdots & 0 \\\\
-0 & \\cdots & \\sqrt{2 \\gamma_1 M_{1, 1} k_B T} & \\cdots & \\sqrt{2 \\gamma_1 M_{1, n} k_B T} \\\\
+0 & \\cdots & K_{1, 1}\\sqrt{2 \\gamma_1 k_B T} & \\cdots & K_{1, n} \\sqrt{2 \\gamma_1 k_B T} \\\\
 \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\
-0 & \\cdots & \\sqrt{2 \\gamma_n M_{n, 1} k_B T} & \\cdots & \\sqrt{2 \\gamma_n M_{n, n} k_B T} \\\\
+0 & \\cdots & K_{n, 1} \\sqrt{2 \\gamma_n k_B T} & \\cdots & K_{n, n} \\sqrt{2 \\gamma_n k_B T} \\\\
 \\end{bmatrix}d\\vec{W}
 `} />
       <h2>Fokker Plank</h2>
@@ -51,10 +51,10 @@ p_n
       <p>The probability density at each point will evolve as</p>
       <MakeMathDisplay tex={"\\frac{\\partial \\rho}{\\partial t} = -\\sum_i \\frac{\\partial }{\\partial z_i} \\Big( \\rho \\vec{A}_i \\Big) + \\frac{1}{2} \\sum_i \\sum_j \\frac{\\partial^2}{\\partial z_i \\partial z_j} \\bigg( \\Big( \\mathbf{B}^T \\mathbf{B}\\Big)_{i, j} \\rho \\bigg)"} />
       <p>Substitute in the Langevin equation.</p>
-      <MakeMathDisplay tex={"\\frac{\\partial \\rho}{\\partial t} = -\\sum_{i=1}^n \\frac{\\partial }{\\partial q_i} \\Big( \\rho \\frac{\\partial H}{\\partial p_i} \\Big) - \\frac{\\partial }{\\partial p_i} \\Big( \\rho \\Big(\\frac{\\partial H}{\\partial q_i} + \\gamma_i p_i \\Big)\\Big) + \\frac{1}{2} \\sum_{i=1}^n \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho 2 k_B T \\sum_k \\sqrt{\\gamma_i \\gamma_j M_{i, k} M_{j, k}} \\bigg)"} />
+      <MakeMathDisplay tex={"\\frac{\\partial \\rho}{\\partial t} = -\\sum_{i=1}^n \\frac{\\partial }{\\partial q_i} \\Big( \\rho \\frac{\\partial H}{\\partial p_i} \\Big) - \\frac{\\partial }{\\partial p_i} \\Big( \\rho \\Big(\\frac{\\partial H}{\\partial q_i} + \\gamma_i p_i \\Big)\\Big) + \\frac{1}{2} \\sum_{i=1}^n \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho 2 k_B T \\sum_k K_{i, k} K_{j, k} \\sqrt{\\gamma_i \\gamma_j} \\bigg)"} />
       <p> We can combine the two sums and simplify.</p>
-      <MakeMathDisplay tex={"\\sum_{i=1}^n - \\frac{\\partial }{\\partial q_i} \\Big( \\rho \\frac{\\partial H}{\\partial p_i} \\Big) + \\frac{\\partial }{\\partial p_i} \\Big( \\rho \\Big(\\frac{\\partial H}{\\partial q_i} + \\gamma_i p_i \\Big)\\Big) + k_B T \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho\\sum_k \\sqrt{\\gamma_i \\gamma_j M_{i, k} M_{j, k}} \\bigg)"} />
-      <p>Let <MakeMath tex={"F_{i, j} = \\sum_k \\sqrt{\\gamma_i \\gamma_j M_{i, k} M_{j, k}}"} /> so that</p>
+      <MakeMathDisplay tex={"\\sum_{i=1}^n - \\frac{\\partial }{\\partial q_i} \\Big( \\rho \\frac{\\partial H}{\\partial p_i} \\Big) + \\frac{\\partial }{\\partial p_i} \\Big( \\rho \\Big(\\frac{\\partial H}{\\partial q_i} + \\gamma_i p_i \\Big)\\Big) + k_B T \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho\\sum_k K_{i, k} K_{j, k} \\sqrt{\\gamma_i \\gamma_j} \\bigg)"} />
+      <p>Let <MakeMath tex={"F_{i, j} = \\sum_k K_{i, k} K_{j, k} \\sqrt{\\gamma_i \\gamma_j}"} /> so that</p>
       <MakeMathDisplay tex={"\\sum_{i=1}^n - \\frac{\\partial }{\\partial q_i} \\Big( \\rho \\frac{\\partial H}{\\partial p_i} \\Big) + \\frac{\\partial }{\\partial p_i} \\Big( \\rho \\Big(\\frac{\\partial H}{\\partial q_i} + \\gamma_i p_i \\Big)\\Big) + k_B T \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho F_{i, j}  \\bigg)"} />
       <p>and use the chain rule to expand the derivatives in the first part.</p>
       <MakeMathDisplay tex={" = \\sum_{i=1}^n \\frac{\\partial H}{\\partial q_i}\\frac{\\partial \\rho }{\\partial p_i} - \\frac{\\partial H}{\\partial p_i}\\frac{\\partial \\rho}{\\partial q_i} + \\frac{\\partial \\rho }{\\partial p_i}\\gamma_i p_i + \\rho \\gamma_i + k_B T \\sum_{j=1}^n \\frac{\\partial^2}{\\partial p_i \\partial p_j} \\bigg( \\rho F_{i, j}  \\bigg)"} />
@@ -111,16 +111,28 @@ p_n
       <MakeMathDisplay tex={"H(\\vec{q}, \\vec{p}) = \\frac{1}{2}\\vec{p}^\\top \\mathbf{L}(\\vec{q})\\vec{p} + U(\\vec{q})"} />
       <p>Then defining a matrix</p>
       <MakeMathDisplay tex={"S = \\frac{1}{2}(L + L^\\top)"} />
+      <p>where</p>
+      <MakeMathDisplay tex={"\\frac{\\partial^2 H}{\\partial p_i \\partial p_j} = S_{i,j} = S_{j,i}"} />
+      <p>if we assume that the F's are independent of momentum then the third equality becomes</p>
+      <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n  \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) F_{i, j}"} />
+      <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n F_{i, j} S_{j, i} = (FS)_{i, j}"} />
       <p>if all the gammas are equal then</p>
       <MakeMathDisplay tex={"F = \\gamma S^{-1}"} />
       <MakeMathDisplay tex={"F_{i,j} = \\Big(\\gamma S^{-1}\\Big)_{i,j}"} />
-      <MakeMathDisplay tex={"\\sum_k \\sqrt{M_{i, k} M_{j, k}} = \\Big(\\gamma S^{-1}\\Big)_{i,j}"} />
-      <p>If <MakeMath tex={"S^{-1}"}/> has all non-zero values then there exists</p>
-      <MakeMathDisplay tex={"S^{-1} = Y^\\top Y"} />
-      <p>Then</p>
-      <MakeMathDisplay tex={"M_{ij} = Y_{ij}^2"} />
-      <p>since</p>
-      <MakeMathDisplay tex={"\\sum_k \\sqrt{Y_{i,k}^2Y_{j,k}^2} = \\sum_k |Y_{i,k}Y_{j,k}| = S_{i,j}"} />
+      <MakeMathDisplay tex={"\\sum_k \\gamma K_{i, k} K_{j, k} = \\Big(\\gamma S^{-1}\\Big)_{i,j}"} />
+      <MakeMathDisplay tex={"\\sum_k K_{i, k} K_{j, k} = \\Big(S^{-1}\\Big)_{i,j}"} />
+      <p>Which requires</p>
+      <MakeMathDisplay tex={"K^\\top K = S^{-1}"} />
+      <p>since <MakeMath tex={"S"} /> is symmetric so it has an orthanormal basis</p>
+      <MakeMathDisplay tex={"S = Q^\\top DQ"} />
+      <p>and since we assumed it to be invertable then the inverse is</p>
+      <MakeMathDisplay tex={"S^{-1} = Q^\\top D^{-1}Q"} />
+      <p>and also assume it's positive definite then all the eigenvalues are positive so one can take the square root</p>
+      <MakeMathDisplay tex={"S^-1 = Q^\\top D^{-1/2}D^{-1/2}Q"} />
+      <MakeMathDisplay tex={"S^-1 = (D^{-1/2}Q)^\\top D^{-1/2}Q"} />
+      <p>So one possible solution is</p>
+      <MakeMathDisplay tex={"K = D^{-1/2}Q"} />
+     
     </Wrapper>
   );
   }
