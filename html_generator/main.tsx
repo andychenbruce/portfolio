@@ -42,6 +42,8 @@ buildPage(
 	<a href="tel:+14082073992">+1(408)207-3992</a>
 	<br/>
 	<a href="https://github.com/andychenbruce">Github</a>
+	<br/>
+	<a href="/keys.txt">PGP keys</a>
       </address>
     </Wrapper>,
   ),

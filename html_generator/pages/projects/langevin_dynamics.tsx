@@ -15,10 +15,10 @@ function LangevinDynamics({title}: {title: string}) {
       <h2>Reformulating in Hamiltonian Phase space</h2>
       <p>Instead if we can generalize mass then can redefine the process as</p>
       <MakeMathDisplay tex={"d\\vec{q}_i = \\frac{\\partial H}{\\partial p_i} dt"} />
-      <MakeMathDisplay tex={"d\\vec{p}_i = -\\frac{\\partial H}{\\partial q_i} dt - \\gamma_i \\vec{p}_i dt + \\sqrt{2 \\gamma_i M_i k_B T} d\\vec{W}_i"} />
-      <p>where mass is generalized to some function of the phase space, possibly <MakeMath tex={"M_i(\\vec{q}, \\vec{p}) = \\frac{\\vec{p}_i}{\\frac{\\partial q_i}{\\partial t}} = \\bigg(\\frac{\\partial^2 H}{\\partial p_i^2}\\bigg)^{-1}"} />.</p>
+      <MakeMathDisplay tex={"d\\vec{p}_i = -\\frac{\\partial H}{\\partial q_i} dt - \\gamma_i \\vec{p}_i dt + K_i\\sqrt{2 \\gamma_i k_B T} d\\vec{W}_i"} />
+      <p>where we will be solving for <MakeMath tex={"K_i"} /> to converge to the canonical ensemble equilibrium distribution.</p>
       <h2>Drift Diffusion Process</h2>
-      <p>We can then combine both equations to a single drift diffusion process and generalize the matrix</p>
+      <p>We can then combine both equations to a single drift diffusion process and generalize the matrix so the momentum can share noise</p>
       <MakeMathDisplay tex={`d
 \\begin{bmatrix}
 q_1 \\\\
@@ -66,72 +66,64 @@ p_n
       <p>In the <a href="../statistical_mechanics_derivation">canonical ensemble</a> it should converge to the below.</p>
       <MakeMathDisplay tex={"\\rho_0(\\vec{q}, \\vec{p}) = \\frac{1}{Z}e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}"} />
       <p>So it should be a stable distribution by definition of equilibrium</p>
+      <MakeMathDisplay tex={"\\frac{\\partial \\rho_0}{\\partial t} = 0"} />
+      <p>and putting it into the Fokker Plank equation we derived</p>
       <MakeMathDisplay tex={" = \\frac{1}{Z} \\sum_{i=1}^n \\frac{\\partial H}{\\partial q_i}\\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} }{\\partial p_i} - \\frac{\\partial H}{\\partial p_i}\\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial q_i} + \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} }{\\partial p_i}\\gamma_i p_i + e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} \\gamma_i"} />
       <MakeMathDisplay tex={"+ k_B T \\sum_{j=1}^n \\bigg( \\frac{\\partial^2 e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_i \\partial p_j} F_{i, j} + e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j} + \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_i} \\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_j} \\frac{\\partial F_{i, j}}{\\partial p_i}\\bigg)"} />
-      <p>The Possion bracket part goes to zero</p>
+      <p>the Possion bracket part goes to zero.</p>
       <MakeMathDisplay tex={" = \\frac{1}{Z} \\sum_{i=1}^n \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} }{\\partial p_i}\\gamma_i p_i + e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} \\gamma_i"} />
       <MakeMathDisplay tex={"+ k_B T \\sum_{j=1}^n \\bigg( \\frac{\\partial^2 e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_i \\partial p_j} F_{i, j} + e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}} \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j} + \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_i} \\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial e^{-\\frac{H(\\vec{q}, \\vec{p})}{k_B T}}}{\\partial p_j} \\frac{\\partial F_{i, j}}{\\partial p_i}\\bigg)"} />
-      <p>do the chain rule a bunch</p>
+      <p>Then do the chain rule a bunch.</p>
       <MakeMathDisplay tex={" = \\frac{1}{Z} \\sum_{i=1}^n -\\frac{e^{-\\frac{H}{k_B T}}}{k_B T}\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i + e^{-\\frac{H}{k_B T}} \\gamma_i"} />
       <MakeMathDisplay tex={"+ k_B T \\sum_{j=1}^n \\Bigg( \\bigg( \\frac{e^{-\\frac{H}{k_B T}}}{(k_B T)^2} \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j} - \\frac{e^{-\\frac{H}{k_B T}}}{k_B T} \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) \\bigg) F_{i, j}"} />
       <MakeMathDisplay tex={"+ e^{-\\frac{H}{k_B T}} \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j}"} />
       <MakeMathDisplay tex={"- \\frac{e^{-\\frac{H}{k_B T}}}{k_B T}\\bigg(\\frac{\\partial H}{\\partial p_i}\\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial H}{\\partial p_j}\\frac{\\partial F_{i, j}}{\\partial p_i}\\bigg) \\Bigg)"} />
-      <p>Factor out the probability</p>
+      <p>Factor out the probability.</p>
       <MakeMathDisplay tex={" = p_0 \\sum_{i=1}^n -\\frac{1}{k_B T}\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i + \\gamma_i"} />
       <MakeMathDisplay tex={"+ k_B T \\sum_{j=1}^n \\Bigg( \\bigg( \\frac{1}{(k_B T)^2} \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j} - \\frac{1}{k_B T} \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) \\bigg) F_{i, j}"} />
       <MakeMathDisplay tex={"+ \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j}"} />
       <MakeMathDisplay tex={"- \\frac{1}{k_B T}\\bigg(\\frac{\\partial H}{\\partial p_i}\\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial H}{\\partial p_j}\\frac{\\partial F_{i, j}}{\\partial p_i}\\bigg) \\Bigg)"} />
-      <p>Multiply through the temperature</p>
+      <p>Multiply through the temperature.</p>
       <MakeMathDisplay tex={" = p_0 \\sum_{i=1}^n -\\frac{1}{k_B T}\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i + \\gamma_i"} />
       <MakeMathDisplay tex={"+ \\sum_{j=1}^n \\bigg( \\frac{1}{k_B T} \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j} - \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) \\bigg) F_{i, j}"} />
       <MakeMathDisplay tex={"+ k_B T \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j}"} />
       <MakeMathDisplay tex={"- \\bigg(\\frac{\\partial H}{\\partial p_i}\\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial H}{\\partial p_j}\\frac{\\partial F_{i, j}}{\\partial p_i}\\bigg)"} />
-      <p>Then group based on the temperature</p>
+      <p>Then group based on the temperature.</p>
       <MakeMathDisplay tex={"0 = \\sum_{i=1}^n"} />
       <MakeMathDisplay tex={"\\frac{1}{k_B T}\\bigg(-\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i + \\sum_{j=1}^n \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j}F_{i, j} \\bigg)"} />
       <MakeMathDisplay tex={"+ k_B T \\sum_{j=1}^n \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j}"} />
       <MakeMathDisplay tex={"+ \\gamma_i + \\sum_{j=1}^n \\bigg(-\\frac{\\partial H}{\\partial p_i}\\frac{\\partial F_{i, j}}{\\partial p_j} - \\frac{\\partial H}{\\partial p_j}\\frac{\\partial F_{i, j}}{\\partial p_i} - \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) F_{i, j}\\bigg)"} />
-      <p>Any Hamiltonian and masses that satisfy the above equation will correctly have equilbibrium as a stable distribution</p>
+      <p>Any Hamiltonian and matrix <MakeMath tex={"\\mathbf{F} = \\mathbf{K}^\\top \\mathbf{K}"} /> that satisfy the above equation will correctly have equilbibrium as a stable distribution</p>
       <h2>Quadratic Momentum</h2>
       <p>Lets assume that each term of the sum should be zero. Since it should be valid for any temperature there are 3 equalities that must hold</p>
       <MakeMathDisplay tex={"\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i = \\sum_{j=1}^n \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j}F_{i, j}"} />
       <MakeMathDisplay tex={"0 = \\frac{\\partial^2 F_{i, j}}{\\partial p_i \\partial p_j}"} />
       <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n \\bigg(\\frac{\\partial H}{\\partial p_i}\\frac{\\partial F_{i, j}}{\\partial p_j} + \\frac{\\partial H}{\\partial p_j}\\frac{\\partial F_{i, j}}{\\partial p_i} + \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) F_{i, j}\\bigg)"} />
-      <p>If we assume that the <MakeMath tex={"M"} /> and thus <MakeMath tex={"F"} /> are independent of momentum then the equalities simplify to</p>
-      <MakeMathDisplay tex={"\\frac{\\partial H}{\\partial p_i}\\gamma_i p_i = \\sum_{j=1}^n \\frac{\\partial H}{\\partial p_i}\\frac{\\partial H}{\\partial p_j}F_{i, j}"} />
-      <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) F_{i, j}"} />
-
-      <p>Note thate one possible Hamiltonian that satisfies this is</p>
-      <MakeMathDisplay tex={"H(\\vec{q}, \\vec{p}) = \\sum_i \\frac{p_i ^2}{2 m(\\vec{q})} + U(\\vec{q})"} />
-      <p>Where the mass is defined to be</p>
-      <MakeMathDisplay tex={"M_{ii} = \\Big(\\frac{\\partial^2 H}{\\partial p_i^2}\\Big)^{-1} = m(x)"} />
-      <MakeMathDisplay tex={"M_{ij} = 0, i \\neq j"} />
-      <h2>More general case</h2>
       <p>If the Hamiltonian is in the form</p>
       <MakeMathDisplay tex={"H(\\vec{q}, \\vec{p}) = \\frac{1}{2}\\vec{p}^\\top \\mathbf{L}(\\vec{q})\\vec{p} + U(\\vec{q})"} />
-      <p>Then defining a matrix</p>
-      <MakeMathDisplay tex={"S = \\frac{1}{2}(L + L^\\top)"} />
+      <p>where the "mass matrix" is only a function of position, then one can define a matrix</p>
+      <MakeMathDisplay tex={"\\mathbf{S} = \\frac{1}{2}(\\mathbf{L} + \\mathbf{L}^\\top)"} />
       <p>where</p>
       <MakeMathDisplay tex={"\\frac{\\partial^2 H}{\\partial p_i \\partial p_j} = S_{i,j} = S_{j,i}"} />
-      <p>if we assume that the F's are independent of momentum then the third equality becomes</p>
+      <p>Then if we assume that the <MakeMath tex={"F"} />'s are independent of momentum then the third equality becomes</p>
       <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n  \\bigg(\\frac{\\partial^2 H}{\\partial p_i \\partial p_j}\\bigg) F_{i, j}"} />
       <MakeMathDisplay tex={"\\gamma_i = \\sum_{j=1}^n F_{i, j} S_{j, i} = (FS)_{i, j}"} />
       <p>if all the gammas are equal then</p>
-      <MakeMathDisplay tex={"F = \\gamma S^{-1}"} />
+      <MakeMathDisplay tex={"\\mathbf{F} = \\gamma \\mathbf{S}^{-1}"} />
       <MakeMathDisplay tex={"F_{i,j} = \\Big(\\gamma S^{-1}\\Big)_{i,j}"} />
       <MakeMathDisplay tex={"\\sum_k \\gamma K_{i, k} K_{j, k} = \\Big(\\gamma S^{-1}\\Big)_{i,j}"} />
       <MakeMathDisplay tex={"\\sum_k K_{i, k} K_{j, k} = \\Big(S^{-1}\\Big)_{i,j}"} />
       <p>Which requires</p>
-      <MakeMathDisplay tex={"K^\\top K = S^{-1}"} />
+      <MakeMathDisplay tex={"\\mathbf{K}^\\top \\mathbf{K} = \\mathbf{S}^{-1}"} />
       <p>since <MakeMath tex={"S"} /> is symmetric so it has an orthanormal basis</p>
-      <MakeMathDisplay tex={"S = Q^\\top DQ"} />
+      <MakeMathDisplay tex={"\\mathbf{S} = \\mathbf{Q}^\\top \\mathbf{D}\\mathbf{Q}"} />
       <p>and since we assumed it to be invertable then the inverse is</p>
-      <MakeMathDisplay tex={"S^{-1} = Q^\\top D^{-1}Q"} />
+      <MakeMathDisplay tex={"\\mathbf{S}^{-1} = \\mathbf{Q}^\\top \\mathbf{D}^{-1}\\mathbf{Q}"} />
       <p>and also assume it's positive definite then all the eigenvalues are positive so one can take the square root</p>
-      <MakeMathDisplay tex={"S^-1 = Q^\\top D^{-1/2}D^{-1/2}Q"} />
-      <MakeMathDisplay tex={"S^-1 = (D^{-1/2}Q)^\\top D^{-1/2}Q"} />
+      <MakeMathDisplay tex={"\\mathbf{S}^-1 = \\mathbf{Q}^\\top \\mathbf{D}^{-1/2}\\mathbf{D}^{-1/2}\\mathbf{Q}"} />
+      <MakeMathDisplay tex={"\\mathbf{S}^-1 = (\\mathbf{D}^{-1/2}\\mathbf{Q})^\\top \\mathbf{D}^{-1/2}\\mathbf{Q}"} />
       <p>So one possible solution is</p>
-      <MakeMathDisplay tex={"K = D^{-1/2}Q"} />
+      <MakeMathDisplay tex={"\\mathbf{K} = \\mathbf{D}^{-1/2}\\mathbf{Q}"} />
      
     </Wrapper>
   );

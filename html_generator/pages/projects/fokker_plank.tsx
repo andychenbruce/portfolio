@@ -10,27 +10,24 @@ function FokkerPlank({title}: {title: string}) {
       <MakeMathDisplay tex={"d\\vec{z} = \\vec{A}(t, \\vec{z})dt + \\mathbf{B}(t, \\vec{z})d\\vec{W}_t"} />
       <p>is in differential form. The in integral form</p>
       <MakeMathDisplay tex={"\\vec{z}(t_b) - \\vec{z}(t_a) = \\int_{t_a}^{t_b} \\vec{A}(t, \\vec{z}(t))dt + \\int_{t_a}^{t_b}\\mathbf{B}(t, \\vec{z}(t))d\\vec{W}_t"} />
-      <p>is defined by a regular Reinmann integral and an Ito integral. Expanding their definitions is</p>
+      <p>is defined by a regular Reinmann integral and an Ito integral with respect to a Weiner process. Expanding their definitions is</p>
       <MakeMathDisplay tex={" = \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0}\\sum_{(t_i, t_{i+1}) \\in \\pi(t_a, t_b)} \\vec{A}(t_i, \\vec{z}(t_i)) \\Big(t_{i+1} - t_i\\Big) \\bigg)"} />
       <MakeMathDisplay tex={"+ \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0}\\sum_{(t_i, t_{i+1}) \\in \\pi(t_a, t_b)} \\mathbf{B}(t_i, \\vec{z}(t_i))\\Big(\\vec{W}(t_{i+1}) - \\vec{W}(t_i)\\Big)\\bigg)"} />
-      <p>Let <MakeMath tex={"\\Delta_i t = t_{i+1} - t_i"} /> and <MakeMath tex={"\\Delta_i W = W(t_{i+1}) - W(t_i)"} />.</p>
-      <MakeMathDisplay tex={" = \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0} \\sum_{\\Delta_i t \\in \\pi(t_a, t_b)} \\vec{A}(t_i, \\vec{z}(t_i)) \\Delta_i t + \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0}\\sum_{\\Delta_i t \\in \\pi(t_a, t_b)} \\mathbf{B}(t_i, \\vec{z}(t_i))\\Delta_i W"} />
+      <p>Let <MakeMath tex={"\\Delta_i t = t_{i+1} - t_i"} /> and <MakeMath tex={"\\Delta_i \\vec{W} = \\vec{W}(t_{i+1}) - \\vec{W}(t_i)"} />.</p>
+      <MakeMathDisplay tex={" = \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0} \\sum_{\\Delta_i t \\in \\pi(t_a, t_b)} \\vec{A}(t_i, \\vec{z}(t_i)) \\Delta_i t + \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0}\\sum_{\\Delta_i t \\in \\pi(t_a, t_b)} \\mathbf{B}(t_i, \\vec{z}(t_i))\\Delta_i \\vec{W}"} />
       <p>Now consider an infinitelly differentiable, square integrable function <MakeMath tex={"f(t, \\vec{z}(t))"} /> that is a function of the vector.</p>
       <MakeMathDisplay tex={"f(t + k, \\vec{z}(t + k)) - f(t, \\vec{z}(t))"} />
       <p>We can put in a dummy value equal to zero</p>
       <MakeMathDisplay tex={"= f(t + k, \\vec{z}(t + k)) + \\sum_{j=1}^N \\Big(-f(t_j, \\vec{z}(t_j)) + f(t_j, \\vec{z}(t_j))  \\Big) - f(t_a, \\vec{z}(t_a))"} />
       <p>And move the 2 endpoints into the summation</p>
       <MakeMathDisplay tex={"= \\sum_{i=0}^{N} \\Big(f(t_{i+1}, \\vec{z}(t_{i+1})) - f(t_i, \\vec{z}(t_i))\\Big)"} />
-      <p>where the endpoints are <MakeMath tex={"t_0 = t"} /> and <MakeMath tex={"t_{N+1} = t+k"} />, and all the other indices else is copied <MakeMath tex={"t_i = t_j"} />. Then make</p>
-      <MakeMathDisplay tex={"t_i = t + i\\frac{k}{N+1}"} />
-      <p>And let</p>
-      <MakeMathDisplay tex={"\\Delta t = \\frac{k}{N+1}"} />
-      <MakeMathDisplay tex={"= \\sum_{i=0}^{N} \\Big(f(t + (i+1)\\Delta t, \\vec{z}(t + (i + 1)\\Delta t)) - f(t + i\\Delta t, \\vec{z}(t + i\\Delta t))\\Big)"} />
-      <p>And taking the limit</p>
-      <MakeMathDisplay tex={"= \\lim_{N \\rightarrow \\infty} \\sum_{i=0}^{N} \\Big(f(t + (i+1)\\Delta t, \\vec{z}(t + (i+1)\\Delta t)) - f(t + i\\Delta t, \\vec{z}(t + i\\Delta t))\\Big)"} />
-      <p>Is the same as</p>
-      <MakeMathDisplay tex={"= \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0} \\sum_i \\Big(f(t + (i+1)\\Delta t, \\vec{z}(t + (i+1)\\Delta t)) - f(t + i\\Delta t, \\vec{z}(t + i\\Delta t))\\Big)"} />
-      <p>Since <MakeMath tex={"\\Delta t"} /> will become arbitrarily small it will always be in the radius of convergence for a Taylor series. So we can expand the difference to a Taylor series.</p>
+      <p>where the endpoints are <MakeMath tex={"t_0 = t"} /> and <MakeMath tex={"t_{N+1} = t+k"} />, and all the other indices are copied <MakeMath tex={"t_i = t_j"} />. Then make</p>
+      <MakeMathDisplay tex={"= \\sum_{i=0}^{N} \\Big(f(t_{i+1} + \\Delta_{i+1} t, \\vec{z}(t_{i+1} + \\Delta_{i+1} t)) - f(t_i + \\Delta_i t, \\vec{z}(t_i + \\Delta_i t))\\Big)"} />
+      <p>And taking the limit it is still valid</p>
+      <MakeMathDisplay tex={"= \\lim_{N \\rightarrow \\infty} \\sum_{i=0}^{N} \\Big(f(t_{i+1} + \\Delta_{i+1} t, \\vec{z}(t_{i+1} + \\Delta_{i+1} t)) - f(t_i + \\Delta_i t, \\vec{z}(t_i + \\Delta_i t))\\Big)"} />
+      <p>We can make the sum a partition</p>
+      <MakeMathDisplay tex={"= \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0} \\sum_{\\Delta_i t \\in \\pi(t, t + k)} \\Big(f(t_{i+1} + \\Delta_{i+1} t, \\vec{z}(t_{i+1} + \\Delta_{i+1} t)) - f(t_i + \\Delta_i t, \\vec{z}(t_i + \\Delta_i t))\\Big)"} />
+      <p>Since <MakeMath tex={"\\Delta t"} /> will become arbitrarily small it will always be in the radius of convergence for a Taylor series. So we can expand the difference of the inside of the sum to a Taylor series.</p>
       <MakeMathDisplay tex={"= \\lim_{\\Delta t_{\\text{max}} \\rightarrow 0} \\sum_i \\Bigg(\\frac{\\partial f}{\\partial t}\\Delta t + \\frac{\\partial f}{\\partial \\vec{z}}\\cdot \\Big( \\vec{z}(t_{i+1}) - \\vec{z}(t_i) \\Big) + \\frac{1}{2}\\frac{\\partial^2 f}{\\partial^2 t} \\Delta t^2 + \\dots\\Bigg)"} />
       <p>Let</p>
       <MakeMathDisplay tex={"\\Delta_i \\vec{z} = \\vec{z}(t_{i+1}) - \\vec{z}(t_i)"} />
