@@ -6,7 +6,7 @@ import Wrapper from "./wrapper.js";
 
 import Index from "./pages/index.js";
 import MenuPage from "./pages/menu_page.js";
-import {ProjectsList} from "./includes/menu_list.js";
+import {AllProjectsList} from "./includes/menu_list.js";
 import AboutPage from "./pages/about_page.js";
 
 buildPage(
@@ -49,7 +49,7 @@ buildPage(
   ),
 );
 
-ProjectsList.forEach((project) => {
+AllProjectsList.forEach((project) => {
   buildPage(
     `projects/${project.path}/index.html`,
     ReactDOMServer.renderToStaticMarkup(

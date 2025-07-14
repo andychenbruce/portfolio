@@ -29,16 +29,49 @@ import TimeEvolutionOperators from "../pages/projects/time_evolution.js";
 import FokkerPlank from "../pages/projects/fokker_plank.js";
 import LangevinDynamics from "../pages/projects/langevin_dynamics.js";
 
-export const ProjectsList = [
+export const MathProjects = [
+  {
+    react: DiracSpinors,
+    path: "dirac_spinors",
+    title: "Dirac Spinors as the Minimal Left Ideal of a Clifford Algebra"
+  },
+  {
+    react: FreeEnergyGradient,
+    path: "free_energy_gradient",
+    title: "Potential Mean Force in the Cannonical and Isothermal-Isobaric Ensemble"
+  },
+  {
+    react: FluctuationDissipationTheorem,
+    path: "fluctuation_dissipation_theorem",
+    title: "Fluctuation Dissipation Theorem"
+  },
+  {
+    react: StatisticalMechanicsDerivation,
+    path: "statistical_mechanics_derivation",
+    title: "Statistical Mechanics"
+  },
+  {
+    react: TimeEvolutionOperators,
+    path: "time_evolution",
+    title: "Time Evolution Operators In Physics"
+  },
+  {
+    react: FokkerPlank,
+    path: "fokker_plank",
+    title: "Fokker Plank Equation"
+  },
+  {
+    react: LangevinDynamics,
+    path: "langevin_dynamics",
+    title: "Langevin Dynamics In Hamiltonian Phase Space"
+  },
+];
+
+export const SimulationGraphicsProjects = [
   {
     react: Schrödinger,
     path: "schrödinger",
     title: "Simulating Schrödinger Equation in 1 Dimension"
-  },
-  {
-    react: DiracSpinors,
-    path: "dirac_spinors",
-    title: "Derivation of Dirac Spinors as the Minimal Left Ideal of a Clifford Algebra"
   },
   {
     react: MaxwellBoltzmann,
@@ -55,6 +88,50 @@ export const ProjectsList = [
     path: "inter_molecular_forces",
     title: "Intermolecular forces condensation simulation"
   },
+  {
+    react: Icosahedron,
+    path: "icosahedron",
+    title: "Drawing and Lighting a Sphere by Recursive Segmentation of an Icosahedron"
+  },
+  {
+    react: Mandelbrot,
+    path: "mandelbrot",
+    title: "Using a GPU to Draw the Mandelbrot Set"
+  },
+  {
+    react: WaterMarbles,
+    path: "water_marbles",
+    title: "Liquid Simulation using Particles"
+  },
+  {
+    react: Project2Body,
+    path: "2body",
+    title: "Closed Form Solution to the Two Body Problem"
+  },
+  {
+    react: SphereReflectionTexture,
+    path: "sphere_reflection_texture",
+    title: "Apply Textures to 3D Surfaces"
+  },
+  {
+    react: Planets,
+    path: "planets",
+    title: "Apply Textures to a Sphere"
+  },
+  {
+    react: Fire,
+    path: "fire",
+    title: "Smoke and Fire Simulation"
+  },
+  {
+    react: Jello,
+    path: "jello",
+    title: "Simulating Jello with Hooke's Law"
+  },
+
+];
+
+export const HardwareProjects = [
   {
     react: PulseWidthModulation,
     path: "pulse_width_modulation",
@@ -81,36 +158,6 @@ export const ProjectsList = [
     title: "Controlling a Delta-X Robot Arm with G-Code"
   },
   {
-    react: FreeEnergyGradient,
-    path: "free_energy_gradient",
-    title: "Derivation of the Average Force in the Cannonical and Isothermal-Isobaric Ensemble"
-  },
-  {
-    react: FluctuationDissipationTheorem,
-    path: "fluctuation_dissipation_theorem",
-    title: "Derivation of the Fluctuation Dissipation Theorem"
-  },
-  {
-    react: StatisticalMechanicsDerivation,
-    path: "statistical_mechanics_derivation",
-    title: "Derivation of Statistical Mechanics"
-  },
-  {
-    react: TimeEvolutionOperators,
-    path: "time_evolution",
-    title: "Time Evolution Operators In Physics"
-  },
-  {
-    react: FokkerPlank,
-    path: "fokker_plank",
-    title: "Fokker Plank Equation"
-  },
-  {
-    react: LangevinDynamics,
-    path: "langevin_dynamics",
-    title: "Langevin Dynamics In Hamiltonian Phase Space"
-  },
-  {
     react: Capstone,
     path: "capstone",
     title: "High School Capstone: A Robot for Sustainable Agriculture"
@@ -130,64 +177,55 @@ export const ProjectsList = [
     path: "seedlings_tensorflow",
     title: "Deep Learning with TensorFlow and Keras to Classify Seedlings"
   },
-  {
-    react: Icosahedron,
-    path: "icosahedron",
-    title: "Drawing and Lighting a Sphere by Recursive Segmentation of an Icosahedron"
-  },
-  {
-    react: Mandelbrot,
-    path: "mandelbrot",
-    title: "Using a GPU to Draw the Mandelbrot Set"
-  },
-  {
-    react: SphereReflectionTexture,
-    path: "sphere_reflection_texture",
-    title: "Apply Textures to 3D Surfaces"
-  },
-  {
-    react: Planets,
-    path: "planets",
-    title: "Apply Textures to a Sphere"
-  },
-  {
-    react: Fire,
-    path: "fire",
-    title: "Smoke and Fire Simulation"
-  },
-  {
-    react: Jello,
-    path: "jello",
-    title: "Simulating Jello with Hooke's Law"
-  },
-  {
-    react: WaterMarbles,
-    path: "water_marbles",
-    title: "Liquid Simulation using Particles"
-  },
-  {
-    react: Project2Body,
-    path: "2body",
-    title: "Closed Form Solution to the Two Body Problem"
-  },
-  
+
+
 ];
 
+export const AllProjectsList = MathProjects.concat(SimulationGraphicsProjects).concat(HardwareProjects);
+
 function MenuList() {
-  return (
-    <ol>{
-      ProjectsList.map((project, index) => 
-        <li key={index}>
-	  <h3>
-            <a href={`/projects/${project.path}`}>
-              {project.title}
-            </a>
-	  </h3>
-          <hr />
-        </li>
-      )
-    }</ol>
-  );
+  return <div>
+	   <h2>Derivations</h2>
+	   <ol>{
+      
+	     MathProjects.map((project, index) => 
+               <li key={index}>
+		 <h3>
+		   <a href={`/projects/${project.path}`}>
+		     {project.title}
+		   </a>
+		 </h3>
+		 <hr />
+               </li>
+	     )
+	   }</ol>
+	   <h2>Simulations and WebGL</h2>
+	   <ol>{
+      	     SimulationGraphicsProjects.map((project, index) => 
+               <li key={index}>
+		 <h3>
+		   <a href={`/projects/${project.path}`}>
+		     {project.title}
+		   </a>
+		 </h3>
+		 <hr />
+               </li>
+	     )
+	   }</ol>
+	   <h2>High School</h2>
+	   <ol>{
+	     HardwareProjects.map((project, index) => 
+               <li key={index}>
+		 <h3>
+		   <a href={`/projects/${project.path}`}>
+		     {project.title}
+		   </a>
+		 </h3>
+		 <hr />
+               </li>
+	     )
+	   }</ol>
+	 </div>;
 }
 
 export default MenuList;

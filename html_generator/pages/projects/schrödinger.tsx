@@ -13,11 +13,13 @@ function Schrödinger({title}: {title: string}) {
 
   return (
     <Wrapper head={new_head} title={title}>
-      <canvas
-        id="andy_canvas"
-        width="800"
-        height="800"
-      ></canvas>
+      <div className="centeredDiv" >
+	<canvas
+          id="andy_canvas"
+          width="800"
+          height="800"
+	></canvas>
+      </div>
       <hr/>
       <p>The time dependent schrodingers equation is:</p>
       <MakeMathDisplay 
