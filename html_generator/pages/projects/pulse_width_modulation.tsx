@@ -81,10 +81,6 @@ function PulseWidthModulation({title}: {title: string}) {
         language="c"
       />
       <p>The rest of the code is a lot of low-level register banging.</p>
-      <p>
-        You can see <a href="c02_Code.html">The Source code here</a>, or{" "}
-        <a href="c02_PWM.zip">download a zipfile by clicking here</a>.
-      </p>
       <p>You can compile it using this makefile:</p>
       <AndyCodeBlock
         source_path="static/projects/pulse_width_modulation/rpi.makefile"
@@ -102,10 +98,15 @@ function PulseWidthModulation({title}: {title: string}) {
       </p>
       <div className="terminalDiv">
         <pre>
-          $ sudo su # whoami root # pwmLED -help Usage: pwmLed
-          &lt;red-duty-cycle-%&gt; &lt;red-frequency&gt;
-          &lt;blue-duty-cycle-%&gt; &lt;blue-freq&gt; duty-cycle: 0 to 100
-          frequency: Hertz, 1 to 18000000 # #
+               $ sudo su
+	  <br/>
+	  	 # whoami
+	  <br/>
+		 root
+	  <br/>
+		 # pwmLED -help
+	  <br/>
+		 Usage: pwmLed &lt;red-duty-cycle-%&gt; &lt;red-frequency&gt; &lt;blue-duty-cycle-%&gt; &lt;blue-freq&gt; duty-cycle: 0 to 100 frequency: Hertz, 1 to 18000000 # #
         </pre>
       </div>
       <p>
@@ -142,11 +143,7 @@ function PulseWidthModulation({title}: {title: string}) {
       <hr className="clearLeft" />
 
       <p>
-        <a href="code/c02_Code.html">Source code for this project</a>
-      </p>
-
-      <p>
-        <a href="zip/c02_PWM.zip">Download a zipfile by clicking here</a>.
+        <a href="pwmLed.tar.gz">Download a tarfile by clicking here</a>.
       </p>
 
       <p>
