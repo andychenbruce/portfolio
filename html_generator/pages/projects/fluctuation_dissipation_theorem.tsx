@@ -44,44 +44,47 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	  <div className="flexInner1">
             <h3>Classical</h3>
             <p>If we have a probability distribution <MakeMath tex={"\\rho(t, \\vec{q}, \\vec{p})"} /> over the phase space we can find the expected value of an observable by</p>
-	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\int_V A(\\vec{q}, \\vec{p})\\rho(t, \\vec{q}, \\vec{p}) d\\vec{q} d\\vec{p}"} />
-	    <p>And the probability distribution flows according the the continuity equation</p>
-	    <MakeMathDisplay tex={"\\frac{d\\rho}{dt}(t, \\vec{x}(t)) = -\\nabla_x \\cdot \\Big( \\frac{d \\vec{x}}{dt} \\rho\\Big)"} />
-	    <p>where the state vector <MakeMath tex={"\\vec{x} = \\langle q_1, q_2, \\dots, p_1, p_2, \\dots \\rangle"} /> so we can split it up and say the below.</p>
-	    <MakeMathDisplay tex={"\\frac{d\\rho}{dt}(t, \\vec{q}(t), \\vec{p}(t)) = -\\nabla_q \\cdot \\Big( \\frac{d \\vec{q}}{dt} \\rho\\Big) -\\nabla_p \\cdot \\Big( \\frac{d \\vec{p}}{dt} \\rho\\Big)"} />
-	    <p>Use the chain rule</p>
+	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\int_V A(\\vec{\\Gamma})\\rho(t, \\vec{\\Gamma}) d\\vec{\\Gamma}"} />
+	    <p>where the state vector <MakeMath tex={"\\vec{\\Gamma} = \\langle \\vec{q}, \\vec{p} \\rangle = \\langle q_1, q_2, \\dots, p_1, p_2, \\dots \\rangle"} />. The probability distribution flows in phase space according the the continuity equation.</p>
+	    <MakeMathDisplay tex={"\\frac{d\\rho}{dt}(t, \\vec{\\Gamma}(t)) = -\\nabla_{\\Gamma} \\cdot \\Big( \\frac{d \\vec{\\Gamma}}{dt} \\rho\\Big)"} />
+	    <MakeMathDisplay tex={"\\frac{d\\rho}{dt}(t, \\vec{\\Gamma}(t)) = -\\nabla_q \\cdot \\Big( \\frac{d \\vec{q}}{dt} \\rho\\Big) -\\nabla_p \\cdot \\Big( \\frac{d \\vec{p}}{dt} \\rho\\Big)"} />
+	    <p>Use the chain rule.</p>
 	    <MakeMathDisplay tex={"= -\\sum_k\\Big(\\frac{\\partial \\rho}{\\partial q_k}\\frac{d q_k}{dt} + \\rho \\frac{\\partial}{\\partial q_k}\\frac{d q_k}{dt}\\Big) -\\sum_k\\Big(\\frac{\\partial \\rho}{\\partial p_k}\\frac{d p_k}{dt} + \\rho \\frac{\\partial}{\\partial p_k}\\frac{d p_k}{dt}\\Big)"} />
-	    <p>then substitue in Hamiltons equations.</p>
+	    <p>Then substitue the time evolution of the states with Hamiltons equations.</p>
 	    <MakeMathDisplay tex={"= -\\sum_k\\Big(\\frac{\\partial \\rho}{\\partial q_k}\\frac{\\partial H}{\\partial p_k} + \\rho \\frac{\\partial^2 H}{\\partial q_k \\partial p_k}\\Big) - \\sum_k\\Big(-\\frac{\\partial \\rho}{\\partial p_k}\\frac{\\partial H}{\\partial q_k} - \\rho \\frac{\\partial^2 H}{\\partial p_k \\partial q_k}\\Big)"} />
-	    <p>Cancel those two terms.</p>
+	    <p>The terms involving second derivatives of the Hamiltonian can be canceled.</p>
 	    <MakeMathDisplay tex={"= -\\sum_k\\Big(\\frac{\\partial \\rho}{\\partial q_k}\\frac{\\partial H}{\\partial p_k} -\\frac{\\partial \\rho}{\\partial p_k}\\frac{\\partial H}{\\partial q_k}\\Big)"} />
-	    <p>It's just the Possion bracket</p>
+	    <p>The right hand side is just the Possion bracket.</p>
 	    <MakeMathDisplay tex={"= \\{H, \\rho\\}"} />
-	    <p>Define an operator that does this</p>
-	    <MakeMathDisplay tex={"= \\mathcal{K}(t)\\rho(t)"} />
+	    <p>We can define an operator on the probability distribution that does this.</p>
+	    <MakeMathDisplay tex={"\\mathcal{K}(t) = \\{H(t), \\cdot\\}"} />
+	    <p>Then the probility distribution evolves by the operator.</p>
+	    <MakeMathDisplay tex={"\\frac{d \\rho}{dt}= \\mathcal{K}(t)\\rho(t)"} />
 	  </div>
 	  <div className="flexInner1">
             <h3>Quantum</h3>
             <p>If we have a density matrix <MakeMath tex={"\\rho(t)"} /> over the phase space we can find the expected value of an observable by</p>
-	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\text{Tr}(\\rho(t) \\hat{A})"} />
+	    <MakeMathDisplay tex={"\\mathbb{E}[A](t) = \\text{Tr}\\Big(\\rho(t) \\hat{A}\\Big)"} />
 	    <p>where the density matrix is defined below.</p>
 	    <MakeMathDisplay tex={"\\rho(t) = \\sum_k p_k | \\psi_k(t) \\rangle \\langle \\psi_k(t) |"} />
-	    <p>If we take the derivative of the density matrix we use the chain rule</p>
+	    <p>Taking the derivative of the density matrix we use the chain rule.</p>
 	    <MakeMathDisplay tex={"\\frac{d\\rho(t)}{dt} = \\sum_k p_k \\frac{d}{dt}\\Big(| \\psi_k(t) \\rangle \\langle \\psi_k(t)|\\Big) = \\sum_k p_k \\Big( | \\frac{d\\psi_k(t)}{dt} \\rangle \\langle \\psi_k(t)| + | \\psi_k(t) \\rangle \\langle \\frac{d\\psi_k(t)}{dt} | \\Big)"} />
-	    <p>and substituting in Schrodingers equation we get</p>
+	    <p>We can then substitute Schrodingers equation for the derivatives.</p>
 	    <MakeMathDisplay tex={"= \\sum_k p_k \\Big( -\\frac{i}{\\hbar} \\hat{H}(t)| \\psi_k(t) \\rangle \\langle \\psi_k(t)| + | \\psi_k(t) \\rangle \\langle \\psi_k(t) | \\frac{i}{\\hbar} \\hat{H}^{\\dagger}(t) \\Big)"} />
-	    <p>and the Hamiltonian is its on Hermetian so</p>
+	    <p>The Hamiltonian is its own Hermetian. Then simplify.</p>
 	    <MakeMathDisplay tex={"= -\\frac{i}{\\hbar}\\Big( \\hat{H}(t)\\rho(t) = \\rho(t)\\hat{H}(t) \\Big)"} />
-	    <p>It's just the commutator bracket</p>
+	    <p>The right hand side is just the commutator bracket.</p>
 	    <MakeMathDisplay tex={"= -\\frac{i}{\\hbar}[\\hat{H}(t), \\rho(t)]"} />
-	    <p>Define an operator that does this</p>
-	    <MakeMathDisplay tex={"= \\mathcal{K}(t)\\rho(t)"} />
+	    <p>We can define an operator on the density matrix that does this.</p>
+	    <MakeMathDisplay tex={"\\mathcal{K}(t) = -\\frac{i}{\\hbar}[\\hat{H}(t), \\cdot]"} />
+	    <p>Then the density matrix evolves by the operator..</p>
+	    <MakeMathDisplay tex={"\\frac{d \\rho}{dt}= \\mathcal{K}(t)\\rho(t)"} />
 	  </div>
 	</div>
 	<hr/>
 	<p>Since the derivative of the probability is</p>
 	<MakeMathDisplay tex={"\\frac{d \\rho}{dt} = \\mathcal{K}(t)\\rho(t)"} />
-	<p>Make a time evolution operator as the  exponentiation</p>
+	<p>a time evolution operator can be defined as the exponentiation.</p>
 	<MakeMathDisplay tex={"\\rho(t_b) = e^{\\int_{t_a}^{t_b} \\mathcal{K}(t')dt'}\\rho(t_a) = \\mathcal{P}(t_a, t_b)\\rho(t_a)"} />
 	
 	<h2>Interation picture</h2>
@@ -109,17 +112,19 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
 	    <MakeMathDisplay tex={"= \\mathcal{K}_0 + \\mathcal{K}_1(t)"} />
 	  </div>
 	</div>
+	<p>Then we can define a probability time evolution for each part of the Hamiltonian.</p>
 	<MakeMathDisplay tex={"\\mathcal{P}_0(t_a, t_b) = e^{(t_b - t_a) \\mathcal{K}_0}"} />
 	<MakeMathDisplay tex={"\\mathcal{P}_1(t_a, t_b) = e^{\\int_{t_a}^{t_b} \\mathcal{K}_1(t') dt'}"} />
-	<MakeMathDisplay tex={"\\mathcal{K}_{1, I}(t) = e^{-(t - t_a) \\mathcal{K}_0} \\mathcal{K}_1(t) e^{(t - t_a)\\mathcal{L}_0}"} />
+	<p>Then define an interaction picture version of the time dependent part.</p>
+	<MakeMathDisplay tex={"\\mathcal{K}_{1, I}(t) = e^{-(t - t_a) \\mathcal{K}_0} \\mathcal{K}_1(t) e^{(t - t_a)\\mathcal{K}_0}"} />
 	<MakeMathDisplay tex={"\\mathcal{P}_{1, I}(t) = e^{\\int_{t_a}^{t_b} \\mathcal{K}_{1, I}(t') dt'}"} />
-	<p>and can prove with showing starting condition is the same and derivative is the same</p>
+	<p>One can prove by showing the starting condition is the same and derivatives are the same that the below is true.</p>
 	<MakeMathDisplay tex={"\\mathcal{P}(t_a, t_b) = \\mathcal{P}_0(t_a, t_b)\\mathcal{P}_{1, I}(t_a, t_b)"} />
-	<p>We can do a Volterra series it as</p>
+	<p>We can set up a Volterra series for the operator as</p>
 	<MakeMathDisplay tex={"\\mathcal{P}_{1, I}(t_a, t_b) = 1 + \\int_{t_a}^{t_b} \\mathcal{K}_{1, I}(t)\\mathcal{P}_{1, I}(t_a, t))dt"} />
-	<p>and expand it</p>
+	<p>and expand it as before.</p>
 	<MakeMathDisplay tex={" = 1 + \\int_{t_a}^{t_b} \\mathcal{K}_{1, I}(t)dt + \\mathcal{O}(\\mathcal{K}_{1, I}^2)"} />
-	<p>Then</p>
+	<p>Then multiplying by the time independent part we get the exact probability time evolution operator.</p>
 	<MakeMathDisplay tex={"\\mathcal{P}(t_a, t_b) = \\mathcal{P}_0(t_a, t_b) + \\int_{t_a}^{t_b} \\mathcal{P}_0(t_a, t_b)\\mathcal{K}_{1, I}(t)dt + \\mathcal{O}(\\mathcal{K}_{1, I}^2)"} />
 	<MakeMathDisplay tex={"= \\mathcal{P}_0(t_a, t_b) + \\int_{t_a}^{t_b} e^{(t_b - t_a) \\mathcal{K}_0} e^{-(t - t_a)\\mathcal{K}_0}\\mathcal{K}_1(t) e^{(t - t_a)\\mathcal{K}_0}dt + \\mathcal{O}(\\mathcal{K}_{1, I}^2)"} />
 	<MakeMathDisplay tex={"= \\mathcal{P}_0(t_a, t_b) + \\int_{t_a}^{t_b} e^{(t_b - t) \\mathcal{K}_0} \\mathcal{K}_1(t) e^{(t - t_a)\\mathcal{K}_0}dt + \\mathcal{O}(\\mathcal{K}_{1, I}^2)"} />
