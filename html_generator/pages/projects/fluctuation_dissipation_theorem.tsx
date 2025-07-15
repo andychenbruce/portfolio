@@ -7,7 +7,7 @@ function FluctuationDissipationTheorem({title}: {title: string}) {
   return (
     <Wrapper title={title}>
       <div className="center-headers">
-	<p>We previously derived the <a href="../time_evolution">time evolution operators</a> for both Hamiltonian and Schrodinger equations.</p>
+	<p>We previously derived the <a href="../time_evolution">time evolution operators</a> for both Hamiltons equations and the Schrodinger equation.</p>
 	<h2>Time evolution operator as a Volterra series</h2>
 	<p>A Heisenberg observable <MakeMath tex={"\\hat{A}_H"} /> in classical or quantum mechanics will evolve by the time evolution operator</p>
 	<MakeMathDisplay tex={"\\hat{A}_H(t_b) = \\mathcal{U}(t_a, t_b)\\hat{A}_H(t_a)"} />

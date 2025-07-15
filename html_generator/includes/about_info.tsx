@@ -8,7 +8,7 @@ function AboutInfo() {
       </p>
       <ul>
 	<li>Software engineering</li>
-	<li>Deductive systems</li>
+	<li>Formal systems</li>
 	<li>Martin-Löf type theory</li>
 	<li>Homotopy type theory</li>
 	<li>Zermelo–Fraenkel set theory</li>
