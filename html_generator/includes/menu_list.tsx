@@ -28,6 +28,7 @@ import DiracSpinors from "../pages/projects/dirac_spinor.js";
 import TimeEvolutionOperators from "../pages/projects/time_evolution.js";
 import FokkerPlank from "../pages/projects/fokker_plank.js";
 import LangevinDynamics from "../pages/projects/langevin_dynamics.js";
+import IncompletenessTheorem from "../pages/projects/incompleteness_theorem.js";
 
 export const MathProjects = [
   {
@@ -65,6 +66,12 @@ export const MathProjects = [
     path: "langevin_dynamics",
     title: "Langevin Dynamics In Hamiltonian Phase Space"
   },
+    {
+    react: IncompletenessTheorem,
+    path: "incompleteness_theorem",
+    title: "Godel's Incompleteness Theorem"
+  },
+
 ];
 
 export const SimulationGraphicsProjects = [
